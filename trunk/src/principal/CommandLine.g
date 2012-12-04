@@ -5,6 +5,23 @@ options{
 	language = Java;
 }
 
+tokens{
+	NEG;
+	EF;
+	EG;
+	EX;
+	AF;
+	AG;
+	AX;
+	EU;
+	AU;
+	DEAD;
+	INITIAL;
+	ENABLE;
+	TRUE;
+	FALSE;
+}
+
 @header{
 	package principal;
 }
@@ -33,11 +50,11 @@ options{
 		callback.graphe();
 	}
 	
-	private void onLook(final Object etat) {
+	private void onLook(final int etat) {
 		callback.look(etat);
 	}
 	
-	private void onSucc(final Object etat) {
+	private void onSucc(final int etat) {
 		callback.succ(etat);
 	}
 	
@@ -45,23 +62,23 @@ options{
 		callback.toDot(filename);
 	}
 	
-	private void onCtl(final Object formule) {
+	private void onCtl(final Tree formule) {
 		callback.ctl(formule);
 	}
 	
-	private void onCtl(final Object formule, final Object etat) {
+	private void onCtl(final Tree formule, final int etat) {
 		callback.ctl(formule, etat);
 	}
 	
-	private void onCtlToDot(final Object formule, final String filename) {
+	private void onCtlToDot(final Tree formule, final String filename) {
 		callback.ctlToDot(formule, filename);
 	}
 	
-	private void onJustifie(final Object formule, final Object etat) {
+	private void onJustifie(final Tree formule, final int etat) {
 		callback.justifie(formule, etat);
 	}
 	
-	private void onJustifieToDot(final Object formule, final Object etat, final String filename) {
+	private void onJustifieToDot(final Tree formule, final int etat, final String filename) {
 		callback.justifieToDot(formule, etat, filename);
 	}
 
@@ -73,12 +90,18 @@ options{
  		this.start();
 	} 
 	
-	private Object formule(final Object f) {
-		return null;
+	private Tree formule(final Object f) {
+		return (Tree) f;
 	}
 	
-	private Object etat(final Object e) {
-		return null;
+	private int etat(final String e) {
+		return Integer.parseInt(e);
+	}
+		
+	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+		String hdr = getErrorHeader(e);
+		String msg = getErrorMessage(e, tokenNames);
+		System.out.println(hdr + " " + msg);
 	}
 }
 
@@ -99,53 +122,53 @@ instruction
 	;
 
 load
-	: LOAD p1=file_net { onLoad($p1.text); }
+	: 'load' p1=file_net { onLoad($p1.text); }
 	;
 	
 graphe
-	: GRAPHE { onGraphe(); }
+	: 'graphe' { onGraphe(); }
 	;
 	
 look
-	: LOOK p1=etat {onLook(etat($p1.tree)); }
+	: 'look' p1=etat {onLook(etat($p1.text)); }
 	;
 	
 succ
-	: SUCC p1=etat { onSucc(etat($p1.tree)); }
+	: 'succ' p1=etat { onSucc(etat($p1.text)); }
 	;
 	
 todot
-	: TODOT p1=file_dot { onToDot($p1.text); }
+	: 'todot' p1=file_dot { onToDot($p1.text); }
 	;
 	
 ctl
-	: CTL p1=formule p2=etat { onCtl(formule($p1.tree), etat($p2.tree)); }
+	: 'ctl' p1=formule p2=etat { onCtl(formule($p1.tree), etat($p2.text)); }
 	;
 	
 ctltodot
-	: CTLTODOT p1=formule p2=file_dot { onCtlToDot(formule($p1.tree), $p2.text); }
+	: 'ctltodot' p1=formule p2=file_dot { onCtlToDot(formule($p1.tree), $p2.text); }
 	;
 	
 justifie
-	: JUSTIFIE p1=formule p2=etat { onJustifie(formule($p1.tree), etat($p2.tree)); }
+	: 'Justifie' p1=formule p2=etat { onJustifie(formule($p1.tree), etat($p2.text)); }
 	;
 	
 justifietodot
-	: JUSTIFIETODOT p1=formule p2=etat p3=file_dot { onJustifieToDot(formule($p1.tree), etat($p2.tree), $p3.text); }
+	: 'Justifietodot' p1=formule p2=etat p3=file_dot { onJustifieToDot(formule($p1.tree), etat($p2.text), $p3.text); }
 	;
 	
 file_net
 	: p=STRING_FILE_NET { $p.setText($p.text.substring(1, $p.text.length() - 1)); }
-	| filename EXT_NET
+	| filename 'net'
 	;
 	
 file_dot
 	: p=STRING_FILE_DOT { $p.setText( $p.text.substring(1, $p.text.length() - 1)); }
-	| filename EXT_DOT
+	| filename 'dot'
 	;
 		
 filename
-	: path_modifier?FILENAME (
+	: path_modifier? (LETTER | '_' | '-')+ (
 		'.'
 		| '/' filename
 	)
@@ -155,35 +178,60 @@ path_modifier
 	: './'
 	| '../'
 	;
-	
+
+/* Formule */
 formule
-	: '='
+	: term3 (OR^ term3)*
+	;
+
+term3
+	: term2 (EQUIV^ term2)*
+	;
+
+term2
+	: term1 (IMPLY^ term1)? 
+	;
+
+term1
+	: term0 (AND^ term0)* 
 	;
 	
+term0
+	: atom
+	| '!' atom -> ^(NEG atom)
+	| 'EF' atom -> ^(EF atom)
+	| 'EG' atom -> ^(EG atom)
+	| 'EX' atom -> ^(EX atom)
+	| 'AF' atom -> ^(AF atom)
+	| 'AG' atom -> ^(AG atom)
+	| 'AX' atom -> ^(AX atom)
+	| 'E' '(' formule 'U' formule ')' -> ^(EU formule formule)
+	| 'A' '(' formule 'U' formule ')' -> ^(AU formule formule)
+	;
+	
+atom
+	: p=ATOM { $p.setText($p.text.substring(1)); }
+	| 'dead' -> DEAD
+	| 'initial' -> INITIAL
+	| 'enable' '(' ATOM ')' -> ^(ENABLE ATOM)
+	| 'true' -> TRUE
+	| 'false' -> FALSE
+	| '('! formule ')'!
+	;
+	
+/* Etat */
 etat
-	: '='
+	: NUMBER+
 	;
 
-LOAD			: 'load';
-GRAPHE		: 'graphe';
-LOOK			: 'look';
-SUCC			: 'succ';
-CTLTODOT		: 'ctltodot';
-CTL			: 'ctl';
-JUSTIFIETODOT	: 'Justifietodot';
-JUSTIFIE		: 'Justifie';
-TODOT		: 'todot';
-EXT_DOT		: 'dot';
-EXT_NET		: 'net';
-NEWLINE		: ';';
+ATOM			: '$' ('a'..'z'|'A'..'Z'| '_') ('a'..'z'|'A'..'Z'| '_'|'0'..'9')*;
+AND			: '&&';
+OR			: '||';
+IMPLY			: '->';
+EQUIV			: '<->';
 
-fragment
-LETTER		: 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9';
-
-FILENAME		: (LETTER | '_' | '-')+;
-
-STRING_FILE_DOT	: '"' (ESC_SEQ | ~('\\'|'"') )+ '.' EXT_DOT '"';
-STRING_FILE_NET	: '"' (ESC_SEQ | ~('\\'|'"') )+ '.' EXT_NET '"';
+STRING_FILE_DOT	: '"' (ESC_SEQ | ~('\\'|'"') )+ '.dot' '"';
+STRING_FILE_NET	: '"' (ESC_SEQ | ~('\\'|'"') )+ '.net' '"';
     
 WS  :   ( ' '
         | '\t'
@@ -223,3 +271,6 @@ fragment
 UNICODE_ESC
     :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
     ;
+    
+NUMBER		: '0' .. '9';
+LETTER		: 'a' .. 'z' | 'A' .. 'Z' | NUMBER;

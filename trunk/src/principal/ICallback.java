@@ -1,27 +1,32 @@
 package principal;
 
+import org.antlr.runtime.tree.Tree;
+
+import rdp.RdP;
+
 public interface ICallback {
 
-	public void load(final String filename);
+	public RdP getRdP();
+
+	public void load(String filename);
 
 	public void graphe();
 
-	public void look(final Object etat);
+	public void look(int etat);
 
-	public void succ(final Object etat);
+	public void succ(int etat);
 
-	public void toDot(final String filename);
+	public void toDot(String filename);
 
-	public void ctl(final Object formule);
+	public void ctl(Tree formule);
 
-	public void ctl(final Object formule, final Object etat);
+	public void ctl(Tree formule, int etat);
 
-	public void ctlToDot(final Object formule, final String filename);
+	public void ctlToDot(Tree formule, String filename);
 
-	public void justifie(final Object formule, final Object etat);
+	public void justifie(Tree formule, int etat);
 
-	public void justifieToDot(final Object formule, final Object etat,
-			final String filename);
+	public void justifieToDot(Tree formule, int etat, String filename);
 
 	public void stop();
 }
