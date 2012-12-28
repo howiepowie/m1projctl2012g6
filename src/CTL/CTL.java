@@ -2,14 +2,77 @@ package CTL;
 
 import java.util.Arrays;
 
+import org.antlr.runtime.tree.Tree;
+
+import principal.CommandLineParser;
+import rdp.RdP;
+
 public class CTL {
 
-	int[][] systeme; //liste des succeseur de chaque état
+	int[][] systeme; // liste des succeseur de chaque état
 	boolean[][] AP; //
 
 	public CTL(int[][] systeme, boolean[][] AP) {
 		this.systeme = systeme;
 		this.AP = AP;
+	}
+
+	public boolean[] valeur(RdP rdp, Tree t) {
+		switch (t.getType()) {
+		case CommandLineParser.ATOM:
+			return prop(rdp.tablePlace.get(t.getText()));
+		case CommandLineParser.TRUE:
+			return vrai();
+		case CommandLineParser.FALSE:
+			return faux();
+		case CommandLineParser.NEG:
+			boolean[] left = valeur(rdp, t.getChild(0));
+			return neg(left);
+		case CommandLineParser.AU:
+			left = valeur(rdp, t.getChild(0));
+			boolean[] right = valeur(rdp, t.getChild(1));
+			return AU(left, right);
+		case CommandLineParser.EU:
+			left = valeur(rdp, t.getChild(0));
+			right = valeur(rdp, t.getChild(1));
+			return EU(left, right);
+		case CommandLineParser.AX:
+			left = valeur(rdp, t.getChild(0));
+			return EX(left);
+		case CommandLineParser.EX:
+			left = valeur(rdp, t.getChild(0));
+			return AX(left);
+		case CommandLineParser.AF:
+			left = valeur(rdp, t.getChild(0));
+			return AU(vrai(), left);
+		case CommandLineParser.EF:
+			left = valeur(rdp, t.getChild(0));
+			return EU(vrai(), left);
+		case CommandLineParser.AG:
+			left = valeur(rdp, t.getChild(0));
+			return neg(AU(vrai(), neg(left)));
+		case CommandLineParser.EG:
+			left = valeur(rdp, t.getChild(0));
+			return neg(EU(vrai(), neg(left)));
+		case CommandLineParser.OR:
+			left = valeur(rdp, t.getChild(0));
+			right = valeur(rdp, t.getChild(1));
+			return or(left, right);
+		case CommandLineParser.AND:
+			left = valeur(rdp, t.getChild(0));
+			right = valeur(rdp, t.getChild(1));
+			return and(left, right);
+		case CommandLineParser.IMPLY:
+			left = valeur(rdp, t.getChild(0));
+			right = valeur(rdp, t.getChild(1));
+			return or(neg(left), right);
+		case CommandLineParser.EQUIV:
+			left = valeur(rdp, t.getChild(0));
+			right = valeur(rdp, t.getChild(1));
+			return and(or(neg(left), right), or(neg(right), left));
+		default:
+			return null;
+		}
 	}
 
 	public boolean[] prop(int i) {
