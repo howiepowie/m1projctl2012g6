@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import preuve.IPreuve;
 import rdp.RdP;
-import CTL.Preuve;
 
 public class GrapheRdP {
 	public RdP rdp;
@@ -63,31 +63,23 @@ public class GrapheRdP {
 		return res.toString();
 	}
 
-	public String justifieToDot(Preuve preuve, int depart) {
-		Map<Integer, String> map = new HashMap<Integer, String>();
-		preuve.toDot(map);
+	public String justifieToDot(IPreuve preuve, int depart) {
 		StringBuffer res = new StringBuffer();
 		res.append("digraph system {\n");
 
 		res.append("N" + 0 + " [label=\"" + rdp.toStringMarquage(etat.get(0)));
-		String formule;
-		if ((formule = map.get(0)) != null) {
-			res.append("\\n" + formule);
-		}
 		res.append("\",shape=octagon]\n");
 
 		for (int e = 1; e < etat.size(); e++) {
 			res.append("N" + e + " [label=\""
 					+ rdp.toStringMarquage(etat.get(e)));
-			if ((formule = map.get(e)) != null) {
-				res.append("\\n" + formule);
-			}
 			res.append("\"]\n");
 		}
 
 		for (int e = 0; e < etat.size(); e++)
 			for (int t = 0; t < succ.get(e).size(); t++)
 				res.append("N" + e + " -> N" + succ.get(e).get(t) + "\n");
+		res.append(preuve.toDot(0));
 
 		res.append("}\n");
 		return res.toString();

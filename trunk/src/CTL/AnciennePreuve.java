@@ -8,25 +8,25 @@ import org.antlr.runtime.tree.Tree;
 
 import principal.CommandLineParser;
 
-public class Preuve {
+public class AnciennePreuve {
 
-	public Tree formule;
+	private Tree formule;
 
 	private boolean operateur;
 
 	public boolean[] marquage;
 
-	public List<Preuve> preuves;
+	public List<AnciennePreuve> preuves;
 
-	public Preuve(Tree formule) {
+	public AnciennePreuve(Tree formule) {
 		this(formule, null);
 	}
 
-	public Preuve(Tree formule, boolean[] marquage) {
+	public AnciennePreuve(Tree formule, boolean[] marquage) {
 		super();
 		this.formule = formule;
 		this.marquage = marquage;
-		preuves = new ArrayList<Preuve>();
+		preuves = new ArrayList<AnciennePreuve>();
 		switch (formule.getType()) {
 		case CommandLineParser.AND:
 		case CommandLineParser.OR:
@@ -56,7 +56,7 @@ public class Preuve {
 	 */
 	public void couperRacine(CTL ctl, int[][] pred, int etat) {
 		if (operateur) {
-			for (Preuve c : preuves) {
+			for (AnciennePreuve c : preuves) {
 				c.couperRacine(ctl, pred, etat);
 			}
 			switch (formule.getType()) {
@@ -78,7 +78,7 @@ public class Preuve {
 					marquage[i] = false;
 				}
 			}
-			for (Preuve c : preuves) {
+			for (AnciennePreuve c : preuves) {
 				c.couper(ctl, pred, marquage);
 			}
 		}
@@ -104,7 +104,7 @@ public class Preuve {
 	 */
 	public void couper(CTL ctl, int[][] pred, boolean[] parents) {
 		if (operateur) {
-			for (Preuve c : preuves) {
+			for (AnciennePreuve c : preuves) {
 				c.couper(ctl, pred, parents);
 			}
 			switch (formule.getType()) {
@@ -131,7 +131,7 @@ public class Preuve {
 					}
 				}
 			}
-			for (Preuve c : preuves) {
+			for (AnciennePreuve c : preuves) {
 				c.couper(ctl, pred, marquage);
 			}
 		}
@@ -201,7 +201,7 @@ public class Preuve {
 		sb.append(" = ");
 		sb.append(affiche(marquage));
 		sb.append('\n');
-		for (Preuve c : preuves) {
+		for (AnciennePreuve c : preuves) {
 			if (c != null) {
 				sb.append(c.toTree(indent + "  "));
 			}
@@ -232,7 +232,7 @@ public class Preuve {
 				}
 			}
 		}
-		for (Preuve c : preuves) {
+		for (AnciennePreuve c : preuves) {
 			c.toDot(map);
 		}
 	}

@@ -10,12 +10,12 @@ import java.util.Scanner;
 
 import org.antlr.runtime.tree.Tree;
 
-import CTL.CTL;
-import CTL.Preuve;
-
+import preuve.IPreuve;
+import preuve.Preuve;
 import rdp.RdP;
 import systeme.AlgoGrapheRdP;
 import systeme.GrapheRdP;
+import CTL.CTL;
 
 public class Main implements ICallback {
 
@@ -238,7 +238,7 @@ public class Main implements ICallback {
 		if (grapheRdP == null) {
 			System.out.println("Aucun graphe d'etat charge.");
 		} else {
-			Preuve p = justifier(formule, etat);
+			IPreuve p = justifier(formule, etat);
 			System.out.println(p.toTree());
 		}
 	}
@@ -252,13 +252,14 @@ public class Main implements ICallback {
 			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			try {
-				Preuve p = justifier(formule, etat);
+				IPreuve p = justifier(formule, etat);
 				File f = new File(filename);
 				BufferedOutputStream bos = new BufferedOutputStream(
 						new FileOutputStream(f));
 				bos.write(grapheRdP.justifieToDot(p, etat).getBytes());
 				bos.close();
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.out.println("Erreur d'ecriture.");
 			}
 		}
@@ -305,7 +306,7 @@ public class Main implements ICallback {
 	 *            l'état de départ.
 	 * @return la justification.
 	 */
-	public Preuve justifier(Tree formule, int etat) {
+	public IPreuve justifier(Tree formule, int etat) {
 		int[][] succ = listToInt(grapheRdP.succ);
 		int[][] pred = listToInt(grapheRdP.pred);
 		boolean[][] AP = new boolean[rdp.tablePlace.size()][grapheRdP.nbEtat];
@@ -316,10 +317,10 @@ public class Main implements ICallback {
 			}
 		}
 		CTL ctl = new CTL(succ, AP);
-		Preuve p = new Preuve(formule);
+		IPreuve p = new Preuve(formule);
 		ctl.justifie(rdp, formule, p);
-		p.preuves.get(0).couperRacine(ctl, pred, etat);
-		return p.preuves.get(0);
+		p.getPreuves().get(0).couperRacine(ctl, pred, etat);
+		return p.getPreuves().get(0);
 	}
 
 	/**
