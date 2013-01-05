@@ -78,6 +78,7 @@ public class AlgoGrapheRdP {
 		res.rdp = rdp;
 		res.etat = new ArrayList<boolean[]>();
 		res.succ = new ArrayList<ArrayList<Integer>>();
+		res.pred = new ArrayList<ArrayList<Integer>>();
 		HashMap<Etat, Integer> table = new HashMap<AlgoGrapheRdP.Etat, Integer>();
 
 		recGraphRdp(rdp.marquage, res, table);
@@ -86,11 +87,14 @@ public class AlgoGrapheRdP {
 
 	private void recGraphRdp(boolean[] m, GrapheRdP res,
 			HashMap<Etat, Integer> table) {
+		int id = res.etat.size();
 		table.put(new Etat(m), res.etat.size());
 		res.nbEtat++;
 		res.etat.add(m);
 		ArrayList<Integer> succM = new ArrayList<Integer>();
+		ArrayList<Integer> predM = new ArrayList<Integer>();
 		res.succ.add(succM);
+		res.pred.add(predM);
 
 		for (int t = 0; t < rdp.pre.length; t++) {
 			if (franchissable(m, t)) {
@@ -98,11 +102,13 @@ public class AlgoGrapheRdP {
 				boolean[] mp = franchir(m, t);
 				Integer index = table.get(new Etat(mp));
 				if (index == null) {
+					index = res.etat.size();
 					succM.add(res.etat.size());
 					recGraphRdp(mp, res, table);
 				} else {
 					succM.add(index);
 				}
+				res.pred.get(index).add(id);
 			}
 		}
 	}

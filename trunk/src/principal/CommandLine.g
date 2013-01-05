@@ -106,7 +106,7 @@ tokens{
 }
 
 start
-	: instruction
+	: instruction (';' { System.out.println("\n"); } instruction)*
 	;
 
 instruction
@@ -142,7 +142,10 @@ todot
 	;
 	
 ctl
-	: 'ctl' p1=formule p2=etat { onCtl(formule($p1.tree), etat($p2.text)); }
+	: 'ctl' p1=formule (
+		p2=etat { onCtl(formule($p1.tree), etat($p2.text)); }
+		| { onCtl(formule($p1.tree)); }
+	)
 	;
 	
 ctltodot
