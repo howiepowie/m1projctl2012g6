@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import rdp.RdP;
 
-public class Main {
+public class Main2 {
 
 	/**
 	 * @param args

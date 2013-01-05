@@ -81,6 +81,10 @@ tokens{
 	private void onJustifieToDot(final Tree formule, final int etat, final String filename) {
 		callback.justifieToDot(formule, etat, filename);
 	}
+	
+	private void onStop() {
+		callback.stop();
+	}
 
 	public void process(String source) throws Exception {
 		ANTLRStringStream in = new ANTLRStringStream(source);
@@ -119,6 +123,7 @@ instruction
 	| ctltodot
 	| justifie
 	| justifietodot
+	| stop
 	;
 
 load
@@ -158,6 +163,10 @@ justifie
 	
 justifietodot
 	: 'Justifietodot' p1=formule p2=etat p3=file_dot { onJustifieToDot(formule($p1.tree), etat($p2.text), $p3.text); }
+	;
+	
+stop
+	: 'stop' { onStop(); }
 	;
 	
 file_net
