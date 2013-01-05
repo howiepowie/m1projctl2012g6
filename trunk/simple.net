@@ -1,0 +1,8 @@
+#place A mk(<..>)
+#place B mk(<..>)
+#trans t
+in {A:<..>;}
+out {B:<..>;}
+#endtr
+
+

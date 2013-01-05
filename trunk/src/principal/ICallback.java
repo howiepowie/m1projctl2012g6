@@ -7,6 +7,8 @@ import rdp.RdP;
 public interface ICallback {
 
 	public RdP getRdP();
+	
+	public void shell();
 
 	public void load(String filename);
 
