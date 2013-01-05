@@ -66,7 +66,7 @@ public class Main implements ICallback {
 			try {
 				parser.process(commande);
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		sc.close();
@@ -197,8 +197,16 @@ public class Main implements ICallback {
 	 */
 	@Override
 	public void ctl(Tree formule, int etat) {
-		// TODO Auto-generated method stub
-		System.out.println("ctl " + formule.toStringTree() + " " + etat);
+		if (grapheRdP == null) {
+			System.out.println("Aucun graphe d'etat charge.");
+		} else {
+			boolean[] res = evaluer(formule);
+			if (res[etat]) {
+				System.out.println("vrai");
+			} else {
+				System.out.println("faux");
+			}
+		}
 	}
 
 	/**
@@ -310,7 +318,7 @@ public class Main implements ICallback {
 		CTL ctl = new CTL(succ, AP);
 		Preuve p = new Preuve(formule);
 		ctl.justifie(rdp, formule, p);
-		p.preuves.get(0).couperRacine(pred, etat);
+		p.preuves.get(0).couperRacine(ctl, pred, etat);
 		return p.preuves.get(0);
 	}
 

@@ -12,5 +12,6 @@ java -jar modelprojet.jar << -END_PARAMS
 	ctl \$tour0 && EX(\$tour1)
 	ctltodot \$tour0 && EX(\$tour1) "peterson \$tour0 && EX(\$tour1).dot"
 	Justifie \$tour0 && EX(\$tour1) 1
+	Justifie \$tour0 && ((\$tour0 || \$tour1) && EX(\$tour1)) 1
 	Justifietodot \$tour0 && EX(\$tour1) 1 "peterson \$tour0 && EX(\$tour1) just.dot"; stop
 END_PARAMS

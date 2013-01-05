@@ -12,6 +12,8 @@ public class Preuve {
 
 	public Tree formule;
 
+	private boolean operateur;
+
 	public boolean[] marquage;
 
 	public List<Preuve> preuves;
@@ -25,42 +27,112 @@ public class Preuve {
 		this.formule = formule;
 		this.marquage = marquage;
 		preuves = new ArrayList<Preuve>();
-	}
-
-	public void couperRacine(int[][] pred, int etat) {
-		for (int i = 0; i < marquage.length; ++i) {
-			if (marquage[i] && i != etat) {
-				marquage[i] = false;
-			}
-		}
-		for (Preuve c : preuves) {
-			c.couper(pred, marquage);
-		}
-	}
-
-	public void couper(int[][] pred, boolean[] parents) {
-		for (int i = 0; i < marquage.length; ++i) {
-			if (marquage[i]) {
-				marquage[i] = false;
-				for (int j = 0; !marquage[i] && j < pred[i].length; ++j) {
-					if (parents[pred[i][j]]) {
-						marquage[i] = true;
-					}
-				}
-			}
-		}
 		switch (formule.getType()) {
 		case CommandLineParser.AND:
 		case CommandLineParser.OR:
 		case CommandLineParser.IMPLY:
 		case CommandLineParser.EQUIV:
-			for (Preuve c : preuves) {
-				c.couper(pred, parents);
-			}
+		case CommandLineParser.NEG:
+			operateur = true;
 			break;
 		default:
+			operateur = false;
+		}
+	}
+
+	/**
+	 * Le marquage de cette preuve contient tous les états validant la formule à
+	 * ce stade. Couper la racine signifie ne garder que l'état donné en
+	 * paramètre à vrai et mettre tous les autres à faux. A partir de là on peut
+	 * couper les sous-preuves.
+	 * 
+	 * Les formules du genre &&, ||... sont des cas particuliers car il faut
+	 * appeler couperRacine sur les sous-preuves de la formule au lieu de
+	 * l'appliquer ici, puis il ne faut garder que les états parmis ceux des
+	 * sous-preuves.
+	 * 
+	 * @param pred
+	 * @param etat
+	 */
+	public void couperRacine(CTL ctl, int[][] pred, int etat) {
+		if (operateur) {
 			for (Preuve c : preuves) {
-				c.couper(pred, marquage);
+				c.couperRacine(ctl, pred, etat);
+			}
+			switch (formule.getType()) {
+			case CommandLineParser.AND:
+				marquage = ctl.and(preuves.get(0).marquage,
+						preuves.get(1).marquage);
+				break;
+			case CommandLineParser.OR:
+				marquage = ctl.or(preuves.get(0).marquage,
+						preuves.get(1).marquage);
+				break;
+			case CommandLineParser.IMPLY:
+			case CommandLineParser.EQUIV:
+				break;
+			}
+		} else {
+			for (int i = 0; i < marquage.length; ++i) {
+				if (marquage[i] && i != etat) {
+					marquage[i] = false;
+				}
+			}
+			for (Preuve c : preuves) {
+				c.couper(ctl, pred, marquage);
+			}
+		}
+	}
+
+	/**
+	 * Le marquage de cette preuve contient tous les états validant la formule à
+	 * ce stade. Couper la preuve signifie ne garder à vrai que les états pour
+	 * lesquels au moins un prédécesseur est à vrai dans le marquage de la
+	 * preuve parent.
+	 * 
+	 * Sachant que la racine de la preuve a été coupée pour ne garder que l'état
+	 * souhaité à vrai, les sous-preuves ne garderont que les états ayant cet
+	 * état comme prédécesseur et ainsi de suite pour les sous-preuves des
+	 * sous-preuves.
+	 * 
+	 * Les formules du genre &&, ||... sont des cas particuliers car il faut
+	 * appeler couper sur les sous-preuves de la formule au lieu de l'appliquer
+	 * ici, puis il ne faut garder que les états parmis ceux des sous-preuves.
+	 * 
+	 * @param pred
+	 * @param parents
+	 */
+	public void couper(CTL ctl, int[][] pred, boolean[] parents) {
+		if (operateur) {
+			for (Preuve c : preuves) {
+				c.couper(ctl, pred, parents);
+			}
+			switch (formule.getType()) {
+			case CommandLineParser.AND:
+				marquage = ctl.and(preuves.get(0).marquage,
+						preuves.get(1).marquage);
+				break;
+			case CommandLineParser.OR:
+				marquage = ctl.or(preuves.get(0).marquage,
+						preuves.get(1).marquage);
+				break;
+			case CommandLineParser.IMPLY:
+			case CommandLineParser.EQUIV:
+				break;
+			}
+		} else {
+			for (int i = 0; i < marquage.length; ++i) {
+				if (marquage[i]) {
+					marquage[i] = false;
+					for (int j = 0; !marquage[i] && j < pred[i].length; ++j) {
+						if (parents[pred[i][j]]) {
+							marquage[i] = true;
+						}
+					}
+				}
+			}
+			for (Preuve c : preuves) {
+				c.couper(ctl, pred, marquage);
 			}
 		}
 	}
