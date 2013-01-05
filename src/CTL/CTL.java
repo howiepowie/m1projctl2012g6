@@ -6,6 +6,7 @@ import org.antlr.runtime.tree.Tree;
 
 import principal.CommandLineParser;
 import rdp.RdP;
+import preuve.*;
 
 public class CTL {
 
@@ -79,89 +80,95 @@ public class CTL {
 		}
 	}
 
-	public Preuve justifie(RdP rdp, Tree t, Preuve parent) {
-		Preuve p = new Preuve(t);
+	public IPreuve justifie(RdP rdp, Tree t, IPreuve parent) {
+		IPreuve p = new Preuve(t);
 		switch (t.getType()) {
 		case CommandLineParser.ATOM:
 			int etat = rdp.tablePlace.get(t.getText());
-			p.marquage = prop(etat);
+			boolean[] b = prop(etat);
+			p = new Atom(t, Arrays.copyOf(b, b.length));
 			break;
 		case CommandLineParser.TRUE:
-			p.marquage = vrai();
+			p = new True(t, vrai());
 			break;
 		case CommandLineParser.FALSE:
-			p.marquage = faux();
+			p = new False(t, faux());
 			break;
 		case CommandLineParser.DEAD:
-			p.marquage = dead();
+			p = new Dead(t, dead());
 			break;
 		case CommandLineParser.INITIAL:
-			p.marquage = initial();
+			p = new Initial(t, initial());
 			break;
 		case CommandLineParser.NEG:
-			Preuve left = justifie(rdp, t.getChild(0), p);
-			p.marquage = neg(left.marquage);
+			p = new Neg(t);
+			IPreuve left = justifie(rdp, t.getChild(0), p);
+			p.setMarquage(neg(left.getMarquage()));
 			break;
 		case CommandLineParser.AU:
-			left = justifie(rdp, t.getChild(0), p);
-			Preuve right = justifie(rdp, t.getChild(1), p);
-			p.marquage = AU(left.marquage, right.marquage);
+			left = justifie(rdp, t.getChild(0), null);
+			IPreuve right = justifie(rdp, t.getChild(1), null);
+			p = justifieAU(left, right, t);
 			break;
 		case CommandLineParser.EU:
-			left = justifie(rdp, t.getChild(0), p);
-			right = justifie(rdp, t.getChild(1), p);
-			p = justifieEU(left.marquage, right.marquage, t, p);
+			left = justifie(rdp, t.getChild(0), null);
+			right = justifie(rdp, t.getChild(1), null);
+			p = justifieEU(left, right, t);
 			break;
 		case CommandLineParser.AX:
+			p = new AX(t);
 			left = justifie(rdp, t.getChild(0), p);
-			p.marquage = AX(left.marquage);
+			p.setMarquage(AX(left.getMarquage()));
 			break;
 		case CommandLineParser.EX:
+			p = new EX(t);
 			left = justifie(rdp, t.getChild(0), p);
-			p.marquage = EX(left.marquage);
+			p.setMarquage(EX(left.getMarquage()));
 			break;
 		case CommandLineParser.AF:
 			left = justifie(rdp, t.getChild(0), p);
-			p.marquage = AU(vrai(), left.marquage);
+			p.setMarquage(AU(vrai(), left.getMarquage()));
 			break;
 		case CommandLineParser.EF:
 			left = justifie(rdp, t.getChild(0), p);
 
-			p.marquage = EU(vrai(), left.marquage);
+			p.setMarquage(EU(vrai(), left.getMarquage()));
 			break;
 		case CommandLineParser.AG:
 			left = justifie(rdp, t.getChild(0), p);
-			p.marquage = neg(AU(vrai(), neg(left.marquage)));
+			p.setMarquage(neg(AU(vrai(), neg(left.getMarquage()))));
 			break;
 		case CommandLineParser.EG:
 			left = justifie(rdp, t.getChild(0), p);
-			p.marquage = neg(EU(vrai(), neg(left.marquage)));
+			p.setMarquage(neg(EU(vrai(), neg(left.getMarquage()))));
 			break;
 		case CommandLineParser.OR:
+			p = new Or(t);
 			left = justifie(rdp, t.getChild(0), p);
 			right = justifie(rdp, t.getChild(1), p);
-			p.marquage = or(left.marquage, right.marquage);
+			p.setMarquage(or(left.getMarquage(), right.getMarquage()));
 			break;
 		case CommandLineParser.AND:
+			p = new And(t);
 			left = justifie(rdp, t.getChild(0), p);
 			right = justifie(rdp, t.getChild(1), p);
-			p.marquage = and(left.marquage, right.marquage);
+			p.setMarquage(and(left.getMarquage(), right.getMarquage()));
 			break;
 		case CommandLineParser.IMPLY:
 			left = justifie(rdp, t.getChild(0), p);
 			right = justifie(rdp, t.getChild(1), p);
-			p.marquage = or(neg(left.marquage), right.marquage);
+			p.setMarquage(or(neg(left.getMarquage()), right.getMarquage()));
 			break;
 		case CommandLineParser.EQUIV:
 			left = justifie(rdp, t.getChild(0), p);
 			right = justifie(rdp, t.getChild(1), p);
-			p.marquage = and(or(neg(left.marquage), right.marquage),
-					or(neg(right.marquage), left.marquage));
+			p.setMarquage(and(or(neg(left.getMarquage()), right.getMarquage()),
+					or(neg(right.getMarquage()), left.getMarquage())));
 			break;
 		default:
 		}
 		if (parent != null) {
-			parent.preuves.add(p);
+			parent.getPreuves().add(p);
 		}
 		return p;
 	}
@@ -242,25 +249,20 @@ public class CTL {
 		return res;
 	}
 
-	public Preuve justifieEU(boolean[] a, boolean[] b, Tree t, Preuve parent) {
+	public IPreuve justifieEU(IPreuve debut, IPreuve fin, Tree t) {
 		boolean[] res = faux();
 		boolean[] avant;
+		boolean[] a = debut.getMarquage();
+		boolean[] b = fin.getMarquage();
 		int count = 0;
 		do {
 			avant = res;
+			System.out.println(Preuve.affiche(res));
 			res = or(b, and(a, EX(res)));
 			++count;
 		} while (!Arrays.equals(avant, res));
-		for (; count > 1; --count) {
-			parent.marquage = new boolean[res.length];
-			System.arraycopy(res, 0, parent.marquage, 0, res.length);
-			Preuve p = new Preuve(t);
-			p.preuves.add(parent);
-			parent = p;
-		}
-		parent.marquage = new boolean[res.length];
-		System.arraycopy(res, 0, parent.marquage, 0, res.length);
-		return parent;
+		IPreuve p = new EU(t, res, debut, fin);
+		return p;
 	}
 
 	public boolean[] AU(boolean[] a, boolean[] b) {
@@ -271,6 +273,21 @@ public class CTL {
 			res = or(b, and(a, AX(res)));
 		} while (!Arrays.equals(avant, res));
 		return res;
+	}
+
+	public IPreuve justifieAU(IPreuve debut, IPreuve fin, Tree t) {
+		boolean[] res = faux();
+		boolean[] avant;
+		boolean[] a = debut.getMarquage();
+		boolean[] b = fin.getMarquage();
+		int count = 0;
+		do {
+			avant = res;
+			res = or(b, and(a, AX(res)));
+			++count;
+		} while (!Arrays.equals(avant, res));
+		IPreuve p = new AU(t, res, debut, fin);
+		return p;
 	}
 
 }
