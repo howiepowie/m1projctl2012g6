@@ -42,6 +42,10 @@ tokens{
 		usesDeclAllowed = true;
 	}
 	
+	private void onShell() {
+		callback.shell();
+	}
+	
 	private void onLoad(final String filename) {
 		callback.load(filename);
 	}
@@ -110,11 +114,12 @@ tokens{
 }
 
 start
-	: instruction (';' { System.out.println("\n"); } instruction)*
+	: instruction (';' instruction)*
 	;
 
 instruction
-	: load
+	: shell
+	| load
 	| graphe
 	| look
 	| succ
@@ -124,6 +129,10 @@ instruction
 	| justifie
 	| justifietodot
 	| stop
+	;
+	
+shell
+	: 'shell' { onShell(); }
 	;
 
 load

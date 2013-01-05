@@ -1,0 +1,21 @@
+#place A1 mk(<..>)
+#place A2 mk(<..>)
+#place C mk(<..>)
+#place B1
+#place B2
+#trans a1
+in {A1:<..>; C:<..>;}
+out {B1:<..>;}
+#endtr
+#trans a2
+in {A2:<..>; C:<..>;}
+out {B2:<..>;}
+#endtr
+#trans b1
+in {B1:<..>;}
+out {A1:<..>; C:<..>;}
+#endtr
+#trans b2
+in {B2:<..>;}
+out {A2:<..>; C:<..>;}
+#endtr

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g 2013-01-05 11:05:51
+// $ANTLR 3.4 /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g 2013-01-05 12:18:25
 
 	package principal;
 
@@ -47,6 +47,7 @@ public class CommandLineLexer extends Lexer {
     public static final int T__68=68;
     public static final int T__69=69;
     public static final int T__70=70;
+    public static final int T__71=71;
     public static final int AF=4;
     public static final int AG=5;
     public static final int AND=6;
@@ -813,10 +814,10 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:43:7: ( 'stop' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:43:9: 'stop'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:43:7: ( 'shell' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:43:9: 'shell'
             {
-            match("stop"); 
+            match("shell"); 
 
 
 
@@ -836,10 +837,10 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:44:7: ( 'succ' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:44:9: 'succ'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:44:7: ( 'stop' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:44:9: 'stop'
             {
-            match("succ"); 
+            match("stop"); 
 
 
 
@@ -859,10 +860,10 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:45:7: ( 'todot' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:45:9: 'todot'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:45:7: ( 'succ' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:45:9: 'succ'
             {
-            match("todot"); 
+            match("succ"); 
 
 
 
@@ -882,10 +883,10 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:46:7: ( 'true' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:46:9: 'true'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:46:7: ( 'todot' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:46:9: 'todot'
             {
-            match("true"); 
+            match("todot"); 
 
 
 
@@ -900,13 +901,36 @@ public class CommandLineLexer extends Lexer {
     }
     // $ANTLR end "T__70"
 
+    // $ANTLR start "T__71"
+    public final void mT__71() throws RecognitionException {
+        try {
+            int _type = T__71;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:47:7: ( 'true' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:47:9: 'true'
+            {
+            match("true"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__71"
+
     // $ANTLR start "ATOM"
     public final void mATOM() throws RecognitionException {
         try {
             int _type = ATOM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:239:8: ( '$' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:239:10: '$' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:248:8: ( '$' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:248:10: '$' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
             match('$'); 
 
@@ -920,7 +944,7 @@ public class CommandLineLexer extends Lexer {
             }
 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:239:39: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:248:39: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop1:
             do {
                 int alt1=2;
@@ -970,8 +994,8 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:240:7: ( '&&' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:240:9: '&&'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:249:7: ( '&&' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:249:9: '&&'
             {
             match("&&"); 
 
@@ -993,8 +1017,8 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:241:6: ( '||' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:241:8: '||'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:250:6: ( '||' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:250:8: '||'
             {
             match("||"); 
 
@@ -1016,8 +1040,8 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = IMPLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:242:9: ( '->' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:242:11: '->'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:251:9: ( '->' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:251:11: '->'
             {
             match("->"); 
 
@@ -1039,8 +1063,8 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = EQUIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:243:9: ( '<->' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:243:11: '<->'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:252:9: ( '<->' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:252:11: '<->'
             {
             match("<->"); 
 
@@ -1062,12 +1086,12 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = STRING_FILE_DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:17: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.dot' '\"' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:19: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.dot' '\"'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:254:17: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.dot' '\"' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:254:19: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.dot' '\"'
             {
             match('\"'); 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:23: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:254:23: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+
             int cnt2=0;
             loop2:
             do {
@@ -1120,7 +1144,7 @@ public class CommandLineLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:24: ESC_SEQ
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:254:24: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
@@ -1128,7 +1152,7 @@ public class CommandLineLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:34: ~ ( '\\\\' | '\"' )
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:254:34: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1175,12 +1199,12 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = STRING_FILE_NET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:17: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.net' '\"' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:19: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.net' '\"'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:255:17: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.net' '\"' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:255:19: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+ '.net' '\"'
             {
             match('\"'); 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:23: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:255:23: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )+
             int cnt3=0;
             loop3:
             do {
@@ -1233,7 +1257,7 @@ public class CommandLineLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:24: ESC_SEQ
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:255:24: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
@@ -1241,7 +1265,7 @@ public class CommandLineLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:34: ~ ( '\\\\' | '\"' )
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:255:34: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1288,8 +1312,8 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:248:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:248:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:257:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:257:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1319,12 +1343,12 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:256:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:256:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:265:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:265:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:256:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:265:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
             loop4:
             do {
                 int alt4=3;
@@ -1340,7 +1364,7 @@ public class CommandLineLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:256:14: ESC_SEQ
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:265:14: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
@@ -1348,7 +1372,7 @@ public class CommandLineLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:256:24: ~ ( '\\\\' | '\"' )
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:265:24: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1387,12 +1411,12 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = CHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:259:5: ( '\\'' ( ESC_SEQ |~ ( '\\'' | '\\\\' ) ) '\\'' )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:259:8: '\\'' ( ESC_SEQ |~ ( '\\'' | '\\\\' ) ) '\\''
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:268:5: ( '\\'' ( ESC_SEQ |~ ( '\\'' | '\\\\' ) ) '\\'' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:268:8: '\\'' ( ESC_SEQ |~ ( '\\'' | '\\\\' ) ) '\\''
             {
             match('\''); 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:259:13: ( ESC_SEQ |~ ( '\\'' | '\\\\' ) )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:268:13: ( ESC_SEQ |~ ( '\\'' | '\\\\' ) )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1411,7 +1435,7 @@ public class CommandLineLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:259:15: ESC_SEQ
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:268:15: ESC_SEQ
                     {
                     mESC_SEQ(); 
 
@@ -1419,7 +1443,7 @@ public class CommandLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:259:25: ~ ( '\\'' | '\\\\' )
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:268:25: ~ ( '\\'' | '\\\\' )
                     {
                     if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&')||(input.LA(1) >= '(' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
                         input.consume();
@@ -1453,8 +1477,8 @@ public class CommandLineLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:264:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:264:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:273:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:273:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1466,7 +1490,7 @@ public class CommandLineLexer extends Lexer {
             }
 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:264:22: ( '+' | '-' )?
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:273:22: ( '+' | '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1493,7 +1517,7 @@ public class CommandLineLexer extends Lexer {
             }
 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:264:33: ( '0' .. '9' )+
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:273:33: ( '0' .. '9' )+
             int cnt7=0;
             loop7:
             do {
@@ -1545,7 +1569,7 @@ public class CommandLineLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:267:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:276:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
             // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
@@ -1571,7 +1595,7 @@ public class CommandLineLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:271:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:280:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
             int alt8=3;
             int LA8_0 = input.LA(1);
 
@@ -1624,7 +1648,7 @@ public class CommandLineLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:271:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:280:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
 
@@ -1641,7 +1665,7 @@ public class CommandLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:272:9: UNICODE_ESC
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:281:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
@@ -1649,7 +1673,7 @@ public class CommandLineLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:273:9: OCTAL_ESC
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:282:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
@@ -1669,7 +1693,7 @@ public class CommandLineLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:278:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:287:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt9=3;
             int LA9_0 = input.LA(1);
 
@@ -1720,7 +1744,7 @@ public class CommandLineLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:278:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:287:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -1757,7 +1781,7 @@ public class CommandLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:279:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:288:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -1784,7 +1808,7 @@ public class CommandLineLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:280:9: '\\\\' ( '0' .. '7' )
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:289:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -1813,8 +1837,8 @@ public class CommandLineLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:285:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:285:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:294:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:294:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
 
@@ -1847,7 +1871,7 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:287:9: ( '0' .. '9' )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:296:9: ( '0' .. '9' )
             // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1876,7 +1900,7 @@ public class CommandLineLexer extends Lexer {
         try {
             int _type = LETTER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:288:9: ( 'a' .. 'z' | 'A' .. 'Z' | NUMBER )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:297:9: ( 'a' .. 'z' | 'A' .. 'Z' | NUMBER )
             // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1901,8 +1925,8 @@ public class CommandLineLexer extends Lexer {
     // $ANTLR end "LETTER"
 
     public void mTokens() throws RecognitionException {
-        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:8: ( T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | ATOM | AND | OR | IMPLY | EQUIV | STRING_FILE_DOT | STRING_FILE_NET | WS | STRING | CHAR | NUMBER | LETTER )
-        int alt10=48;
+        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:8: ( T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | ATOM | AND | OR | IMPLY | EQUIV | STRING_FILE_DOT | STRING_FILE_NET | WS | STRING | CHAR | NUMBER | LETTER )
+        int alt10=49;
         alt10 = dfa10.predict(input);
         switch (alt10) {
             case 1 :
@@ -2194,95 +2218,103 @@ public class CommandLineLexer extends Lexer {
                 }
                 break;
             case 37 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:226: ATOM
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:226: T__71
+                {
+                mT__71(); 
+
+
+                }
+                break;
+            case 38 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:232: ATOM
                 {
                 mATOM(); 
 
 
                 }
                 break;
-            case 38 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:231: AND
+            case 39 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:237: AND
                 {
                 mAND(); 
 
 
                 }
                 break;
-            case 39 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:235: OR
+            case 40 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:241: OR
                 {
                 mOR(); 
 
 
                 }
                 break;
-            case 40 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:238: IMPLY
+            case 41 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:244: IMPLY
                 {
                 mIMPLY(); 
 
 
                 }
                 break;
-            case 41 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:244: EQUIV
+            case 42 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:250: EQUIV
                 {
                 mEQUIV(); 
 
 
                 }
                 break;
-            case 42 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:250: STRING_FILE_DOT
+            case 43 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:256: STRING_FILE_DOT
                 {
                 mSTRING_FILE_DOT(); 
 
 
                 }
                 break;
-            case 43 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:266: STRING_FILE_NET
+            case 44 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:272: STRING_FILE_NET
                 {
                 mSTRING_FILE_NET(); 
 
 
                 }
                 break;
-            case 44 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:282: WS
+            case 45 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:288: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 45 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:285: STRING
+            case 46 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:291: STRING
                 {
                 mSTRING(); 
 
 
                 }
                 break;
-            case 46 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:292: CHAR
+            case 47 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:298: CHAR
                 {
                 mCHAR(); 
 
 
                 }
                 break;
-            case 47 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:297: NUMBER
+            case 48 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:303: NUMBER
                 {
                 mNUMBER(); 
 
 
                 }
                 break;
-            case 48 :
-                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:304: LETTER
+            case 49 :
+                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:1:310: LETTER
                 {
                 mLETTER(); 
 
@@ -2297,34 +2329,34 @@ public class CommandLineLexer extends Lexer {
 
     protected DFA10 dfa10 = new DFA10(this);
     static final String DFA10_eotS =
-        "\4\uffff\1\41\1\44\2\uffff\1\50\1\54\1\37\2\uffff\12\37\52\uffff"+
-        "\1\113\34\uffff\1\142\4\uffff";
+        "\4\uffff\1\41\1\44\2\uffff\1\50\1\54\1\37\2\uffff\12\37\53\uffff"+
+        "\1\114\34\uffff\1\143\4\uffff";
     static final String DFA10_eofS =
-        "\143\uffff";
+        "\144\uffff";
     static final String DFA10_minS =
         "\1\11\3\uffff\1\76\1\56\2\uffff\2\106\1\165\2\uffff\1\164\1\145"+
-        "\1\156\1\141\1\162\1\156\1\157\1\145\1\164\1\157\4\uffff\1\0\21"+
-        "\uffff\1\163\1\uffff\1\154\6\uffff\1\141\5\uffff\1\42\1\0\2\uffff"+
+        "\1\156\1\141\1\162\1\156\1\157\1\145\1\150\1\157\4\uffff\1\0\21"+
+        "\uffff\1\163\1\uffff\1\154\6\uffff\1\141\6\uffff\1\42\1\0\2\uffff"+
         "\2\164\2\uffff\1\0\1\60\3\0\1\151\2\uffff\1\60\4\0\1\146\1\60\3"+
         "\0\1\151\1\60\2\0\1\145\1\0\2\uffff\1\164\4\uffff";
     static final String DFA10_maxS =
         "\1\174\3\uffff\1\76\1\57\2\uffff\2\130\1\165\2\uffff\1\164\1\157"+
         "\1\156\1\141\1\162\1\156\1\157\1\145\1\165\1\162\4\uffff\1\uffff"+
-        "\21\uffff\1\163\1\uffff\1\154\6\uffff\1\157\5\uffff\1\165\1\uffff"+
+        "\21\uffff\1\163\1\uffff\1\154\6\uffff\1\157\6\uffff\1\165\1\uffff"+
         "\2\uffff\2\164\2\uffff\1\uffff\1\146\3\uffff\1\151\2\uffff\1\146"+
         "\4\uffff\2\146\3\uffff\1\151\1\146\2\uffff\1\145\1\uffff\2\uffff"+
         "\1\164\4\uffff";
     static final String DFA10_acceptS =
         "\1\uffff\1\1\1\2\1\3\2\uffff\1\10\1\11\3\uffff\1\24\1\25\12\uffff"+
-        "\1\45\1\46\1\47\1\51\1\uffff\1\54\1\56\1\57\1\60\1\50\1\4\1\6\1"+
+        "\1\46\1\47\1\50\1\52\1\uffff\1\55\1\57\1\60\1\61\1\51\1\4\1\6\1"+
         "\7\1\5\1\13\1\14\1\15\1\12\1\17\1\20\1\21\1\16\1\uffff\1\24\1\uffff"+
         "\1\30\1\31\1\32\1\33\1\34\1\35\1\uffff\1\40\1\41\1\42\1\43\1\44"+
-        "\2\uffff\1\55\1\57\2\uffff\1\36\1\37\6\uffff\1\27\1\26\20\uffff"+
-        "\1\52\1\53\1\uffff\1\52\1\53\1\23\1\22";
+        "\1\45\2\uffff\1\56\1\60\2\uffff\1\36\1\37\6\uffff\1\27\1\26\20\uffff"+
+        "\1\53\1\54\1\uffff\1\53\1\54\1\23\1\22";
     static final String DFA10_specialS =
-        "\33\uffff\1\17\41\uffff\1\1\6\uffff\1\0\1\uffff\1\6\1\2\1\15\4\uffff"+
-        "\1\5\1\4\1\7\1\14\2\uffff\1\3\1\10\1\13\2\uffff\1\11\1\12\1\uffff"+
-        "\1\16\7\uffff}>";
+        "\33\uffff\1\5\42\uffff\1\6\6\uffff\1\7\1\uffff\1\10\1\2\1\1\4\uffff"+
+        "\1\17\1\3\1\16\1\11\2\uffff\1\0\1\14\1\12\2\uffff\1\15\1\13\1\uffff"+
+        "\1\4\7\uffff}>";
     static final String[] DFA10_transitionS = {
             "\2\34\2\uffff\1\34\22\uffff\1\34\1\1\1\33\1\uffff\1\27\1\uffff"+
             "\1\30\1\35\1\2\1\3\3\uffff\1\4\1\5\1\6\12\36\1\uffff\1\7\1\32"+
@@ -2351,18 +2383,13 @@ public class CommandLineLexer extends Lexer {
             "\1\65",
             "\1\66",
             "\1\67",
-            "\1\70\1\71",
-            "\1\72\2\uffff\1\73",
+            "\1\70\13\uffff\1\71\1\72",
+            "\1\73\2\uffff\1\74",
             "",
             "",
             "",
             "",
-            "\42\75\1\76\71\75\1\74\uffa3\75",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\42\76\1\77\71\76\1\75\uffa3\76",
             "",
             "",
             "",
@@ -2375,59 +2402,65 @@ public class CommandLineLexer extends Lexer {
             "",
             "",
             "",
-            "\1\100",
+            "",
+            "",
+            "",
+            "",
             "",
             "\1\101",
             "",
+            "\1\102",
             "",
             "",
             "",
             "",
             "",
-            "\1\102\15\uffff\1\103",
+            "",
+            "\1\103\15\uffff\1\104",
             "",
             "",
             "",
             "",
             "",
-            "\1\104\4\uffff\1\104\10\uffff\4\106\4\107\44\uffff\1\104\5"+
-            "\uffff\1\104\3\uffff\1\104\7\uffff\1\104\3\uffff\1\104\1\uffff"+
-            "\1\104\1\105",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\uffa3\75",
+            "",
+            "\1\105\4\uffff\1\105\10\uffff\4\107\4\110\44\uffff\1\105\5"+
+            "\uffff\1\105\3\uffff\1\105\7\uffff\1\105\3\uffff\1\105\1\uffff"+
+            "\1\105\1\106",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\uffa3\76",
             "",
             "",
-            "\1\111",
             "\1\112",
+            "\1\113",
             "",
             "",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\uffa3\75",
-            "\12\114\7\uffff\6\114\32\uffff\6\114",
-            "\42\75\1\76\13\75\1\110\1\75\10\115\44\75\1\74\uffa3\75",
-            "\42\75\1\76\13\75\1\110\1\75\10\116\44\75\1\74\uffa3\75",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\7\75\1\117\11\75\1\120\uff91"+
-            "\75",
-            "\1\121",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\uffa3\76",
+            "\12\115\7\uffff\6\115\32\uffff\6\115",
+            "\42\76\1\77\13\76\1\111\1\76\10\116\44\76\1\75\uffa3\76",
+            "\42\76\1\77\13\76\1\111\1\76\10\117\44\76\1\75\uffa3\76",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\7\76\1\120\11\76\1\121\uff91"+
+            "\76",
+            "\1\122",
             "",
             "",
-            "\12\122\7\uffff\6\122\32\uffff\6\122",
-            "\42\75\1\76\13\75\1\110\1\75\10\123\44\75\1\74\uffa3\75",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\uffa3\75",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\22\75\1\124\uff90\75",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\10\75\1\125\uff9a\75",
-            "\1\126",
-            "\12\127\7\uffff\6\127\32\uffff\6\127",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\uffa3\75",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\27\75\1\130\uff8b\75",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\27\75\1\131\uff8b\75",
-            "\1\132",
-            "\12\133\7\uffff\6\133\32\uffff\6\133",
-            "\42\75\1\134\13\75\1\110\55\75\1\74\uffa3\75",
-            "\42\75\1\135\13\75\1\110\55\75\1\74\uffa3\75",
-            "\1\136",
-            "\42\75\1\76\13\75\1\110\55\75\1\74\uffa3\75",
+            "\12\123\7\uffff\6\123\32\uffff\6\123",
+            "\42\76\1\77\13\76\1\111\1\76\10\124\44\76\1\75\uffa3\76",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\uffa3\76",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\22\76\1\125\uff90\76",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\10\76\1\126\uff9a\76",
+            "\1\127",
+            "\12\130\7\uffff\6\130\32\uffff\6\130",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\uffa3\76",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\27\76\1\131\uff8b\76",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\27\76\1\132\uff8b\76",
+            "\1\133",
+            "\12\134\7\uffff\6\134\32\uffff\6\134",
+            "\42\76\1\135\13\76\1\111\55\76\1\75\uffa3\76",
+            "\42\76\1\136\13\76\1\111\55\76\1\75\uffa3\76",
+            "\1\137",
+            "\42\76\1\77\13\76\1\111\55\76\1\75\uffa3\76",
             "",
             "",
-            "\1\141",
+            "\1\142",
             "",
             "",
             "",
@@ -2464,264 +2497,264 @@ public class CommandLineLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | ATOM | AND | OR | IMPLY | EQUIV | STRING_FILE_DOT | STRING_FILE_NET | WS | STRING | CHAR | NUMBER | LETTER );";
+            return "1:1: Tokens : ( T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | ATOM | AND | OR | IMPLY | EQUIV | STRING_FILE_DOT | STRING_FILE_NET | WS | STRING | CHAR | NUMBER | LETTER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA10_68 = input.LA(1);
+                        int LA10_84 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_68=='.') ) {s = 72;}
+                        if ( (LA10_84=='.') ) {s = 73;}
 
-                        else if ( (LA10_68=='\\') ) {s = 60;}
+                        else if ( (LA10_84=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_68 >= '\u0000' && LA10_68 <= '!')||(LA10_68 >= '#' && LA10_68 <= '-')||(LA10_68 >= '/' && LA10_68 <= '[')||(LA10_68 >= ']' && LA10_68 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_84 >= '\u0000' && LA10_84 <= '!')||(LA10_84 >= '#' && LA10_84 <= '-')||(LA10_84 >= '/' && LA10_84 <= '[')||(LA10_84 >= ']' && LA10_84 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_68=='\"') ) {s = 62;}
+                        else if ( (LA10_84=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 1 : 
-                        int LA10_61 = input.LA(1);
+                        int LA10_73 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_61=='.') ) {s = 72;}
+                        if ( (LA10_73=='d') ) {s = 80;}
 
-                        else if ( (LA10_61=='\\') ) {s = 60;}
+                        else if ( (LA10_73=='n') ) {s = 81;}
 
-                        else if ( ((LA10_61 >= '\u0000' && LA10_61 <= '!')||(LA10_61 >= '#' && LA10_61 <= '-')||(LA10_61 >= '/' && LA10_61 <= '[')||(LA10_61 >= ']' && LA10_61 <= '\uFFFF')) ) {s = 61;}
+                        else if ( (LA10_73=='.') ) {s = 73;}
 
-                        else if ( (LA10_61=='\"') ) {s = 62;}
+                        else if ( (LA10_73=='\\') ) {s = 61;}
+
+                        else if ( ((LA10_73 >= '\u0000' && LA10_73 <= '!')||(LA10_73 >= '#' && LA10_73 <= '-')||(LA10_73 >= '/' && LA10_73 <= '[')||(LA10_73 >= ']' && LA10_73 <= 'c')||(LA10_73 >= 'e' && LA10_73 <= 'm')||(LA10_73 >= 'o' && LA10_73 <= '\uFFFF')) ) {s = 62;}
+
+                        else if ( (LA10_73=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 2 : 
-                        int LA10_71 = input.LA(1);
+                        int LA10_72 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA10_71 >= '0' && LA10_71 <= '7')) ) {s = 78;}
+                        if ( ((LA10_72 >= '0' && LA10_72 <= '7')) ) {s = 79;}
 
-                        else if ( (LA10_71=='.') ) {s = 72;}
+                        else if ( (LA10_72=='.') ) {s = 73;}
 
-                        else if ( (LA10_71=='\\') ) {s = 60;}
+                        else if ( (LA10_72=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_71 >= '\u0000' && LA10_71 <= '!')||(LA10_71 >= '#' && LA10_71 <= '-')||LA10_71=='/'||(LA10_71 >= '8' && LA10_71 <= '[')||(LA10_71 >= ']' && LA10_71 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_72 >= '\u0000' && LA10_72 <= '!')||(LA10_72 >= '#' && LA10_72 <= '-')||LA10_72=='/'||(LA10_72 >= '8' && LA10_72 <= '[')||(LA10_72 >= ']' && LA10_72 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_71=='\"') ) {s = 62;}
+                        else if ( (LA10_72=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 3 : 
-                        int LA10_83 = input.LA(1);
+                        int LA10_79 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_83=='.') ) {s = 72;}
+                        if ( (LA10_79=='.') ) {s = 73;}
 
-                        else if ( (LA10_83=='\\') ) {s = 60;}
+                        else if ( (LA10_79=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_83 >= '\u0000' && LA10_83 <= '!')||(LA10_83 >= '#' && LA10_83 <= '-')||(LA10_83 >= '/' && LA10_83 <= '[')||(LA10_83 >= ']' && LA10_83 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_79 >= '\u0000' && LA10_79 <= '!')||(LA10_79 >= '#' && LA10_79 <= '-')||(LA10_79 >= '/' && LA10_79 <= '[')||(LA10_79 >= ']' && LA10_79 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_83=='\"') ) {s = 62;}
+                        else if ( (LA10_79=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 4 : 
-                        int LA10_78 = input.LA(1);
+                        int LA10_92 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_78=='.') ) {s = 72;}
+                        if ( (LA10_92=='.') ) {s = 73;}
 
-                        else if ( (LA10_78=='\\') ) {s = 60;}
+                        else if ( (LA10_92=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_78 >= '\u0000' && LA10_78 <= '!')||(LA10_78 >= '#' && LA10_78 <= '-')||(LA10_78 >= '/' && LA10_78 <= '[')||(LA10_78 >= ']' && LA10_78 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_92 >= '\u0000' && LA10_92 <= '!')||(LA10_92 >= '#' && LA10_92 <= '-')||(LA10_92 >= '/' && LA10_92 <= '[')||(LA10_92 >= ']' && LA10_92 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_78=='\"') ) {s = 62;}
+                        else if ( (LA10_92=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 5 : 
-                        int LA10_77 = input.LA(1);
+                        int LA10_27 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA10_77 >= '0' && LA10_77 <= '7')) ) {s = 83;}
+                        if ( (LA10_27=='\\') ) {s = 61;}
 
-                        else if ( (LA10_77=='.') ) {s = 72;}
+                        else if ( ((LA10_27 >= '\u0000' && LA10_27 <= '!')||(LA10_27 >= '#' && LA10_27 <= '[')||(LA10_27 >= ']' && LA10_27 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_77=='\\') ) {s = 60;}
-
-                        else if ( ((LA10_77 >= '\u0000' && LA10_77 <= '!')||(LA10_77 >= '#' && LA10_77 <= '-')||LA10_77=='/'||(LA10_77 >= '8' && LA10_77 <= '[')||(LA10_77 >= ']' && LA10_77 <= '\uFFFF')) ) {s = 61;}
-
-                        else if ( (LA10_77=='\"') ) {s = 62;}
+                        else if ( (LA10_27=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 6 : 
-                        int LA10_70 = input.LA(1);
+                        int LA10_62 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA10_70 >= '0' && LA10_70 <= '7')) ) {s = 77;}
+                        if ( (LA10_62=='.') ) {s = 73;}
 
-                        else if ( (LA10_70=='.') ) {s = 72;}
+                        else if ( (LA10_62=='\\') ) {s = 61;}
 
-                        else if ( (LA10_70=='\\') ) {s = 60;}
+                        else if ( ((LA10_62 >= '\u0000' && LA10_62 <= '!')||(LA10_62 >= '#' && LA10_62 <= '-')||(LA10_62 >= '/' && LA10_62 <= '[')||(LA10_62 >= ']' && LA10_62 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( ((LA10_70 >= '\u0000' && LA10_70 <= '!')||(LA10_70 >= '#' && LA10_70 <= '-')||LA10_70=='/'||(LA10_70 >= '8' && LA10_70 <= '[')||(LA10_70 >= ']' && LA10_70 <= '\uFFFF')) ) {s = 61;}
-
-                        else if ( (LA10_70=='\"') ) {s = 62;}
+                        else if ( (LA10_62=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 7 : 
-                        int LA10_79 = input.LA(1);
+                        int LA10_69 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_79=='o') ) {s = 84;}
+                        if ( (LA10_69=='.') ) {s = 73;}
 
-                        else if ( (LA10_79=='.') ) {s = 72;}
+                        else if ( (LA10_69=='\\') ) {s = 61;}
 
-                        else if ( (LA10_79=='\\') ) {s = 60;}
+                        else if ( ((LA10_69 >= '\u0000' && LA10_69 <= '!')||(LA10_69 >= '#' && LA10_69 <= '-')||(LA10_69 >= '/' && LA10_69 <= '[')||(LA10_69 >= ']' && LA10_69 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( ((LA10_79 >= '\u0000' && LA10_79 <= '!')||(LA10_79 >= '#' && LA10_79 <= '-')||(LA10_79 >= '/' && LA10_79 <= '[')||(LA10_79 >= ']' && LA10_79 <= 'n')||(LA10_79 >= 'p' && LA10_79 <= '\uFFFF')) ) {s = 61;}
-
-                        else if ( (LA10_79=='\"') ) {s = 62;}
+                        else if ( (LA10_69=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 8 : 
-                        int LA10_84 = input.LA(1);
+                        int LA10_71 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_84=='t') ) {s = 88;}
+                        if ( ((LA10_71 >= '0' && LA10_71 <= '7')) ) {s = 78;}
 
-                        else if ( (LA10_84=='.') ) {s = 72;}
+                        else if ( (LA10_71=='.') ) {s = 73;}
 
-                        else if ( (LA10_84=='\\') ) {s = 60;}
+                        else if ( (LA10_71=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_84 >= '\u0000' && LA10_84 <= '!')||(LA10_84 >= '#' && LA10_84 <= '-')||(LA10_84 >= '/' && LA10_84 <= '[')||(LA10_84 >= ']' && LA10_84 <= 's')||(LA10_84 >= 'u' && LA10_84 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_71 >= '\u0000' && LA10_71 <= '!')||(LA10_71 >= '#' && LA10_71 <= '-')||LA10_71=='/'||(LA10_71 >= '8' && LA10_71 <= '[')||(LA10_71 >= ']' && LA10_71 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_84=='\"') ) {s = 62;}
+                        else if ( (LA10_71=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 9 : 
-                        int LA10_88 = input.LA(1);
+                        int LA10_81 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_88=='\"') ) {s = 92;}
+                        if ( (LA10_81=='e') ) {s = 86;}
 
-                        else if ( (LA10_88=='.') ) {s = 72;}
+                        else if ( (LA10_81=='.') ) {s = 73;}
 
-                        else if ( (LA10_88=='\\') ) {s = 60;}
+                        else if ( (LA10_81=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_88 >= '\u0000' && LA10_88 <= '!')||(LA10_88 >= '#' && LA10_88 <= '-')||(LA10_88 >= '/' && LA10_88 <= '[')||(LA10_88 >= ']' && LA10_88 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_81 >= '\u0000' && LA10_81 <= '!')||(LA10_81 >= '#' && LA10_81 <= '-')||(LA10_81 >= '/' && LA10_81 <= '[')||(LA10_81 >= ']' && LA10_81 <= 'd')||(LA10_81 >= 'f' && LA10_81 <= '\uFFFF')) ) {s = 62;}
+
+                        else if ( (LA10_81=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 10 : 
-                        int LA10_89 = input.LA(1);
+                        int LA10_86 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_89=='\"') ) {s = 93;}
+                        if ( (LA10_86=='t') ) {s = 90;}
 
-                        else if ( (LA10_89=='.') ) {s = 72;}
+                        else if ( (LA10_86=='.') ) {s = 73;}
 
-                        else if ( (LA10_89=='\\') ) {s = 60;}
+                        else if ( (LA10_86=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_89 >= '\u0000' && LA10_89 <= '!')||(LA10_89 >= '#' && LA10_89 <= '-')||(LA10_89 >= '/' && LA10_89 <= '[')||(LA10_89 >= ']' && LA10_89 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_86 >= '\u0000' && LA10_86 <= '!')||(LA10_86 >= '#' && LA10_86 <= '-')||(LA10_86 >= '/' && LA10_86 <= '[')||(LA10_86 >= ']' && LA10_86 <= 's')||(LA10_86 >= 'u' && LA10_86 <= '\uFFFF')) ) {s = 62;}
+
+                        else if ( (LA10_86=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 11 : 
-                        int LA10_85 = input.LA(1);
+                        int LA10_90 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_85=='t') ) {s = 89;}
+                        if ( (LA10_90=='\"') ) {s = 94;}
 
-                        else if ( (LA10_85=='.') ) {s = 72;}
+                        else if ( (LA10_90=='.') ) {s = 73;}
 
-                        else if ( (LA10_85=='\\') ) {s = 60;}
+                        else if ( (LA10_90=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_85 >= '\u0000' && LA10_85 <= '!')||(LA10_85 >= '#' && LA10_85 <= '-')||(LA10_85 >= '/' && LA10_85 <= '[')||(LA10_85 >= ']' && LA10_85 <= 's')||(LA10_85 >= 'u' && LA10_85 <= '\uFFFF')) ) {s = 61;}
-
-                        else if ( (LA10_85=='\"') ) {s = 62;}
+                        else if ( ((LA10_90 >= '\u0000' && LA10_90 <= '!')||(LA10_90 >= '#' && LA10_90 <= '-')||(LA10_90 >= '/' && LA10_90 <= '[')||(LA10_90 >= ']' && LA10_90 <= '\uFFFF')) ) {s = 62;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 12 : 
-                        int LA10_80 = input.LA(1);
+                        int LA10_85 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_80=='e') ) {s = 85;}
+                        if ( (LA10_85=='t') ) {s = 89;}
 
-                        else if ( (LA10_80=='.') ) {s = 72;}
+                        else if ( (LA10_85=='.') ) {s = 73;}
 
-                        else if ( (LA10_80=='\\') ) {s = 60;}
+                        else if ( (LA10_85=='\\') ) {s = 61;}
 
-                        else if ( ((LA10_80 >= '\u0000' && LA10_80 <= '!')||(LA10_80 >= '#' && LA10_80 <= '-')||(LA10_80 >= '/' && LA10_80 <= '[')||(LA10_80 >= ']' && LA10_80 <= 'd')||(LA10_80 >= 'f' && LA10_80 <= '\uFFFF')) ) {s = 61;}
+                        else if ( ((LA10_85 >= '\u0000' && LA10_85 <= '!')||(LA10_85 >= '#' && LA10_85 <= '-')||(LA10_85 >= '/' && LA10_85 <= '[')||(LA10_85 >= ']' && LA10_85 <= 's')||(LA10_85 >= 'u' && LA10_85 <= '\uFFFF')) ) {s = 62;}
 
-                        else if ( (LA10_80=='\"') ) {s = 62;}
+                        else if ( (LA10_85=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 13 : 
-                        int LA10_72 = input.LA(1);
+                        int LA10_89 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_72=='d') ) {s = 79;}
+                        if ( (LA10_89=='\"') ) {s = 93;}
 
-                        else if ( (LA10_72=='n') ) {s = 80;}
+                        else if ( (LA10_89=='.') ) {s = 73;}
 
-                        else if ( (LA10_72=='.') ) {s = 72;}
+                        else if ( (LA10_89=='\\') ) {s = 61;}
 
-                        else if ( (LA10_72=='\\') ) {s = 60;}
-
-                        else if ( ((LA10_72 >= '\u0000' && LA10_72 <= '!')||(LA10_72 >= '#' && LA10_72 <= '-')||(LA10_72 >= '/' && LA10_72 <= '[')||(LA10_72 >= ']' && LA10_72 <= 'c')||(LA10_72 >= 'e' && LA10_72 <= 'm')||(LA10_72 >= 'o' && LA10_72 <= '\uFFFF')) ) {s = 61;}
-
-                        else if ( (LA10_72=='\"') ) {s = 62;}
+                        else if ( ((LA10_89 >= '\u0000' && LA10_89 <= '!')||(LA10_89 >= '#' && LA10_89 <= '-')||(LA10_89 >= '/' && LA10_89 <= '[')||(LA10_89 >= ']' && LA10_89 <= '\uFFFF')) ) {s = 62;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 14 : 
-                        int LA10_91 = input.LA(1);
+                        int LA10_80 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_91=='.') ) {s = 72;}
+                        if ( (LA10_80=='o') ) {s = 85;}
 
-                        else if ( (LA10_91=='\\') ) {s = 60;}
+                        else if ( (LA10_80=='.') ) {s = 73;}
 
-                        else if ( ((LA10_91 >= '\u0000' && LA10_91 <= '!')||(LA10_91 >= '#' && LA10_91 <= '-')||(LA10_91 >= '/' && LA10_91 <= '[')||(LA10_91 >= ']' && LA10_91 <= '\uFFFF')) ) {s = 61;}
+                        else if ( (LA10_80=='\\') ) {s = 61;}
 
-                        else if ( (LA10_91=='\"') ) {s = 62;}
+                        else if ( ((LA10_80 >= '\u0000' && LA10_80 <= '!')||(LA10_80 >= '#' && LA10_80 <= '-')||(LA10_80 >= '/' && LA10_80 <= '[')||(LA10_80 >= ']' && LA10_80 <= 'n')||(LA10_80 >= 'p' && LA10_80 <= '\uFFFF')) ) {s = 62;}
+
+                        else if ( (LA10_80=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;
 
                     case 15 : 
-                        int LA10_27 = input.LA(1);
+                        int LA10_78 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_27=='\\') ) {s = 60;}
+                        if ( ((LA10_78 >= '0' && LA10_78 <= '7')) ) {s = 84;}
 
-                        else if ( ((LA10_27 >= '\u0000' && LA10_27 <= '!')||(LA10_27 >= '#' && LA10_27 <= '[')||(LA10_27 >= ']' && LA10_27 <= '\uFFFF')) ) {s = 61;}
+                        else if ( (LA10_78=='.') ) {s = 73;}
 
-                        else if ( (LA10_27=='\"') ) {s = 62;}
+                        else if ( (LA10_78=='\\') ) {s = 61;}
+
+                        else if ( ((LA10_78 >= '\u0000' && LA10_78 <= '!')||(LA10_78 >= '#' && LA10_78 <= '-')||LA10_78=='/'||(LA10_78 >= '8' && LA10_78 <= '[')||(LA10_78 >= ']' && LA10_78 <= '\uFFFF')) ) {s = 62;}
+
+                        else if ( (LA10_78=='\"') ) {s = 63;}
 
                         if ( s>=0 ) return s;
                         break;

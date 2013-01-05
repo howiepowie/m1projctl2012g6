@@ -25,9 +25,19 @@ public class Main implements ICallback {
 	}
 
 	/**
+	 * Si on est en mode shell.
+	 */
+	private boolean shell;
+
+	/**
 	 * Condition pour arrêter le terminal.
 	 */
 	private boolean stop;
+
+	/**
+	 * Dernière commande.
+	 */
+	private String commande;
 
 	/**
 	 * Le dernier réseau de pétri chargé.
@@ -43,20 +53,18 @@ public class Main implements ICallback {
 	 * Lance le terminal.
 	 */
 	private void run() {
+		shell = false;
 		stop = false;
-		boolean first = true;
 		Scanner sc = new Scanner(System.in);
 		CommandLineParser parser = new CommandLineParser(this);
 		while (!stop) {
-			if (first) {
-				first = false;
-			} else {
-				System.out.print("\n\n");
-			}
 			System.out.print("> ");
-			String input = sc.nextLine();
+			commande = sc.nextLine();
+			if (shell) {
+				System.out.println(commande.trim());
+			}
 			try {
-				parser.process(input);
+				parser.process(commande);
 			} catch (Exception e) {
 
 			}
@@ -75,14 +83,25 @@ public class Main implements ICallback {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void shell() {
+		if (!shell) {
+			System.out.println(commande.trim());
+		}
+		shell = true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void load(String filename) {
 		try {
 			RdP rdp = new RdP(filename);
 			this.rdp = rdp;
-			System.out.print("Charge: " + rdp.place.length + " place(s) et "
+			System.out.println("Charge: " + rdp.place.length + " place(s) et "
 					+ rdp.transition.length + " transition(s).");
 		} catch (Exception e) {
-			System.out.print("Erreur de lecture du graphe.");
+			System.out.println("Erreur de lecture du graphe.");
 		}
 	}
 
@@ -92,14 +111,14 @@ public class Main implements ICallback {
 	@Override
 	public void graphe() {
 		if (rdp == null) {
-			System.out.print("Aucun reseau de petri charge.");
+			System.out.println("Aucun reseau de petri charge.");
 		} else {
 			try {
 				grapheRdP = new AlgoGrapheRdP(rdp).grapherdp();
-				System.out.print(grapheRdP.nbEtat + " etat(s) et "
+				System.out.println(grapheRdP.nbEtat + " etat(s) et "
 						+ grapheRdP.nbTransition + " transition(s).");
 			} catch (Exception e) {
-				System.out.print(e.getMessage());
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -110,12 +129,12 @@ public class Main implements ICallback {
 	@Override
 	public void look(int etat) {
 		if (grapheRdP == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else if (etat >= grapheRdP.nbEtat) {
-			System.out.print("Etat inexistant.");
+			System.out.println("Etat inexistant.");
 		} else {
 			boolean[] m = grapheRdP.etat.get(etat);
-			System.out.print(Arrays.toString(m));
+			System.out.println(Arrays.toString(m));
 		}
 	}
 
@@ -125,12 +144,12 @@ public class Main implements ICallback {
 	@Override
 	public void succ(int etat) {
 		if (grapheRdP == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else if (etat >= grapheRdP.nbEtat) {
-			System.out.print("Etat inexistant.");
+			System.out.println("Etat inexistant.");
 		} else {
 			ArrayList<Integer> succ = grapheRdP.succ.get(etat);
-			System.out.print(Arrays.toString(succ.toArray()));
+			System.out.println(Arrays.toString(succ.toArray()));
 		}
 	}
 
@@ -140,7 +159,7 @@ public class Main implements ICallback {
 	@Override
 	public void toDot(String filename) {
 		if (rdp == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			try {
 				File f = new File(filename);
@@ -149,7 +168,7 @@ public class Main implements ICallback {
 				bos.write(grapheRdP.toDot().getBytes());
 				bos.close();
 			} catch (Exception e) {
-				System.out.print("Erreur d'ecriture.");
+				System.out.println("Erreur d'ecriture.");
 			}
 		}
 	}
@@ -160,7 +179,7 @@ public class Main implements ICallback {
 	@Override
 	public void ctl(Tree formule) {
 		if (grapheRdP == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			boolean[] res = evaluer(formule);
 			int nbEtat = 0;
@@ -169,7 +188,7 @@ public class Main implements ICallback {
 					++nbEtat;
 				}
 			}
-			System.out.print(nbEtat + " etat(s).");
+			System.out.println(nbEtat + " etat(s).");
 		}
 	}
 
@@ -188,7 +207,7 @@ public class Main implements ICallback {
 	@Override
 	public void ctlToDot(Tree formule, String filename) {
 		if (grapheRdP == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			try {
 				boolean[] res = evaluer(formule);
@@ -198,7 +217,7 @@ public class Main implements ICallback {
 				bos.write(grapheRdP.ctlToDot(res).getBytes());
 				bos.close();
 			} catch (Exception e) {
-				System.out.print("Erreur d'ecriture.");
+				System.out.println("Erreur d'ecriture.");
 			}
 		}
 	}
@@ -209,7 +228,7 @@ public class Main implements ICallback {
 	@Override
 	public void justifie(Tree formule, int etat) {
 		if (grapheRdP == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			Preuve p = justifier(formule, etat);
 			System.out.println(p.toTree());
@@ -222,7 +241,7 @@ public class Main implements ICallback {
 	@Override
 	public void justifieToDot(Tree formule, int etat, String filename) {
 		if (grapheRdP == null) {
-			System.out.print("Aucun graphe d'etat charge.");
+			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			try {
 				Preuve p = justifier(formule, etat);
@@ -232,7 +251,7 @@ public class Main implements ICallback {
 				bos.write(grapheRdP.justifieToDot(p, etat).getBytes());
 				bos.close();
 			} catch (Exception e) {
-				System.out.print("Erreur d'ecriture.");
+				System.out.println("Erreur d'ecriture.");
 			}
 		}
 	}
