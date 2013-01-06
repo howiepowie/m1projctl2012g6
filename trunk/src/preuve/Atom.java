@@ -34,7 +34,8 @@ public class Atom extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int i = 0; i < marquage.length; ++i) {
@@ -44,9 +45,9 @@ public class Atom extends Preuve {
 				sb.append(" -> N");
 				sb.append(i);
 				sb.append(" [color=\"");
-				sb.append(parent.getCouleur());
+				sb.append(couleurs.getCouleur(parent.getFormule()));
 				sb.append("\",label=<");
-				sb.append(toDotLabel());
+				sb.append(toDotLabel(couleurs));
 				sb.append(">]\n");
 				fleches.get(etatParent).add(i);
 			}
@@ -58,18 +59,8 @@ public class Atom extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">$"
-				+ getFormule().getText() + "</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public IPreuve clone() {
 		Atom res = new Atom(getFormule(), getMarquage().clone());
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

@@ -64,8 +64,9 @@ public class EF extends Preuve {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
-		chemin.toDotRacine(fleches, justifications, parent, etat);
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
+		chemin.toDotRacine(fleches, justifications, parent, etat, couleurs);
 	}
 
 	/**
@@ -73,24 +74,9 @@ public class EF extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
-		chemin.toDot(fleches, justifications, parent, etatParent);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		List<IPreuve> preuves = chemin.getPreuves().get(0).getPreuves();
-		int size = preuves.size() - 1;
-		if (size == 0) {
-			return "<FONT COLOR=\"" + getCouleur() + "\">EF("
-					+ preuves.get(0).toDotLabel() + ")</FONT>";
-		} else {
-			return "<FONT COLOR=\"" + getCouleur() + "\">EF("
-					+ preuves.get(size).toDotLabel() + ")</FONT>";
-		}
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
+		chemin.toDot(fleches, justifications, parent, etatParent, couleurs);
 	}
 
 	/**
@@ -102,17 +88,7 @@ public class EF extends Preuve {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void genererCouleur() {
-		super.genererCouleur();
-		chemin.setCouleur(getCouleur());
 	}
 
 }

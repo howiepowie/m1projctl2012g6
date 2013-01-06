@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import preuve.Coloration;
 import preuve.IPreuve;
 import rdp.RdP;
 
@@ -65,22 +66,20 @@ public class GrapheRdP {
 		return res.toString();
 	}
 
-	public String justifieToDot(IPreuve preuve, int depart) {
+	public String justifieToDot(IPreuve preuve, int depart, Coloration couleurs) {
 		Map<Integer, Set<Integer>> fleches = new HashMap<Integer, Set<Integer>>();
 		for (int i = 0; i < nbEtat; ++i) {
 			fleches.put(i, new HashSet<Integer>());
 		}
 		Set<String> justifications = new HashSet<String>();
-		preuve.toDotRacine(fleches, justifications, null, depart);
+		preuve.toDotRacine(fleches, justifications, null, depart, couleurs);
 		StringBuffer res = new StringBuffer();
 		res.append("digraph system {\n");
 
 		res.append("N" + 0 + " [label=<" + rdp.toStringMarquage(etat.get(0)));
 		if (depart == 0) {
 			res.append("<BR/>");
-			res.append(preuve.toDotLabel());
-		} else {
-			res.append(rdp.toStringMarquage(etat.get(0)));
+			res.append(couleurs.getLabel(preuve.getFormule()));
 		}
 		res.append(">,shape=octagon]\n");
 
@@ -89,7 +88,7 @@ public class GrapheRdP {
 					+ rdp.toStringMarquage(etat.get(e)));
 			if (depart == e) {
 				res.append("<BR/>");
-				res.append(preuve.toDotLabel());
+				res.append(couleurs.getLabel(preuve.getFormule()));
 			}
 			res.append(">]\n");
 		}

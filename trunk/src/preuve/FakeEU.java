@@ -146,8 +146,9 @@ public class FakeEU extends CheminBase {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
-		cheminsToDot(fleches, justifications, etat);
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
+		cheminsToDot(fleches, justifications, etat, couleurs);
 	}
 
 	/**
@@ -155,7 +156,8 @@ public class FakeEU extends CheminBase {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int etat = 0; etat < marquage.length; ++etat) {
@@ -166,12 +168,12 @@ public class FakeEU extends CheminBase {
 				sb.append('N');
 				sb.append(etat);
 				sb.append(" [color=\"");
-				sb.append(parent.getCouleur());
+				sb.append(couleurs.getCouleur(parent.getFormule()));
 				sb.append("\",label=<");
-				sb.append(toDotLabel());
+				sb.append(toDotLabel(couleurs));
 				sb.append(">]\n");
 				fleches.get(etatParent).add(etat);
-				cheminsToDot(fleches, justifications, etat);
+				cheminsToDot(fleches, justifications, etat, couleurs);
 				justifications.add(sb.toString());
 				return;
 			}
@@ -186,12 +188,12 @@ public class FakeEU extends CheminBase {
 	 * @param depart
 	 */
 	private void cheminsToDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, int depart) {
+			Set<String> justifications, int depart, Coloration couleurs) {
 		int cheminEtat = depart;
 		Iterator<IPreuve> it = getPreuves().iterator();
 		while (it.hasNext()) {
 			IPreuve p = it.next();
-			p.toDot(fleches, justifications, this, cheminEtat);
+			p.toDot(fleches, justifications, this, cheminEtat, couleurs);
 			boolean[] m = p.getMarquage();
 			for (int i = 0; i < m.length; ++i) {
 				if (m[i]) {
@@ -206,45 +208,12 @@ public class FakeEU extends CheminBase {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">E("
-				+ conditionToDotLabel() + ")</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String conditionToDotLabel() {
-		List<IPreuve> preuves = getPreuves();
-		int size = preuves.size() - 1;
-		if (size == 0) {
-			return getDebut().toDotLabel() + " U "
-					+ preuves.get(0).toDotLabel();
-		} else {
-			return preuves.get(0).toDotLabel() + " U "
-					+ preuves.get(size).toDotLabel();
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void genererCouleur() {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public IPreuve clone() {
 		FakeEU res = new FakeEU(getFormule(), getMarquageCopie(), getDebut()
 				.clone(), getFin().clone());
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

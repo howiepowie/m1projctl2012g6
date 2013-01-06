@@ -66,7 +66,7 @@
 java -jar modelprojet.jar << -END_PARAMS
 	shell
 	load "peterson.net"
-	graphe; todot "peterson.net"
+	graphe; todot "peterson.dot"
 	Justifie (\$tour0 || \$tour1) && (\$tour0 && EX(!\$tour0)) 1; Justifietodot (\$tour0 || \$tour1) && (\$tour0 && EX(!\$tour0)) 1 "test justifie 1.dot"
 	Justifie AX(EX(!(\$tour0))) 4; Justifietodot AX(EX(!(\$tour0))) 4 "test justifie 2.dot"
 	Justifie EX(AX(EX(!\$tour0 || \$tour0))) 3; Justifietodot EX(AX(EX(!\$tour0 || \$tour0))) 3 "test justifie 3.dot"
@@ -84,5 +84,7 @@ java -jar modelprojet.jar << -END_PARAMS
 	Justifie AG(\$B0 || \$B2) 4; Justifietodot AG(\$B0 || \$B2) 4 "test justifie 13.dot"
 	Justifie AG((\$N2 || \$N0) || (\$B0 || \$B2)) 0; Justifietodot AG((\$N2 || \$N0) || (\$B0 || \$B2)) 0 "test justifie 14.dot"
 	Justifie AF(\$B2) 0; Justifietodot AF(\$B2) 0 "test justifie 15.dot"
+	Justifie AX(EF(\$B2)) 0; Justifietodot AX(EF(\$B2)) 0 "test justifie 16.dot"
+	Justifie AX(AF(\$B2)) 0; Justifietodot AX(AF(\$B2)) 0 "test justifie 17.dot"
 	stop
 END_PARAMS

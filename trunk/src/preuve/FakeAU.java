@@ -99,7 +99,6 @@ public class FakeAU extends CheminBase {
 								} else {
 									// On doit prouver AU pour J.
 									p = genererAU();
-									p.setCouleur(getCouleur());
 									preuves.add(p);
 								}
 								p.setMarquage(m);
@@ -143,8 +142,9 @@ public class FakeAU extends CheminBase {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
-		cheminsToDot(fleches, justifications, etat);
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
+		cheminsToDot(fleches, justifications, etat, couleurs);
 	}
 
 	/**
@@ -152,7 +152,8 @@ public class FakeAU extends CheminBase {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int etat = 0; etat < marquage.length; ++etat) {
@@ -163,39 +164,15 @@ public class FakeAU extends CheminBase {
 				sb.append('N');
 				sb.append(etat);
 				sb.append(" [color=\"");
-				sb.append(parent.getCouleur());
+				sb.append(couleurs.getCouleur(parent.getFormule()));
 				sb.append("\",label=<");
-				sb.append(toDotLabel());
+				sb.append(toDotLabel(couleurs));
 				sb.append(">]\n");
 				fleches.get(etatParent).add(etat);
-				cheminsToDot(fleches, justifications, etat);
+				cheminsToDot(fleches, justifications, etat, couleurs);
 				justifications.add(sb.toString());
 				return;
 			}
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">A("
-				+ conditionToDotLabel() + ")</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String conditionToDotLabel() {
-		List<IPreuve> preuves = getPreuves();
-		if (estFin) {
-			return getDebut().toDotLabel() + " U "
-					+ preuves.get(0).toDotLabel();
-		} else {
-			return preuves.get(0).toDotLabel() + " U "
-					+ preuves.get(1).toDotLabel();
 		}
 	}
 
@@ -207,18 +184,11 @@ public class FakeAU extends CheminBase {
 	 * @param depart
 	 */
 	private void cheminsToDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, int depart) {
+			Set<String> justifications, int depart, Coloration couleurs) {
 		// Pour chaque sous-chemin.
 		for (IPreuve p : getPreuves()) {
-			p.toDot(fleches, justifications, this, depart);
+			p.toDot(fleches, justifications, this, depart, couleurs);
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void genererCouleur() {
 	}
 
 	/**
@@ -231,7 +201,6 @@ public class FakeAU extends CheminBase {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

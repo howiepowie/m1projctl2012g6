@@ -21,37 +21,12 @@ public class FakeAF extends FakeAU {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDotLabel() {
-		if (estFin()) {
-			return "<FONT COLOR=\"" + getCouleur() + "\">AF("
-					+ getPreuves().get(0).toDotLabel() + ")</FONT>";
-		} else if (aVoisinFin()) {
-			return "<FONT COLOR=\"" + getCouleur() + "\">AF("
-					+ getPreuves().get(1).toDotLabel() + ")</FONT>";
-		} else {
-			return getPreuves().get(getPreuves().size() - 1).toDotLabel();
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String conditionToDotLabel() {
-		return "";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public IPreuve clone() {
 		FakeAF res = new FakeAF(getFormule(), getMarquageCopie(), getDebut()
 				.clone(), getFin().clone());
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

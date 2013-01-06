@@ -1,6 +1,6 @@
 digraph system {
-N0 [label=<A0+A1+tour0A0+A1+tour0>,shape=octagon]
-N1 [label=<B0+A1+tour0<BR/><FONT COLOR="0.7899998 1 0.75">A(<FONT COLOR="0.44999975 1 0.75">$tour0</FONT> U <FONT COLOR="0.61999977 1 0.75">$tour1</FONT>)</FONT>>]
+N0 [label=<A0+A1+tour0>,shape=octagon]
+N1 [label=<B0+A1+tour0<BR/><FONT COLOR="0.0 1 0.5">A(<FONT COLOR="0.17 1 0.5">$tour0</FONT> U <FONT COLOR="0.34 1 0.5">$tour1</FONT>)</FONT>>]
 N2 [label=<C0+A1+tour1>]
 N3 [label=<SC0+A1+tour1>]
 N4 [label=<A0+A1+tour1>]
@@ -48,12 +48,12 @@ N17 -> N16
 N17 -> N9
 N19 -> N18
 N19 -> N10
-N1 -> N18 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.7899998 1 0.75">A(<FONT COLOR="0.44999975 1 0.75">$tour0</FONT> U <FONT COLOR="0.61999977 1 0.75">$tour1</FONT>)</FONT>>]
-N18 -> N11 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.7899998 1 0.75">A(<FONT COLOR="0.44999975 1 0.75">$tour0</FONT> U <FONT COLOR="0.61999977 1 0.75">$tour1</FONT>)</FONT>>]
-N1 -> N2 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.61999977 1 0.75">$tour1</FONT>>]
-N1 -> N1 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.44999975 1 0.75">$tour0</FONT>>]
-N11 -> N12 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.61999977 1 0.75">$tour1</FONT>>]
-N18 -> N7 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.61999977 1 0.75">$tour1</FONT>>]
-N11 -> N11 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.44999975 1 0.75">$tour0</FONT>>]
-N18 -> N18 [color="0.7899998 1 0.75",label=<<FONT COLOR="0.44999975 1 0.75">$tour0</FONT>>]
+N1 -> N2 [color="0.0 1 0.5",label=<<FONT COLOR="0.34 1 0.5">$tour1</FONT>>]
+N18 -> N7 [color="0.0 1 0.5",label=<<FONT COLOR="0.34 1 0.5">$tour1</FONT>>]
+N11 -> N12 [color="0.0 1 0.5",label=<<FONT COLOR="0.34 1 0.5">$tour1</FONT>>]
+N11 -> N11 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">$tour0</FONT>>]
+N1 -> N1 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">$tour0</FONT>>]
+N1 -> N18 [color="0.0 1 0.5",label=<<FONT COLOR="0.0 1 0.5">A(<FONT COLOR="0.17 1 0.5">$tour0</FONT> U <FONT COLOR="0.34 1 0.5">$tour1</FONT>)</FONT>>]
+N18 -> N11 [color="0.0 1 0.5",label=<<FONT COLOR="0.0 1 0.5">A(<FONT COLOR="0.17 1 0.5">$tour0</FONT> U <FONT COLOR="0.34 1 0.5">$tour1</FONT>)</FONT>>]
+N18 -> N18 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">$tour0</FONT>>]
 }

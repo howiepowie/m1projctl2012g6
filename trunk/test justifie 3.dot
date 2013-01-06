@@ -1,8 +1,8 @@
 digraph system {
-N0 [label=<A0+A1+tour0A0+A1+tour0>,shape=octagon]
+N0 [label=<A0+A1+tour0>,shape=octagon]
 N1 [label=<B0+A1+tour0>]
 N2 [label=<C0+A1+tour1>]
-N3 [label=<SC0+A1+tour1<BR/><FONT COLOR="0.2699999 1 0.75">EX(<FONT COLOR="0.099999905 1 0.75">AX(<FONT COLOR="0.92999995 1 0.75">EX(<FONT COLOR="black">(<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT> || <FONT COLOR="0.75999993 1 0.75">$tour0</FONT>)</FONT>)</FONT>)</FONT>)</FONT>>]
+N3 [label=<SC0+A1+tour1<BR/><FONT COLOR="0.0 1 0.5">EX(<FONT COLOR="0.17 1 0.5">AX(<FONT COLOR="0.34 1 0.5">EX(<FONT COLOR="0.51 1 0.5">(<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT> || <FONT COLOR="1.02 1 0.75">$tour0</FONT>)</FONT>)</FONT>)</FONT>)</FONT>>]
 N4 [label=<A0+A1+tour1>]
 N5 [label=<B0+A1+tour1>]
 N6 [label=<B0+B1+tour1>]
@@ -40,17 +40,17 @@ N14 -> N15
 N14 -> N0
 N15 -> N13
 N15 -> N1
+N16 -> N10
 N17 -> N16
 N17 -> N9
 N18 -> N7
 N18 -> N11
 N19 -> N18
 N19 -> N10
-N16 -> N6 [color="0.92999995 1 0.75",label=<<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT>>]
-N3 -> N4 [color="0.2699999 1 0.75",label=<<FONT COLOR="0.099999905 1 0.75">AX(<FONT COLOR="0.92999995 1 0.75">EX(<FONT COLOR="black">(<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT> || <FONT COLOR="0.75999993 1 0.75">$tour0</FONT>)</FONT>)</FONT>)</FONT>>]
-N16 -> N10 [color="0.92999995 1 0.75",label=<<FONT COLOR="0.75999993 1 0.75">$tour0</FONT>>]
-N4 -> N5 [color="0.099999905 1 0.75",label=<<FONT COLOR="0.92999995 1 0.75">EX(<FONT COLOR="black">(<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT> || <FONT COLOR="0.75999993 1 0.75">$tour0</FONT>)</FONT>)</FONT>>]
-N5 -> N2 [color="0.92999995 1 0.75",label=<<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT>>]
-N5 -> N6 [color="0.92999995 1 0.75",label=<<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT>>]
-N4 -> N16 [color="0.099999905 1 0.75",label=<<FONT COLOR="0.92999995 1 0.75">EX(<FONT COLOR="black">(<FONT COLOR="0.5899999 1 0.75">!<FONT COLOR="0.41999993 1 0.75">$tour0</FONT></FONT> || <FONT COLOR="0.75999993 1 0.75">$tour0</FONT>)</FONT>)</FONT>>]
+N16 -> N6 [color="0.34 1 0.5",label=<<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT>>]
+N4 -> N5 [color="0.17 1 0.5",label=<<FONT COLOR="0.34 1 0.5">EX(<FONT COLOR="0.51 1 0.5">(<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT> || <FONT COLOR="1.02 1 0.75">$tour0</FONT>)</FONT>)</FONT>>]
+N5 -> N2 [color="0.34 1 0.5",label=<<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT>>]
+N5 -> N6 [color="0.34 1 0.5",label=<<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT>>]
+N4 -> N16 [color="0.17 1 0.5",label=<<FONT COLOR="0.34 1 0.5">EX(<FONT COLOR="0.51 1 0.5">(<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT> || <FONT COLOR="1.02 1 0.75">$tour0</FONT>)</FONT>)</FONT>>]
+N3 -> N4 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">AX(<FONT COLOR="0.34 1 0.5">EX(<FONT COLOR="0.51 1 0.5">(<FONT COLOR="0.68 1 0.5">!<FONT COLOR="0.85 1 0.5">$tour0</FONT></FONT> || <FONT COLOR="1.02 1 0.75">$tour0</FONT>)</FONT>)</FONT>)</FONT>>]
 }

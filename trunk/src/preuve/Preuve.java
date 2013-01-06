@@ -14,25 +14,6 @@ import CTL.CTL;
 public class Preuve implements IPreuve {
 
 	/**
-	 * Dernière valeur hue.
-	 */
-	private static float hue = 0;
-
-	/**
-	 * Liste de couleurs distinctes.
-	 */
-	private static List<Couleur> COULEURS;
-
-	static {
-		COULEURS = new ArrayList<Couleur>();
-		for (hue = 0; hue <= 1; hue += 0.17) {
-			Couleur c = new Couleur();
-			c.valeur = hue + " 1 0.5";
-			COULEURS.add(c);
-		}
-	}
-
-	/**
 	 * Formule associée à la preuve.
 	 */
 	private Tree formule;
@@ -46,11 +27,6 @@ public class Preuve implements IPreuve {
 	 * Liste des sous-preuves.
 	 */
 	private List<IPreuve> preuves;
-
-	/**
-	 * Couleur associée à la preuve.
-	 */
-	private Couleur couleur;
 
 	public Preuve(Tree formule) {
 		this(formule, null);
@@ -80,16 +56,6 @@ public class Preuve implements IPreuve {
 	@Override
 	public List<IPreuve> getPreuves() {
 		return preuves;
-	}
-
-	@Override
-	public Couleur getCouleur() {
-		return couleur;
-	}
-
-	@Override
-	public void setCouleur(Couleur couleur) {
-		this.couleur = couleur;
 	}
 
 	@Override
@@ -131,9 +97,10 @@ public class Preuve implements IPreuve {
 
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
 		for (IPreuve p : preuves) {
-			p.toDot(fleches, justifications, this, etat);
+			p.toDot(fleches, justifications, this, etat, couleurs);
 		}
 	}
 
@@ -142,7 +109,8 @@ public class Preuve implements IPreuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int i = 0; i < marquage.length; ++i) {
@@ -152,9 +120,9 @@ public class Preuve implements IPreuve {
 				sb.append(" -> N");
 				sb.append(i);
 				sb.append(" [color=\"");
-				sb.append(parent.getCouleur());
+				sb.append(couleurs.getCouleur(parent.getFormule()));
 				sb.append("\",label=<");
-				sb.append(toDotLabel());
+				sb.append(toDotLabel(couleurs));
 				sb.append(">]");
 				sb.append('\n');
 				fleches.get(etatParent).add(i);
@@ -167,8 +135,8 @@ public class Preuve implements IPreuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDotLabel() {
-		return "";
+	public String toDotLabel(Coloration couleurs) {
+		return couleurs.getLabel(formule);
 	}
 
 	public static String affiche(boolean[] b) {
@@ -226,24 +194,6 @@ public class Preuve implements IPreuve {
 		boolean[] b = new boolean[marquage.length];
 		System.arraycopy(marquage, 0, b, 0, b.length);
 		return b;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void genererCouleur() {
-		if (couleur == null)
-			couleur = new Couleur();
-		if (COULEURS.size() > 0) {
-			couleur.valeur = COULEURS.remove(0).valeur;
-		} else {
-			String valeur = hue + " 1 0.75";
-			couleur.valeur = valeur;
-			hue += 0.17;
-			if (hue > 1)
-				hue -= 1;
-		}
 	}
 
 	/**
