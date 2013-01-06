@@ -129,14 +129,14 @@ public class CTL {
 			left = new True(null, vrai());
 			left.genererCouleur();
 			right = justifie(rdp, t.getChild(0), null);
-			IPreuve p2 = justifieAU(left, right, t);
-			p = new AF(t, p2);
+			boolean[] marquage = AU(vrai(), right.getMarquage());
+			p = new AF(t, marquage, left, right);
 			break;
 		case CommandLineParser.EF:
 			left = new True(null, vrai());
 			left.genererCouleur();
 			right = justifie(rdp, t.getChild(0), null);
-			p2 = justifieEU(left, right, t);
+			IPreuve p2 = justifieEU(left, right, t);
 			p = new EF(t, p2);
 			break;
 		case CommandLineParser.AG:
@@ -145,7 +145,7 @@ public class CTL {
 			IPreuve debut = left.clone();
 			IPreuve fin = left.clone();
 			fin.setMarquage(and(dead(), fin.getMarquage()));
-			boolean[] marquage = neg(EU(vrai(), neg(left.getMarquage())));
+			marquage = neg(EU(vrai(), neg(left.getMarquage())));
 			p = new AG(t, marquage, debut, fin);
 			break;
 		case CommandLineParser.EG:

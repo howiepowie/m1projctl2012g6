@@ -54,6 +54,9 @@
 # - AG(($N2 || $N0) || ($B0 || $B2)) 0:
 # doit prouver que tous les chemins partant de l'etat 0 ont $N2, $N0, $B0 ou $B2 qui est vraie.
 #
+# - AF($B2) 0:
+# doit prouver que depuis l'etat 0 tous les chemins menent a un etat pour lequel $B2 est vraie.
+#
 #load "Chameaux1.net"; graphe; Justifie EG($B0 || $B2) 0; Justifietodot EG($B0 || $B2) 0 "justifie.dot"; stop
 #
 # .dot produits:
@@ -80,5 +83,6 @@ java -jar modelprojet.jar << -END_PARAMS
 	graphe; todot "Chameaux1.dot"
 	Justifie AG(\$B0 || \$B2) 4; Justifietodot AG(\$B0 || \$B2) 4 "test justifie 13.dot"
 	Justifie AG((\$N2 || \$N0) || (\$B0 || \$B2)) 0; Justifietodot AG((\$N2 || \$N0) || (\$B0 || \$B2)) 0 "test justifie 14.dot"
+	Justifie AF(\$B2) 0; Justifietodot AF(\$B2) 0 "test justifie 15.dot"
 	stop
 END_PARAMS

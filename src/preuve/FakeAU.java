@@ -15,12 +15,25 @@ public class FakeAU extends CheminBase {
 	 */
 	private boolean estFin;
 
+	/**
+	 * Si un voisin est une fin d'un chemin.
+	 */
+	private boolean aVoisinFin;
+
 	public FakeAU(Tree formule, boolean[] marquage) {
 		super(formule, marquage);
 	}
 
 	public FakeAU(Tree formule, boolean[] marquage, IPreuve debut, IPreuve fin) {
 		super(formule, marquage, debut, fin);
+	}
+
+	public boolean estFin() {
+		return estFin;
+	}
+
+	public boolean aVoisinFin() {
+		return aVoisinFin;
 	}
 
 	/**
@@ -38,6 +51,7 @@ public class FakeAU extends CheminBase {
 	 */
 	public void recreerChemins(CTL ctl, int[][] pred) {
 		estFin = true;
+		aVoisinFin = false;
 		List<IPreuve> preuves = getPreuves();
 		preuves.clear();
 		boolean[] avant = getMarquage();
@@ -78,6 +92,7 @@ public class FakeAU extends CheminBase {
 								IPreuve p;
 								// Si J est un état final.
 								if (fin[j]) {
+									aVoisinFin = true;
 									// On doit prouver la formule de fin pour J.
 									p = getFin().clone();
 									preuves.add(1, p);
