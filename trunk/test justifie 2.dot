@@ -1,0 +1,56 @@
+digraph system {
+N0 [label=<A0+A1+tour0A0+A1+tour0>,shape=octagon]
+N1 [label=<B0+A1+tour0>]
+N2 [label=<C0+A1+tour1>]
+N3 [label=<SC0+A1+tour1>]
+N4 [label=<A0+A1+tour1<BR/><FONT COLOR="0.22999994 1 0.75">AX(<FONT COLOR="0.059999943 1 0.75">EX(<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>)</FONT>)</FONT>>]
+N5 [label=<B0+A1+tour1>]
+N6 [label=<B0+B1+tour1>]
+N7 [label=<C0+B1+tour1>]
+N8 [label=<C0+C1+tour0>]
+N9 [label=<SC0+C1+tour0>]
+N10 [label=<A0+C1+tour0>]
+N11 [label=<B0+C1+tour0>]
+N12 [label=<C0+C1+tour1>]
+N13 [label=<C0+SC1+tour1>]
+N14 [label=<A0+SC1+tour0>]
+N15 [label=<B0+SC1+tour0>]
+N16 [label=<A0+B1+tour1>]
+N17 [label=<SC0+B1+tour1>]
+N18 [label=<B0+B1+tour0>]
+N19 [label=<A0+B1+tour0>]
+N0 -> N1
+N0 -> N19
+N1 -> N2
+N1 -> N18
+N2 -> N3
+N2 -> N7
+N3 -> N4
+N3 -> N17
+N5 -> N6
+N6 -> N7
+N6 -> N11
+N7 -> N8
+N8 -> N9
+N9 -> N10
+N10 -> N11
+N10 -> N14
+N11 -> N12
+N12 -> N13
+N13 -> N2
+N14 -> N15
+N14 -> N0
+N15 -> N13
+N15 -> N1
+N16 -> N10
+N17 -> N16
+N17 -> N9
+N18 -> N7
+N18 -> N11
+N19 -> N18
+N19 -> N10
+N16 -> N6 [color="0.059999943 1 0.75",label=<<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>>]
+N4 -> N5 [color="0.22999994 1 0.75",label=<<FONT COLOR="0.059999943 1 0.75">EX(<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>)</FONT>>]
+N4 -> N16 [color="0.22999994 1 0.75",label=<<FONT COLOR="0.059999943 1 0.75">EX(<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>)</FONT>>]
+N5 -> N2 [color="0.059999943 1 0.75",label=<<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>>]
+}

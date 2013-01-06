@@ -1,6 +1,8 @@
 package preuve;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.antlr.runtime.tree.Tree;
 
@@ -56,7 +58,7 @@ public class EX extends Preuve {
 				// On l'attache à un EX ne contenant que l'état actuel.
 				boolean[] p3m = new boolean[marquage.length];
 				p3m[etat] = true;
-				IPreuve p3 = new FakeEX(getFormule(), p3m);
+				IPreuve p3 = new FakeEX(this, getFormule(), p3m);
 				p3.getPreuves().add(p2);
 				// On ne garde qu'un seul état pour la sous-preuve car EX.
 				boolean b = true;
@@ -118,12 +120,43 @@ public class EX extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etat) {
+		for (IPreuve p : getPreuves()) {
+			p.toDotRacine(fleches, justifications, null, etat);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void toDot(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etatParent) {
+		for (IPreuve p : getPreuves()) {
+			p.toDot(fleches, justifications, parent, etatParent);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toDotLabel() {
+		return getPreuves().get(0).toDotLabel();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public IPreuve clone() {
 		EX res = new EX(getFormule());
 		res.setMarquage(getMarquageCopie());
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
+		res.setCouleur(getCouleur());
 		return res;
 	}
 

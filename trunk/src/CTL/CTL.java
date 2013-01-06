@@ -170,6 +170,7 @@ public class CTL {
 		if (parent != null) {
 			parent.getPreuves().add(p);
 		}
+		p.genererCouleur();
 		return p;
 	}
 

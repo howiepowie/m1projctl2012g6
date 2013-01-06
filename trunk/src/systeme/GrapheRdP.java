@@ -2,7 +2,9 @@ package systeme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import preuve.IPreuve;
 import rdp.RdP;
@@ -64,22 +66,45 @@ public class GrapheRdP {
 	}
 
 	public String justifieToDot(IPreuve preuve, int depart) {
+		Map<Integer, Set<Integer>> fleches = new HashMap<Integer, Set<Integer>>();
+		for (int i = 0; i < nbEtat; ++i) {
+			fleches.put(i, new HashSet<Integer>());
+		}
+		Set<String> justifications = new HashSet<String>();
+		preuve.toDotRacine(fleches, justifications, null, depart);
 		StringBuffer res = new StringBuffer();
 		res.append("digraph system {\n");
 
-		res.append("N" + 0 + " [label=\"" + rdp.toStringMarquage(etat.get(0)));
-		res.append("\",shape=octagon]\n");
+		res.append("N" + 0 + " [label=<" + rdp.toStringMarquage(etat.get(0)));
+		if (depart == 0) {
+			res.append("<BR/>");
+			res.append(preuve.toDotLabel());
+		} else {
+			res.append(rdp.toStringMarquage(etat.get(0)));
+		}
+		res.append(">,shape=octagon]\n");
 
 		for (int e = 1; e < etat.size(); e++) {
-			res.append("N" + e + " [label=\""
+			res.append("N" + e + " [label=<"
 					+ rdp.toStringMarquage(etat.get(e)));
-			res.append("\"]\n");
+			if (depart == e) {
+				res.append("<BR/>");
+				res.append(preuve.toDotLabel());
+			}
+			res.append(">]\n");
 		}
 
-		for (int e = 0; e < etat.size(); e++)
-			for (int t = 0; t < succ.get(e).size(); t++)
-				res.append("N" + e + " -> N" + succ.get(e).get(t) + "\n");
-		res.append(preuve.toDot(0));
+		for (int e = 0; e < etat.size(); e++) {
+			for (int t = 0; t < succ.get(e).size(); t++) {
+				int f = succ.get(e).get(t);
+				if (!fleches.get(e).contains(f)) {
+					res.append("N" + e + " -> N" + f + "\n");
+				}
+			}
+		}
+		for (String s : justifications) {
+			res.append(s);
+		}
 
 		res.append("}\n");
 		return res.toString();

@@ -1,22 +1,55 @@
 package preuve;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.antlr.runtime.tree.Tree;
-
-import principal.CommandLineParser;
 
 import CTL.CTL;
 
 public class Preuve implements IPreuve {
+
+	/**
+	 * Dernière valeur hue.
+	 */
+	private static float hue = 0;
+
+	/**
+	 * Liste de couleurs distinctes.
+	 */
+	private static List<Couleur> COULEURS;
+
+	static {
+		COULEURS = new ArrayList<Couleur>();
+		for (hue = 0; hue <= 1; hue += 0.17) {
+			Couleur c = new Couleur();
+			c.valeur = hue + " 1 0.5";
+			COULEURS.add(c);
+		}
+	}
+
+	/**
+	 * Formule associée à la preuve.
+	 */
 	private Tree formule;
 
+	/**
+	 * Etats vérifiants la formule.
+	 */
 	private boolean[] marquage;
 
+	/**
+	 * Liste des sous-preuves.
+	 */
 	private List<IPreuve> preuves;
+
+	/**
+	 * Couleur associée à la preuve.
+	 */
+	private Couleur couleur;
 
 	public Preuve(Tree formule) {
 		this(formule, null);
@@ -49,6 +82,16 @@ public class Preuve implements IPreuve {
 	}
 
 	@Override
+	public Couleur getCouleur() {
+		return couleur;
+	}
+
+	@Override
+	public void setCouleur(Couleur couleur) {
+		this.couleur = couleur;
+	}
+
+	@Override
 	public void couperRacine(CTL ctl, int[][] pred, int etat) {
 		tousFalseSauf(etat);
 		for (IPreuve c : preuves) {
@@ -61,50 +104,6 @@ public class Preuve implements IPreuve {
 		tousFalseSauf(pred, parents);
 		for (IPreuve c : preuves) {
 			c.couper(ctl, pred, marquage);
-		}
-	}
-
-	@Override
-	public String toString() {
-		switch (formule.getType()) {
-		case CommandLineParser.ATOM:
-			return '$' + formule.getText();
-		case CommandLineParser.TRUE:
-			return "true";
-		case CommandLineParser.FALSE:
-			return "false";
-		case CommandLineParser.DEAD:
-			return "dead";
-		case CommandLineParser.INITIAL:
-			return "initial";
-		case CommandLineParser.NEG:
-			return '!' + preuves.get(0).toString();
-		case CommandLineParser.AX:
-			return "AX(" + preuves.get(0).toString() + ')';
-		case CommandLineParser.EX:
-			return "EX(" + preuves.get(0).toString() + ')';
-		case CommandLineParser.AF:
-			return "AF(" + preuves.get(0).toString() + ')';
-		case CommandLineParser.EF:
-			return "EF(" + preuves.get(0).toString() + ')';
-		case CommandLineParser.AG:
-			return "AG(" + preuves.get(0).toString() + ')';
-		case CommandLineParser.EG:
-			return "EG(" + preuves.get(0).toString() + ')';
-		case CommandLineParser.OR:
-			return '(' + preuves.get(0).toString() + ") || ("
-					+ preuves.get(1).toString() + ')';
-		case CommandLineParser.AND:
-			return '(' + preuves.get(0).toString() + ") && ("
-					+ preuves.get(1).toString() + ')';
-		case CommandLineParser.IMPLY:
-			return '(' + preuves.get(0).toString() + ") -> ("
-					+ preuves.get(1).toString() + ')';
-		case CommandLineParser.EQUIV:
-			return '(' + preuves.get(0).toString() + ") <-> ("
-					+ preuves.get(1).toString() + ')';
-		default:
-			return null;
 		}
 	}
 
@@ -130,8 +129,43 @@ public class Preuve implements IPreuve {
 	}
 
 	@Override
-	public String toDot(int etat) {
-		// TODO Auto-generated method stub
+	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etat) {
+		for (IPreuve p : preuves) {
+			p.toDot(fleches, justifications, this, etat);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void toDot(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etatParent) {
+		StringBuffer sb = new StringBuffer();
+		boolean[] marquage = getMarquage();
+		for (int i = 0; i < marquage.length; ++i) {
+			if (marquage[i]) {
+				sb.append('N');
+				sb.append(etatParent);
+				sb.append(" -> N");
+				sb.append(i);
+				sb.append(" [color=\"");
+				sb.append(parent.getCouleur());
+				sb.append("\",label=\"");
+				sb.append(toString());
+				sb.append("\"]");
+				sb.append('\n');
+			}
+		}
+		justifications.add(sb.toString());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toDotLabel() {
 		return "";
 	}
 
@@ -190,6 +224,24 @@ public class Preuve implements IPreuve {
 		boolean[] b = new boolean[marquage.length];
 		System.arraycopy(marquage, 0, b, 0, b.length);
 		return b;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void genererCouleur() {
+		if (couleur == null)
+			couleur = new Couleur();
+		if (COULEURS.size() > 0) {
+			couleur.valeur = COULEURS.remove(0).valeur;
+		} else {
+			String valeur = hue + " 1 0.75";
+			couleur.valeur = valeur;
+			hue += 0.17;
+			if (hue > 1)
+				hue -= 1;
+		}
 	}
 
 }
