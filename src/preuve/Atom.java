@@ -1,5 +1,8 @@
 package preuve;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.runtime.tree.Tree;
 
 import CTL.CTL;
@@ -38,22 +41,33 @@ public class Atom extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDot(int parent) {
+	public void toDot(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etatParent) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int i = 0; i < marquage.length; ++i) {
 			if (marquage[i]) {
 				sb.append('N');
-				sb.append(parent);
+				sb.append(etatParent);
 				sb.append(" -> N");
 				sb.append(i);
-				sb.append(" [label=\"");
-				sb.append(toString());
-				sb.append("\"]");
-				sb.append('\n');
+				sb.append(" [color=\"");
+				sb.append(parent.getCouleur());
+				sb.append("\",label=<");
+				sb.append(toDotLabel());
+				sb.append(">]\n");
+				fleches.get(etatParent).add(i);
 			}
 		}
-		return sb.toString();
+		justifications.add(sb.toString());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toDotLabel() {
+		return "<FONT COLOR=\"" + getCouleur() + "\">" + toString() + "</FONT>";
 	}
 
 	/**
@@ -61,7 +75,9 @@ public class Atom extends Preuve {
 	 */
 	@Override
 	public IPreuve clone() {
-		return new Atom(getFormule(), getMarquage().clone());
+		Atom res = new Atom(getFormule(), getMarquage().clone());
+		res.setCouleur(getCouleur());
+		return res;
 	}
 
 }

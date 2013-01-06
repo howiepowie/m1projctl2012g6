@@ -1,5 +1,8 @@
 package preuve;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.antlr.runtime.tree.Tree;
 
 import CTL.CTL;
@@ -44,8 +47,16 @@ public class False extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDot(int etat) {
-		return "";
+	public void toDot(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etat) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toDotLabel() {
+		return "<FONT COLOR=\"" + getCouleur() + "\">false</FONT>";
 	}
 
 	/**
@@ -53,7 +64,9 @@ public class False extends Preuve {
 	 */
 	@Override
 	public IPreuve clone() {
-		return new False(getFormule(), getMarquageCopie());
+		False res = new False(getFormule(), getMarquageCopie());
+		res.setCouleur(getCouleur());
+		return res;
 	}
 
 }
