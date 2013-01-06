@@ -19,6 +19,7 @@ public class Neg extends Preuve {
 	@Override
 	public void couperRacine(CTL ctl, int[][] pred, int etat) {
 		tousFalseSauf(etat);
+		getPreuves().get(0).couper(ctl, pred, ctl.vrai());
 	}
 
 	/**
@@ -27,6 +28,15 @@ public class Neg extends Preuve {
 	@Override
 	public void couper(CTL ctl, int[][] pred, boolean[] parents) {
 		tousFalseSauf(pred, parents);
+		getPreuves().get(0).couper(ctl, pred, ctl.vrai());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etat) {
 	}
 
 	/**

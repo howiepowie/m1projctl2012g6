@@ -31,14 +31,6 @@ public class False extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toTree(String indent) {
-		return indent + "false\n";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
 			Set<String> justifications, IPreuve parent, int etat) {
 	}
@@ -59,6 +51,14 @@ public class False extends Preuve {
 		False res = new False(getFormule(), getMarquageCopie());
 		res.setCouleur(getCouleur());
 		return res;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String formuleToString() {
+		return "false";
 	}
 
 }

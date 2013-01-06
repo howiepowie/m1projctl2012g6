@@ -40,9 +40,26 @@
 # par des etats qui ont au moins un voisin ayant $tour1 a vraie.
 # cet exemple montre comment l'ensemble des chemins est affiche et comment chaque etat est prouve.
 #
+# - EF($SCO) 0:
+# doit prouver qu'on peut atteindre un etat avec $SC0 a vraie en partant de l'etat 0.
+# cet exemple montre comment le chemin est affiche en justifiant tous les etats empruntes par true.
+#
+# - AF($SCO) 0:
+# doit prouver qu'on peut atteindre un etat avec $SC0 a vraie en partant de l'etat 0.
+# cet exemple montre comment le chemin est affiche en justifiant tous les etats empruntes par true.
+#
+# - AG($B0 || $B2) 4:
+# doit prouver que tous les chemins partant de l'etat 4 ont soit $B0 soit $B2 a qui est vraie.
+
+# - AG(($N2 || $N0) || ($B0 || $B2)) 0:
+# doit prouver que tous les chemins partant de l'etat 0 ont $N2, $N0, $B0 ou $B2 qui est vraie.
+#
+#load "Chameaux1.net"; graphe; Justifie EG($B0 || $B2) 0; Justifietodot EG($B0 || $B2) 0 "justifie.dot"; stop
+#
 # .dot produits:
-# - "peterson.net": le graphe.
-# - "test justifie 1-9.dot"
+# - "peterson.dot": les graphes.
+# - "Chameaux1.dot": les graphes.
+# - "test justifie 1-14.dot"
 java -jar modelprojet.jar << -END_PARAMS
 	shell
 	load "peterson.net"
@@ -58,5 +75,10 @@ java -jar modelprojet.jar << -END_PARAMS
 	Justifie E(EX(\$tour0) U EX(\$SC0)) 0; Justifietodot E(EX(\$tour0) U EX(\$SC0)) 0 "test justifie 9.dot"
 	Justifie A(\$tour0 U \$tour1) 1; Justifietodot A(\$tour0 U \$tour1) 1 "test justifie 10.dot"
 	Justifie A(EX(\$tour1) U \$tour1) 1; Justifietodot A(EX(\$tour1) U \$tour1) 1 "test justifie 11.dot"
+	Justifie EF(\$SC0) 0; Justifietodot EF(\$SC0) 0 "test justifie 12.dot"
+	load "Chameaux1.net"
+	graphe; todot "Chameaux1.dot"
+	Justifie AG(\$B0 || \$B2) 4; Justifietodot AG(\$B0 || \$B2) 4 "test justifie 13.dot"
+	Justifie AG((\$N2 || \$N0) || (\$B0 || \$B2)) 0; Justifietodot AG((\$N2 || \$N0) || (\$B0 || \$B2)) 0 "test justifie 14.dot"
 	stop
 END_PARAMS

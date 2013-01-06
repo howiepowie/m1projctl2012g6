@@ -1,8 +1,5 @@
 package preuve;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.antlr.runtime.tree.Tree;
 
 import CTL.CTL;
@@ -31,24 +28,16 @@ public class True extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toTree(String indent) {
-		return indent + "true\n";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toDotLabel() {
 		return "<FONT COLOR=\"" + getCouleur() + "\">true</FONT>";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String formuleToString() {
+		return "true";
 	}
 
 	/**

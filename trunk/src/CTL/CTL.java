@@ -55,10 +55,10 @@ public class CTL {
 			return EU(vrai(), left);
 		case CommandLineParser.AG:
 			left = valeur(rdp, t.getChild(0));
-			return neg(AU(vrai(), neg(left)));
+			return neg(EU(vrai(), neg(left)));
 		case CommandLineParser.EG:
 			left = valeur(rdp, t.getChild(0));
-			return neg(EU(vrai(), neg(left)));
+			return neg(AU(vrai(), neg(left)));
 		case CommandLineParser.OR:
 			left = valeur(rdp, t.getChild(0));
 			right = valeur(rdp, t.getChild(1));
@@ -126,21 +126,37 @@ public class CTL {
 			p.setMarquage(EX(left.getMarquage()));
 			break;
 		case CommandLineParser.AF:
-			left = justifie(rdp, t.getChild(0), p);
-			p.setMarquage(AU(vrai(), left.getMarquage()));
+			left = new True(null, vrai());
+			left.genererCouleur();
+			right = justifie(rdp, t.getChild(0), null);
+			IPreuve p2 = justifieAU(left, right, t);
+			p = new AF(t, p2);
 			break;
 		case CommandLineParser.EF:
-			left = justifie(rdp, t.getChild(0), p);
-
-			p.setMarquage(EU(vrai(), left.getMarquage()));
+			left = new True(null, vrai());
+			left.genererCouleur();
+			right = justifie(rdp, t.getChild(0), null);
+			p2 = justifieEU(left, right, t);
+			p = new EF(t, p2);
 			break;
 		case CommandLineParser.AG:
+			// Il faut créer un faux chemin validant tout le temps la formule.
 			left = justifie(rdp, t.getChild(0), p);
-			p.setMarquage(neg(AU(vrai(), neg(left.getMarquage()))));
+			IPreuve debut = left.clone();
+			IPreuve fin = left.clone();
+			fin.setMarquage(and(dead(), fin.getMarquage()));
+			boolean[] marquage = neg(EU(vrai(), neg(left.getMarquage())));
+			p = new AG(t, marquage, debut, fin);
 			break;
 		case CommandLineParser.EG:
-			left = justifie(rdp, t.getChild(0), p);
-			p.setMarquage(neg(EU(vrai(), neg(left.getMarquage()))));
+			// Il faut créer un faux chemin validant tout le temps la formule.
+			left = justifie(rdp, t.getChild(0), null);
+			debut = left.clone();
+			fin = left.clone();
+			fin.setMarquage(and(dead(), fin.getMarquage()));
+			marquage = neg(AU(vrai(), neg(left.getMarquage())));
+			System.out.println(Preuve.affiche(marquage));
+			p = new EG(t, marquage, debut, fin);
 			break;
 		case CommandLineParser.OR:
 			p = new Or(t);

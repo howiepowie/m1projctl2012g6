@@ -75,8 +75,7 @@ public class Or extends Preuve {
 			if (marquage[i]) {
 				if (leftM[i]) {
 					left.toDot(fleches, justifications, parent, etatParent);
-				}
-				if (rightM[i]) {
+				} else if (rightM[i]) {
 					right.toDot(fleches, justifications, parent, etatParent);
 				}
 			}

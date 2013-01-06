@@ -10,6 +10,11 @@ import CTL.CTL;
 
 public class FakeAU extends CheminBase {
 
+	/**
+	 * Si cet état est la fin d'un chemin.
+	 */
+	private boolean estFin;
+
 	public FakeAU(Tree formule, boolean[] marquage) {
 		super(formule, marquage);
 	}
@@ -32,6 +37,7 @@ public class FakeAU extends CheminBase {
 	 * sauf si le voisin est un état prouvant la fin auquel cas on génère un EU.
 	 */
 	public void recreerChemins(CTL ctl, int[][] pred) {
+		estFin = true;
 		List<IPreuve> preuves = getPreuves();
 		preuves.clear();
 		boolean[] avant = getMarquage();
@@ -54,6 +60,7 @@ public class FakeAU extends CheminBase {
 			return;
 		} else {
 			// Sinon, on doit prouver le départ et les chemins.
+			estFin = false;
 			IPreuve p = getDebut().clone();
 			p.couperRacine(ctl, pred, etat);
 			preuves.add(p);
@@ -73,16 +80,15 @@ public class FakeAU extends CheminBase {
 								if (fin[j]) {
 									// On doit prouver la formule de fin pour J.
 									p = getFin().clone();
+									preuves.add(1, p);
 								} else {
 									// On doit prouver AU pour J.
-									p = new AU(getFormule(),
-											getEtats().clone(), getDebut()
-													.clone(), getFin().clone());
+									p = genererAU();
 									p.setCouleur(getCouleur());
+									preuves.add(p);
 								}
 								p.setMarquage(m);
 								p.couperRacine(ctl, pred, j);
-								preuves.add(p);
 							}
 						}
 					}
@@ -90,6 +96,11 @@ public class FakeAU extends CheminBase {
 				return;
 			}
 		}
+	}
+
+	protected IChemin genererAU() {
+		return new AU(getFormule(), getEtats().clone(), getDebut().clone(),
+				getFin().clone());
 	}
 
 	/**
@@ -164,7 +175,7 @@ public class FakeAU extends CheminBase {
 	@Override
 	public String conditionToDotLabel() {
 		List<IPreuve> preuves = getPreuves();
-		if (preuves.size() == 1) {
+		if (estFin) {
 			return getDebut().toDotLabel() + " U "
 					+ preuves.get(0).toDotLabel();
 		} else {

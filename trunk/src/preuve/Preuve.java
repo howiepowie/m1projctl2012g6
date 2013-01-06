@@ -153,10 +153,11 @@ public class Preuve implements IPreuve {
 				sb.append(i);
 				sb.append(" [color=\"");
 				sb.append(parent.getCouleur());
-				sb.append("\",label=\"");
-				sb.append(toString());
-				sb.append("\"]");
+				sb.append("\",label=<");
+				sb.append(toDotLabel());
+				sb.append(">]");
 				sb.append('\n');
+				fleches.get(etatParent).add(i);
 			}
 		}
 		justifications.add(sb.toString());
