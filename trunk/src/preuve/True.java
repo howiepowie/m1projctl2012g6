@@ -2,26 +2,10 @@ package preuve;
 
 import org.antlr.runtime.tree.Tree;
 
-import CTL.CTL;
-
 public class True extends Preuve {
 
 	public True(Tree formule, boolean[] marquage) {
 		super(formule, marquage);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void couperRacine(CTL ctl, int[][] pred, int etat) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void couper(CTL ctl, int[][] pred, boolean[] parents) {
 	}
 
 	/**

@@ -55,4 +55,8 @@ public interface IChemin extends IPreuve {
 	 */
 	String conditionToDotLabel();
 
+	boolean estFin();
+
+	boolean aVoisinFin();
+
 }

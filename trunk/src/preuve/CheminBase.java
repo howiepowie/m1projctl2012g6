@@ -62,6 +62,22 @@ public abstract class CheminBase extends Preuve implements IChemin {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public boolean estFin() {
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean aVoisinFin() {
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public IPreuve getDebut() {
 		return debut;
 	}
