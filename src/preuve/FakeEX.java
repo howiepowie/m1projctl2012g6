@@ -11,9 +11,8 @@ public class FakeEX extends Preuve {
 		super(formule);
 	}
 
-	public FakeEX(EX parent, Tree formule, boolean[] marquage) {
+	public FakeEX(Tree formule, boolean[] marquage) {
 		super(formule, marquage);
-		setCouleur(parent.getCouleur());
 	}
 
 	/**
@@ -40,9 +39,10 @@ public class FakeEX extends Preuve {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
 		for (IPreuve p : getPreuves()) {
-			p.toDot(fleches, justifications, this, etat);
+			p.toDot(fleches, justifications, this, etat, couleurs);
 		}
 	}
 
@@ -51,7 +51,8 @@ public class FakeEX extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int etat = 0; etat < marquage.length; ++etat) {
@@ -62,34 +63,18 @@ public class FakeEX extends Preuve {
 				sb.append('N');
 				sb.append(etat);
 				sb.append(" [color=\"");
-				sb.append(parent.getCouleur());
+				sb.append(couleurs.getCouleur(parent.getFormule()));
 				sb.append("\",label=<");
-				sb.append(toDotLabel());
+				sb.append(toDotLabel(couleurs));
 				sb.append(">]\n");
 				fleches.get(etatParent).add(etat);
 				for (IPreuve p : getPreuves()) {
-					p.toDot(fleches, justifications, this, etat);
+					p.toDot(fleches, justifications, this, etat, couleurs);
 				}
 				justifications.add(sb.toString());
 				return;
 			}
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">EX("
-				+ getPreuves().get(0).toDotLabel() + ")</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void genererCouleur() {
 	}
 
 	/**
@@ -102,7 +87,6 @@ public class FakeEX extends Preuve {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

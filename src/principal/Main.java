@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import org.antlr.runtime.tree.Tree;
 
+import preuve.Coloration;
 import preuve.IPreuve;
 import preuve.Preuve;
 import rdp.RdP;
@@ -238,7 +239,8 @@ public class Main implements ICallback {
 		if (grapheRdP == null) {
 			System.out.println("Aucun graphe d'etat charge.");
 		} else {
-			IPreuve p = justifier(formule, etat);
+			Coloration couleurs = new Coloration();
+			IPreuve p = justifier(formule, etat, couleurs);
 			System.out.println(p.toTree());
 		}
 	}
@@ -252,11 +254,12 @@ public class Main implements ICallback {
 			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			try {
-				IPreuve p = justifier(formule, etat);
+				Coloration couleurs = new Coloration();
+				IPreuve p = justifier(formule, etat, couleurs);
 				File f = new File(filename);
 				BufferedOutputStream bos = new BufferedOutputStream(
 						new FileOutputStream(f));
-				bos.write(grapheRdP.justifieToDot(p, etat).getBytes());
+				bos.write(grapheRdP.justifieToDot(p, etat, couleurs).getBytes());
 				bos.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -306,7 +309,7 @@ public class Main implements ICallback {
 	 *            l'état de départ.
 	 * @return la justification.
 	 */
-	public IPreuve justifier(Tree formule, int etat) {
+	public IPreuve justifier(Tree formule, int etat, Coloration couleurs) {
 		int[][] succ = listToInt(grapheRdP.succ);
 		int[][] pred = listToInt(grapheRdP.pred);
 		boolean[][] AP = new boolean[rdp.tablePlace.size()][grapheRdP.nbEtat];
@@ -318,7 +321,7 @@ public class Main implements ICallback {
 		}
 		CTL ctl = new CTL(succ, AP);
 		IPreuve p = new Preuve(formule);
-		ctl.justifie(rdp, formule, p);
+		ctl.justifie(rdp, formule, p, couleurs);
 		p.getPreuves().get(0).couperRacine(ctl, pred, etat);
 		return p.getPreuves().get(0);
 	}

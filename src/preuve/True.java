@@ -12,14 +12,6 @@ public class True extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">true</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String formuleToString() {
 		return "true";
 	}
@@ -30,7 +22,6 @@ public class True extends Preuve {
 	@Override
 	public IPreuve clone() {
 		True res = new True(getFormule(), getMarquageCopie());
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

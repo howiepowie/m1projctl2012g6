@@ -58,7 +58,7 @@ public class EX extends Preuve {
 				// On l'attache à un EX ne contenant que l'état actuel.
 				boolean[] p3m = new boolean[marquage.length];
 				p3m[etat] = true;
-				IPreuve p3 = new FakeEX(this, getFormule(), p3m);
+				IPreuve p3 = new FakeEX(getFormule(), p3m);
 				p3.getPreuves().add(p2);
 				// On ne garde qu'un seul état pour la sous-preuve car EX.
 				boolean b = true;
@@ -113,9 +113,10 @@ public class EX extends Preuve {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
 		for (IPreuve p : getPreuves()) {
-			p.toDotRacine(fleches, justifications, null, etat);
+			p.toDotRacine(fleches, justifications, null, etat, couleurs);
 		}
 	}
 
@@ -124,18 +125,11 @@ public class EX extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		for (IPreuve p : getPreuves()) {
-			p.toDot(fleches, justifications, parent, etatParent);
+			p.toDot(fleches, justifications, parent, etatParent, couleurs);
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return getPreuves().get(0).toDotLabel();
 	}
 
 	/**
@@ -148,7 +142,6 @@ public class EX extends Preuve {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

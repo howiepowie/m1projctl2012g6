@@ -21,30 +21,12 @@ public class FakeAG extends FakeAU {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">AG("
-				+ conditionToDotLabel() + ")</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String conditionToDotLabel() {
-		return getPreuves().get(0).toDotLabel();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public IPreuve clone() {
 		FakeAG res = new FakeAG(getFormule(), getMarquageCopie(), getDebut()
 				.clone(), getFin().clone());
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

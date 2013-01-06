@@ -1,9 +1,9 @@
 digraph system {
-N0 [label=<A0+A1+tour0A0+A1+tour0>,shape=octagon]
+N0 [label=<A0+A1+tour0>,shape=octagon]
 N1 [label=<B0+A1+tour0>]
 N2 [label=<C0+A1+tour1>]
 N3 [label=<SC0+A1+tour1>]
-N4 [label=<A0+A1+tour1<BR/><FONT COLOR="0.22999994 1 0.75">AX(<FONT COLOR="0.059999943 1 0.75">EX(<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>)</FONT>)</FONT>>]
+N4 [label=<A0+A1+tour1<BR/><FONT COLOR="0.0 1 0.5">AX(<FONT COLOR="0.17 1 0.5">EX(<FONT COLOR="0.34 1 0.5">!<FONT COLOR="0.51 1 0.5">$tour0</FONT></FONT>)</FONT>)</FONT>>]
 N5 [label=<B0+A1+tour1>]
 N6 [label=<B0+B1+tour1>]
 N7 [label=<C0+B1+tour1>]
@@ -49,8 +49,8 @@ N18 -> N7
 N18 -> N11
 N19 -> N18
 N19 -> N10
-N16 -> N6 [color="0.059999943 1 0.75",label=<<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>>]
-N4 -> N5 [color="0.22999994 1 0.75",label=<<FONT COLOR="0.059999943 1 0.75">EX(<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>)</FONT>>]
-N4 -> N16 [color="0.22999994 1 0.75",label=<<FONT COLOR="0.059999943 1 0.75">EX(<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>)</FONT>>]
-N5 -> N2 [color="0.059999943 1 0.75",label=<<FONT COLOR="0.89 1 0.75">!<FONT COLOR="0.71999997 1 0.75">$tour0</FONT></FONT>>]
+N5 -> N2 [color="0.17 1 0.5",label=<<FONT COLOR="0.34 1 0.5">!<FONT COLOR="0.51 1 0.5">$tour0</FONT></FONT>>]
+N4 -> N16 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">EX(<FONT COLOR="0.34 1 0.5">!<FONT COLOR="0.51 1 0.5">$tour0</FONT></FONT>)</FONT>>]
+N16 -> N6 [color="0.17 1 0.5",label=<<FONT COLOR="0.34 1 0.5">!<FONT COLOR="0.51 1 0.5">$tour0</FONT></FONT>>]
+N4 -> N5 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">EX(<FONT COLOR="0.34 1 0.5">!<FONT COLOR="0.51 1 0.5">$tour0</FONT></FONT>)</FONT>>]
 }

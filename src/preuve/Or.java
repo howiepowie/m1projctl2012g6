@@ -65,7 +65,8 @@ public class Or extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		IPreuve left = getPreuves().get(0);
 		IPreuve right = getPreuves().get(1);
 		boolean[] leftM = left.getMarquage();
@@ -74,35 +75,16 @@ public class Or extends Preuve {
 		for (int i = 0; i < marquage.length; ++i) {
 			if (marquage[i]) {
 				if (leftM[i]) {
-					left.toDot(fleches, justifications, parent, etatParent);
+					left.toDot(fleches, justifications, parent, etatParent,
+							couleurs);
+					return;
 				} else if (rightM[i]) {
-					right.toDot(fleches, justifications, parent, etatParent);
+					right.toDot(fleches, justifications, parent, etatParent,
+							couleurs);
+					return;
 				}
 			}
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">("
-				+ getPreuves().get(0).toDotLabel() + " || "
-				+ getPreuves().get(1).toDotLabel() + ")</FONT>";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void genererCouleur() {
-		Couleur c = getCouleur();
-		if (c == null) {
-			c = new Couleur();
-		}
-		c.valeur = "black";
-		setCouleur(c);
 	}
 
 	/**
@@ -115,7 +97,6 @@ public class Or extends Preuve {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 }

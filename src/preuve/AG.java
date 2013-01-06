@@ -27,7 +27,6 @@ public class AG extends AU {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

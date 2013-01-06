@@ -80,113 +80,147 @@ public class CTL {
 		}
 	}
 
-	public IPreuve justifie(RdP rdp, Tree t, IPreuve parent) {
+	public IPreuve justifie(RdP rdp, Tree t, IPreuve parent, Coloration couleurs) {
+		String couleur = couleurs.genererCouleur();
 		IPreuve p = new Preuve(t);
 		switch (t.getType()) {
 		case CommandLineParser.ATOM:
 			int etat = rdp.tablePlace.get(t.getText());
 			boolean[] b = prop(etat);
 			p = new Atom(t, Arrays.copyOf(b, b.length));
+			couleurs.ajouter(t, couleur, "$" + t.getText());
 			break;
 		case CommandLineParser.TRUE:
 			p = new True(t, vrai());
+			couleurs.ajouter(t, couleur, "true");
 			break;
 		case CommandLineParser.FALSE:
 			p = new False(t, faux());
+			couleurs.ajouter(t, couleur, "false");
 			break;
 		case CommandLineParser.DEAD:
 			p = new Dead(t, dead());
+			couleurs.ajouter(t, couleur, "dead");
 			break;
 		case CommandLineParser.INITIAL:
 			p = new Initial(t, initial());
+			couleurs.ajouter(t, couleur, "initial");
 			break;
 		case CommandLineParser.NEG:
 			p = new Neg(t);
-			IPreuve left = justifie(rdp, t.getChild(0), p);
+			IPreuve left = justifie(rdp, t.getChild(0), p, couleurs);
 			p.setMarquage(neg(left.getMarquage()));
+			couleurs.ajouter(t, couleur,
+					"!" + couleurs.getLabel(left.getFormule()));
 			break;
 		case CommandLineParser.AU:
-			left = justifie(rdp, t.getChild(0), null);
-			IPreuve right = justifie(rdp, t.getChild(1), null);
+			left = justifie(rdp, t.getChild(0), null, couleurs);
+			IPreuve right = justifie(rdp, t.getChild(1), null, couleurs);
 			p = justifieAU(left, right, t);
+			couleurs.ajouter(t, couleur,
+					"A(" + couleurs.getLabel(left.getFormule()) + " U "
+							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.EU:
-			left = justifie(rdp, t.getChild(0), null);
-			right = justifie(rdp, t.getChild(1), null);
+			left = justifie(rdp, t.getChild(0), null, couleurs);
+			right = justifie(rdp, t.getChild(1), null, couleurs);
 			p = justifieEU(left, right, t);
+			couleurs.ajouter(t, couleur,
+					"E(" + couleurs.getLabel(left.getFormule()) + " U "
+							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.AX:
 			p = new AX(t);
-			left = justifie(rdp, t.getChild(0), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
 			p.setMarquage(AX(left.getMarquage()));
+			couleurs.ajouter(t, couleur,
+					"AX(" + couleurs.getLabel(left.getFormule()) + ")");
 			break;
 		case CommandLineParser.EX:
 			p = new EX(t);
-			left = justifie(rdp, t.getChild(0), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
 			p.setMarquage(EX(left.getMarquage()));
+			couleurs.ajouter(t, couleur,
+					"EX(" + couleurs.getLabel(left.getFormule()) + ")");
 			break;
 		case CommandLineParser.AF:
-			left = new True(null, vrai());
-			left.genererCouleur();
-			right = justifie(rdp, t.getChild(0), null);
+			left = new True(couleurs.ajouter("true"), vrai());
+			right = justifie(rdp, t.getChild(0), null, couleurs);
 			boolean[] marquage = AU(vrai(), right.getMarquage());
 			p = new AF(t, marquage, left, right);
+			couleurs.ajouter(t, couleur,
+					"AF(" + couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.EF:
-			left = new True(null, vrai());
-			left.genererCouleur();
-			right = justifie(rdp, t.getChild(0), null);
+			left = new True(couleurs.ajouter("true"), vrai());
+			right = justifie(rdp, t.getChild(0), null, couleurs);
 			IPreuve p2 = justifieEU(left, right, t);
 			p = new EF(t, p2);
+			couleurs.ajouter(t, couleur,
+					"EF(" + couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.AG:
 			// Il faut créer un faux chemin validant tout le temps la formule.
-			left = justifie(rdp, t.getChild(0), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
 			IPreuve debut = left.clone();
 			IPreuve fin = left.clone();
 			fin.setMarquage(and(dead(), fin.getMarquage()));
 			marquage = neg(EU(vrai(), neg(left.getMarquage())));
 			p = new AG(t, marquage, debut, fin);
+			couleurs.ajouter(t, couleur,
+					"AG(" + couleurs.getLabel(left.getFormule()) + ")");
 			break;
 		case CommandLineParser.EG:
 			// Il faut créer un faux chemin validant tout le temps la formule.
-			left = justifie(rdp, t.getChild(0), null);
+			left = justifie(rdp, t.getChild(0), null, couleurs);
 			debut = left.clone();
 			fin = left.clone();
 			fin.setMarquage(and(dead(), fin.getMarquage()));
 			marquage = neg(AU(vrai(), neg(left.getMarquage())));
-			System.out.println(Preuve.affiche(marquage));
 			p = new EG(t, marquage, debut, fin);
+			couleurs.ajouter(t, couleur,
+					"EG(" + couleurs.getLabel(left.getFormule()) + ")");
 			break;
 		case CommandLineParser.OR:
 			p = new Or(t);
-			left = justifie(rdp, t.getChild(0), p);
-			right = justifie(rdp, t.getChild(1), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
+			right = justifie(rdp, t.getChild(1), p, couleurs);
 			p.setMarquage(or(left.getMarquage(), right.getMarquage()));
+			couleurs.ajouter(t, couleur,
+					"(" + couleurs.getLabel(left.getFormule()) + " || "
+							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.AND:
 			p = new And(t);
-			left = justifie(rdp, t.getChild(0), p);
-			right = justifie(rdp, t.getChild(1), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
+			right = justifie(rdp, t.getChild(1), p, couleurs);
 			p.setMarquage(and(left.getMarquage(), right.getMarquage()));
+			couleurs.ajouter(t, couleur,
+					"(" + couleurs.getLabel(left.getFormule()) + " &amp;&amp; "
+							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.IMPLY:
-			left = justifie(rdp, t.getChild(0), p);
-			right = justifie(rdp, t.getChild(1), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
+			right = justifie(rdp, t.getChild(1), p, couleurs);
 			p.setMarquage(or(neg(left.getMarquage()), right.getMarquage()));
+			couleurs.ajouter(t, couleur,
+					"(" + couleurs.getLabel(left.getFormule()) + " -> "
+							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.EQUIV:
-			left = justifie(rdp, t.getChild(0), p);
-			right = justifie(rdp, t.getChild(1), p);
+			left = justifie(rdp, t.getChild(0), p, couleurs);
+			right = justifie(rdp, t.getChild(1), p, couleurs);
 			p.setMarquage(and(or(neg(left.getMarquage()), right.getMarquage()),
 					or(neg(right.getMarquage()), left.getMarquage())));
+			couleurs.ajouter(t, couleur,
+					"(" + couleurs.getLabel(left.getFormule()) + " <-> "
+							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		default:
 		}
 		if (parent != null) {
 			parent.getPreuves().add(p);
 		}
-		p.genererCouleur();
 		return p;
 	}
 

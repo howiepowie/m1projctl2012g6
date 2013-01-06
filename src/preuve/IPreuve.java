@@ -40,21 +40,6 @@ public interface IPreuve {
 	public List<IPreuve> getPreuves();
 
 	/**
-	 * Retourne la couleur associée à cette preuve.
-	 * 
-	 * @return la couleur associée à cette preuve.
-	 */
-	public Couleur getCouleur();
-
-	/**
-	 * Modifie la couleur associée à cette preuve.
-	 * 
-	 * @param couleur
-	 *            la nouvelle couleur.
-	 */
-	public void setCouleur(Couleur couleur);
-
-	/**
 	 * Met tous les états vérifiant la formule à false sauf celui donné.
 	 * 
 	 * @param ctl
@@ -80,23 +65,23 @@ public interface IPreuve {
 	public String toTree(String indent);
 
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent);
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs);
 
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent);
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs);
 
 	/**
 	 * Créer un label complet pour l'état de départ de la formule. Dans le
 	 * label, chaque sous-formule est colorée de manière unique.
 	 * 
+	 * @param couleurs
+	 *            TODO
+	 * 
 	 * @return le label.
 	 */
-	public String toDotLabel();
-
-	/**
-	 * Génère une nouvelle couleur pour cette preuve.
-	 */
-	public void genererCouleur();
+	public String toDotLabel(Coloration couleurs);
 
 	/**
 	 * Clone la preuve.

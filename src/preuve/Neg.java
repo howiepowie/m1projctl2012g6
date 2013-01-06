@@ -36,7 +36,8 @@ public class Neg extends Preuve {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
 	}
 
 	/**
@@ -44,7 +45,8 @@ public class Neg extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		StringBuffer sb = new StringBuffer();
 		boolean[] marquage = getMarquage();
 		for (int i = 0; i < marquage.length; ++i) {
@@ -54,23 +56,14 @@ public class Neg extends Preuve {
 				sb.append(" -> N");
 				sb.append(i);
 				sb.append(" [color=\"");
-				sb.append(parent.getCouleur());
+				sb.append(couleurs.getCouleur(parent.getFormule()));
 				sb.append("\",label=<");
-				sb.append(toDotLabel());
+				sb.append(toDotLabel(couleurs));
 				sb.append(">]\n");
 				fleches.get(etatParent).add(i);
 			}
 		}
 		justifications.add(sb.toString());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">!"
-				+ getPreuves().get(0).toDotLabel() + "</FONT>";
 	}
 
 	/**
@@ -83,7 +76,6 @@ public class Neg extends Preuve {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 }

@@ -1,5 +1,5 @@
 digraph system {
-N0 [label=<A0+A1+tour0<BR/><FONT COLOR="0.16999972 1 0.75">EF(<FONT COLOR="0.99999976 1 0.75">$SC0</FONT>)</FONT>>,shape=octagon]
+N0 [label=<A0+A1+tour0<BR/><FONT COLOR="0.0 1 0.5">EF(<FONT COLOR="0.34 1 0.5">$SC0</FONT>)</FONT>>,shape=octagon]
 N1 [label=<B0+A1+tour0>]
 N2 [label=<C0+A1+tour1>]
 N3 [label=<SC0+A1+tour1>]
@@ -50,8 +50,8 @@ N18 -> N7
 N18 -> N11
 N19 -> N18
 N19 -> N10
-N1 -> N2 [color="0.16999972 1 0.75",label=<<FONT COLOR="0.82999974 1 0.75">true</FONT>>]
-N2 -> N3 [color="0.16999972 1 0.75",label=<<FONT COLOR="0.99999976 1 0.75">$SC0</FONT>>]
-N0 -> N1 [color="0.16999972 1 0.75",label=<<FONT COLOR="0.82999974 1 0.75">true</FONT>>]
-N0 -> N0 [color="0.16999972 1 0.75",label=<<FONT COLOR="0.82999974 1 0.75">true</FONT>>]
+N1 -> N2 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">true</FONT>>]
+N0 -> N1 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">true</FONT>>]
+N2 -> N3 [color="0.0 1 0.5",label=<<FONT COLOR="0.34 1 0.5">$SC0</FONT>>]
+N0 -> N0 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">true</FONT>>]
 }

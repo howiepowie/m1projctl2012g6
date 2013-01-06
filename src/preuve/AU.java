@@ -55,7 +55,6 @@ public class AU extends CheminBase {
 				pM[i] = true;
 				IPreuve p = genererSousPreuve();
 				p.setMarquage(pM);
-				p.setCouleur(getCouleur());
 				// On appelle couper.
 				p.couper(ctl, pred, pM);
 				// On l'ajoute.
@@ -100,9 +99,10 @@ public class AU extends CheminBase {
 	 */
 	@Override
 	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
 		for (IPreuve p : getPreuves()) {
-			p.toDotRacine(fleches, justifications, null, etat);
+			p.toDotRacine(fleches, justifications, null, etat, couleurs);
 		}
 	}
 
@@ -111,26 +111,11 @@ public class AU extends CheminBase {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etatParent) {
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
 		for (IPreuve p : getPreuves()) {
-			p.toDot(fleches, justifications, parent, etatParent);
+			p.toDot(fleches, justifications, parent, etatParent, couleurs);
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return getPreuves().get(0).toDotLabel();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String conditionToDotLabel() {
-		return ((IChemin) getPreuves().get(0)).toDotLabel();
 	}
 
 	/**
@@ -143,7 +128,6 @@ public class AU extends CheminBase {
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
-		res.setCouleur(getCouleur());
 		return res;
 	}
 

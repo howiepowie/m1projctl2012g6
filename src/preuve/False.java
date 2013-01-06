@@ -32,15 +32,8 @@ public class False extends Preuve {
 	 */
 	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
-			Set<String> justifications, IPreuve parent, int etat) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">false</FONT>";
+			Set<String> justifications, IPreuve parent, int etat,
+			Coloration couleurs) {
 	}
 
 	/**
@@ -49,7 +42,6 @@ public class False extends Preuve {
 	@Override
 	public IPreuve clone() {
 		False res = new False(getFormule(), getMarquageCopie());
-		res.setCouleur(getCouleur());
 		return res;
 	}
 
