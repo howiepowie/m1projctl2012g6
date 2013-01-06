@@ -105,4 +105,11 @@ public interface IPreuve {
 	 */
 	public IPreuve clone();
 
+	/**
+	 * Retourne la formule au format textuel.
+	 * 
+	 * @return la formule au format textuel
+	 */
+	public String formuleToString();
+
 }

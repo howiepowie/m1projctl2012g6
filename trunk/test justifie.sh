@@ -34,6 +34,12 @@
 # doit afficher un chemin de l'etat 0 a un etat ayant comme voisin un etat pour lequel $SC0 est vraie.
 # cet exemple montre que la justification de EX($tour0) est affichee pour tous les etats intermediaires.
 #
+# - A($tour0 U $tour1) 1:
+# - A(EX($tour1) U $tour1) 1:
+# doit prouver que quelque soit le chemin pris depuis l'etat 1, on peut arriver a $tour1 vraie en passant
+# par des etats qui ont au moins un voisin ayant $tour1 a vraie.
+# cet exemple montre comment l'ensemble des chemins est affiche et comment chaque etat est prouve.
+#
 # .dot produits:
 # - "peterson.net": le graphe.
 # - "test justifie 1-9.dot"
@@ -50,5 +56,7 @@ java -jar modelprojet.jar << -END_PARAMS
 	Justifie EX(E(\$tour0 U \$tour1)) 0; Justifietodot EX(E(\$tour0 U \$tour1)) 0 "test justifie 7.dot"
 	Justifie AX(E(\$tour0 U \$tour1)) 0; Justifietodot AX(E(\$tour0 U \$tour1)) 0 "test justifie 8.dot"
 	Justifie E(EX(\$tour0) U EX(\$SC0)) 0; Justifietodot E(EX(\$tour0) U EX(\$SC0)) 0 "test justifie 9.dot"
+	Justifie A(\$tour0 U \$tour1) 1; Justifietodot A(\$tour0 U \$tour1) 1 "test justifie 10.dot"
+	Justifie A(EX(\$tour1) U \$tour1) 1; Justifietodot A(EX(\$tour1) U \$tour1) 1 "test justifie 11.dot"
 	stop
 END_PARAMS

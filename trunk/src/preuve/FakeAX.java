@@ -20,18 +20,10 @@ public class FakeAX extends AX {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return "AX(" + getPreuves().get(0).toString() + ")";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toTree(String indent) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(indent);
-		sb.append(toString());
+		sb.append(formuleToString());
 		sb.append(" = ");
 		sb.append(affiche(getMarquage()));
 		sb.append('\n');

@@ -41,19 +41,10 @@ public class Or extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return "(" + getPreuves().get(0).toString() + ") || ("
-				+ getPreuves().get(1).toString() + ")";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toTree(String indent) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(indent);
-		sb.append(toString());
+		sb.append(formuleToString());
 		sb.append(" = ");
 		sb.append(affiche(getMarquage()));
 		sb.append('\n');

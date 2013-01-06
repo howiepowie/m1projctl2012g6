@@ -53,9 +53,8 @@ public class EU extends CheminBase {
 				// On crée la sous-preuve avec l'état i à true uniquement.
 				boolean[] pM = new boolean[m.length];
 				pM[i] = true;
-				IPreuve a = getDebut().clone();
-				IPreuve b = getFin().clone();
-				IPreuve p = new FakeEU(getFormule(), getEtats().clone(), a, b);
+				IPreuve p = new FakeEU(getFormule(), getEtats().clone(),
+						getDebut().clone(), getFin().clone());
 				p.setMarquage(pM);
 				p.setCouleur(getCouleur());
 				// On appelle couper.
@@ -70,20 +69,12 @@ public class EU extends CheminBase {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return getPreuves().get(0).toString();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toTree(String indent) {
 		List<IPreuve> preuves = getPreuves();
 		if (preuves.size() > 1) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(indent);
-			sb.append(toString());
+			sb.append(formuleToString());
 			sb.append(" = ");
 			sb.append(affiche(getMarquage()));
 			sb.append(" {\n");
@@ -128,6 +119,14 @@ public class EU extends CheminBase {
 	@Override
 	public String toDotLabel() {
 		return getPreuves().get(0).toDotLabel();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String conditionToDotLabel() {
+		return ((IChemin) getPreuves().get(0)).conditionToDotLabel();
 	}
 
 	/**

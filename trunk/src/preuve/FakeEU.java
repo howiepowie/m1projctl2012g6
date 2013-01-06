@@ -125,20 +125,11 @@ public class FakeEU extends CheminBase {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return "E(" + getPreuves().get(0).toString() + " U "
-				+ getPreuves().get(getPreuves().size() - 1).toString() + ")";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toTree(String indent) {
 		// Etats vérifiants le chemin.
 		StringBuffer sb = new StringBuffer();
 		sb.append(indent);
-		sb.append(toString());
+		sb.append(formuleToString());
 		sb.append(" = ");
 		sb.append(affiche(getMarquage()));
 		sb.append(" {\n");
@@ -217,9 +208,23 @@ public class FakeEU extends CheminBase {
 	@Override
 	public String toDotLabel() {
 		return "<FONT COLOR=\"" + getCouleur() + "\">E("
-				+ getPreuves().get(0).toDotLabel() + " U "
-				+ getPreuves().get(getPreuves().size() - 1).toDotLabel()
-				+ ")</FONT>";
+				+ conditionToDotLabel() + ")</FONT>";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String conditionToDotLabel() {
+		List<IPreuve> preuves = getPreuves();
+		int size = preuves.size() - 1;
+		if (size == 0) {
+			return getDebut().toDotLabel() + " U "
+					+ preuves.get(0).toDotLabel();
+		} else {
+			return preuves.get(0).toDotLabel() + " U "
+					+ preuves.get(size).toDotLabel();
+		}
 	}
 
 	/**
@@ -234,8 +239,8 @@ public class FakeEU extends CheminBase {
 	 */
 	@Override
 	public IPreuve clone() {
-		FakeAX res = new FakeAX(getFormule());
-		res.setMarquage(getMarquageCopie());
+		FakeEU res = new FakeEU(getFormule(), getMarquageCopie(), getDebut()
+				.clone(), getFin().clone());
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());
 		}
