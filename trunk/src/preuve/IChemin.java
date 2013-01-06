@@ -2,8 +2,6 @@ package preuve;
 
 import java.util.List;
 
-import CTL.CTL;
-
 public interface IChemin extends IPreuve {
 
 	/**
@@ -49,12 +47,5 @@ public interface IChemin extends IPreuve {
 	 *            la nouvelle preuve.
 	 */
 	void setFin(IPreuve preuve);
-
-	/**
-	 * Permet de recreer les chemins à la suite d'une coupure.
-	 * 
-	 * @param ctl
-	 */
-	void recreerChemins(CTL ctl);
 
 }

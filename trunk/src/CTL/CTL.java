@@ -255,12 +255,9 @@ public class CTL {
 		boolean[] avant;
 		boolean[] a = debut.getMarquage();
 		boolean[] b = fin.getMarquage();
-		int count = 0;
 		do {
 			avant = res;
-			System.out.println(Preuve.affiche(res));
 			res = or(b, and(a, EX(res)));
-			++count;
 		} while (!Arrays.equals(avant, res));
 		IPreuve p = new EU(t, res, debut, fin);
 		return p;

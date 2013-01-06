@@ -13,19 +13,18 @@ public class AU extends CheminBase {
 	public AU(Tree formule, boolean[] marquage, IPreuve debut, IPreuve fin) {
 		super(formule, marquage, debut, fin);
 	}
-	
+
 	public void recreerChemins() {
-		
+
 	}
 
 	public String toString() {
 		return "A(" + getDebut().toString() + " U " + getFin().toString() + ")";
 	}
 
-	@Override
-	public void recreerChemins(CTL ctl) {
+	public void recreerChemins(int[][] pred) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
