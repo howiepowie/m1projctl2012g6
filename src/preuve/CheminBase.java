@@ -1,11 +1,8 @@
 package preuve;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.runtime.tree.Tree;
-
-import CTL.CTL;
 
 public abstract class CheminBase extends Preuve implements IChemin {
 
@@ -57,17 +54,8 @@ public abstract class CheminBase extends Preuve implements IChemin {
 			IPreuve fin) {
 		super(formule, marquage);
 		setDebut(debut);
-		chemins = new ArrayList<boolean[]>();
-		etats = debut.getMarquage();
+		etats = marquage.clone();
 		setFin(fin);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean[] getMarquage() {
-		return debut.getMarquage();
 	}
 
 	/**
@@ -116,24 +104,6 @@ public abstract class CheminBase extends Preuve implements IChemin {
 	@Override
 	public void setFin(IPreuve preuve) {
 		this.fin = preuve;
-	}
-
-	/**
-	 * On appelle couperRacine sur le début du chemin.
-	 */
-	@Override
-	public void couperRacine(CTL ctl, int[][] pred, int etat) {
-		debut.couperRacine(ctl, pred, etat);
-		recreerChemins(ctl);
-	}
-
-	/**
-	 * On appelle couper sur le début du chemin.
-	 */
-	@Override
-	public void couper(CTL ctl, int[][] pred, boolean[] parents) {
-		debut.couper(ctl, pred, parents);
-		recreerChemins(ctl);
 	}
 
 	/**
