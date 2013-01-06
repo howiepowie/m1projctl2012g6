@@ -33,14 +33,6 @@ public class Initial extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return "initial";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
 			Set<String> justifications, IPreuve parent, int etatParent) {
 		StringBuffer sb = new StringBuffer();

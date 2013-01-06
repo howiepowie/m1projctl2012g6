@@ -31,14 +31,6 @@ public class False extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return "false";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toTree(String indent) {
 		return indent + "false\n";
 	}

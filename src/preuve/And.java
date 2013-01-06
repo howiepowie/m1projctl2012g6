@@ -41,15 +41,6 @@ public class And extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return "(" + getPreuves().get(0).toString() + ") && ("
-				+ getPreuves().get(1).toString() + ")";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
 			Set<String> justifications, IPreuve parent, int etatParent) {
 		IPreuve left = getPreuves().get(0);

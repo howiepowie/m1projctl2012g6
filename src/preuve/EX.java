@@ -86,20 +86,12 @@ public class EX extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return getPreuves().get(0).toString();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toTree(String indent) {
 		List<IPreuve> preuves = getPreuves();
 		if (preuves.size() > 1) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(indent);
-			sb.append(toString());
+			sb.append(formuleToString());
 			sb.append(" = ");
 			sb.append(affiche(getMarquage()));
 			sb.append(" {\n");

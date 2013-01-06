@@ -48,4 +48,11 @@ public interface IChemin extends IPreuve {
 	 */
 	void setFin(IPreuve preuve);
 
+	/**
+	 * Retourne les conditions au format dot.
+	 * 
+	 * @return les conditions au format dot.
+	 */
+	String conditionToDotLabel();
+
 }

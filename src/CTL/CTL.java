@@ -278,11 +278,9 @@ public class CTL {
 		boolean[] avant;
 		boolean[] a = debut.getMarquage();
 		boolean[] b = fin.getMarquage();
-		int count = 0;
 		do {
 			avant = res;
 			res = or(b, and(a, AX(res)));
-			++count;
 		} while (!Arrays.equals(avant, res));
 		IPreuve p = new AU(t, res, debut, fin);
 		return p;

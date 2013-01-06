@@ -33,14 +33,6 @@ public class Atom extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toString() {
-		return '$' + getFormule().getText();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void toDot(Map<Integer, Set<Integer>> fleches,
 			Set<String> justifications, IPreuve parent, int etatParent) {
 		StringBuffer sb = new StringBuffer();
@@ -67,7 +59,8 @@ public class Atom extends Preuve {
 	 */
 	@Override
 	public String toDotLabel() {
-		return "<FONT COLOR=\"" + getCouleur() + "\">" + toString() + "</FONT>";
+		return "<FONT COLOR=\"" + getCouleur() + "\">$"
+				+ getFormule().getText() + "</FONT>";
 	}
 
 	/**

@@ -1,12 +1,13 @@
 package preuve;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.antlr.runtime.tree.Tree;
+
+import principal.CommandLineParser;
 
 import CTL.CTL;
 
@@ -116,7 +117,7 @@ public class Preuve implements IPreuve {
 	public String toTree(String indent) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(indent);
-		sb.append(toString());
+		sb.append(formuleToString());
 		sb.append(" = ");
 		sb.append(affiche(marquage));
 		sb.append('\n');
@@ -241,6 +242,63 @@ public class Preuve implements IPreuve {
 			hue += 0.17;
 			if (hue > 1)
 				hue -= 1;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String formuleToString() {
+		return formuleToString(formule);
+	}
+
+	private String formuleToString(Tree t) {
+		switch (t.getType()) {
+		case CommandLineParser.ATOM:
+			return "$" + t.getText();
+		case CommandLineParser.TRUE:
+			return "true";
+		case CommandLineParser.FALSE:
+			return "false";
+		case CommandLineParser.DEAD:
+			return "dead";
+		case CommandLineParser.INITIAL:
+			return "initial";
+		case CommandLineParser.NEG:
+			return "!" + formuleToString(t.getChild(0));
+		case CommandLineParser.AU:
+			return "A(" + formuleToString(t.getChild(0)) + " U "
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.EU:
+			return "E(" + formuleToString(t.getChild(0)) + " U "
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.AX:
+			return "AX(" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.EX:
+			return "EX(" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.AF:
+			return "AF(" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.EF:
+			return "EX(" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.AG:
+			return "AG(" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.EG:
+			return "EG(" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.OR:
+			return "(" + formuleToString(t.getChild(0)) + " || "
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.AND:
+			return "(" + formuleToString(t.getChild(0)) + " && "
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.IMPLY:
+			return "(" + formuleToString(t.getChild(0)) + " -> "
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.EQUIV:
+			return "(" + formuleToString(t.getChild(0)) + " <-> "
+					+ formuleToString(t.getChild(1)) + ")";
+		default:
+			return null;
 		}
 	}
 
