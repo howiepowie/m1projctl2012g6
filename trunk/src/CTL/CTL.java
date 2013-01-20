@@ -154,8 +154,8 @@ public class CTL {
 		case CommandLineParser.EF:
 			left = new True(couleurs.ajouter("true"), vrai());
 			right = justifie(rdp, t.getChild(0), null, couleurs);
-			IPreuve p2 = justifieEU(left, right, t);
-			p = new EF(t, p2);
+			marquage = EU(vrai(), right.getMarquage());
+			p = new EF(t, marquage, left, right);
 			couleurs.ajouter(t, couleur,
 					"EF(" + couleurs.getLabel(right.getFormule()) + ")");
 			break;
@@ -175,7 +175,6 @@ public class CTL {
 			left = justifie(rdp, t.getChild(0), null, couleurs);
 			debut = left.clone();
 			fin = left.clone();
-			fin.setMarquage(and(dead(), fin.getMarquage()));
 			marquage = neg(AU(vrai(), neg(left.getMarquage())));
 			p = new EG(t, marquage, debut, fin);
 			couleurs.ajouter(t, couleur,
