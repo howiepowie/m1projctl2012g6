@@ -1,0 +1,141 @@
+\documentclass[dvipsnames]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\usetikzlibrary{automata,positioning}
+\setcounter{secnumdepth}{0}
+
+\lstset{% This applies to ALL lstlisting
+    backgroundcolor=\color{white!10},%
+  language=Java,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{gray},
+  captionpos=b,
+  literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {è}{{\`e}}1 {à}{{\`a}}1,
+    }%
+
+\protected\def\psverb#1{\def\innerpsverb##1#1{\texttt{##1}}\innerpsverb}
+
+\def\fixcheck{%
+    \def\tikzifinpicture##1##2{##2}%
+}%
+
+% type user-defined commands here
+
+\begin{document}
+
+\title{Modélisation et vérification}   % type title between braces
+\author{Hamza Benkabbou, Kevin Bourgeois, Jérémy Morosi,\\Jean-Baptiste Perrin, Zo Rabarijaona}         % type author(s) between braces
+\date{\today}    % type date between braces
+\maketitle
+
+\newpage
+
+\section{Justification}
+
+Cette partie décrit la manière dont le programme calcule et mémorise la justification d'une formule CTL pour ensuite en donner une représentation visuelle.
+
+\subsection{Preuve}
+
+L'interface \texttt{IPreuve} (listing \ref{lst:IPreuve}) définie les méthodes nécessaires pour prouver qu'une formule CTL est vraie. 
+
+La structure d'une preuve est très simple, puisqu'elle consiste en la formule qui lui est associée (\texttt{getFormule}), en la liste des états qui sont vrais (\texttt{getMarquage}, \texttt{setMarquage}) et en la liste des sous-preuves pour chaque morceau de la formule (\texttt{getPreuves}).
+
+Une preuve dispose aussi de plusieurs méthodes pour la visualiser. On peut récupérer la formule qui lui est associée au format textuel grâce à la méthode \texttt{formuleToString}. On peut obtenir un affichage sous forme d'arbre de la preuve et de ses sous-preuves grâce à la méthode \texttt{toTree}. On peut récupérer la formule sous la forme d'un label coloré pour l'exportation au format \texttt{.dot} grâce à la méthode \texttt{toDotLabel}. Et finalement, on peut exporter la preuve au format \texttt{.dot} grâce aux méthodes \texttt{toDotRacine} et \texttt{toDot}.
+
+Lors du calcul de la preuve, les méthodes \texttt{couperRacine} et \texttt{couper} permettent de supprimer les états qui sont inutiles car ils n'ont pas de prédécesseurs dans la preuve parent.
+
+\subsubsection{Affichage au format .dot}
+
+L'exportation de la preuve au format \texttt{.dot} se fait au travers des méthodes \texttt{toDotRacine} et \texttt{toDot}. Il y a deux méthodes car l'affichage de la preuve complète est différent de celui des sous-preuves. Pour l'état de départ (celui pour lequel on doit justifier la formule CTL), on affiche son marquage ainsi que le label de la formule complète (figure \ref{fig:PreuveAffichageDot1}). On appelle ensuite \texttt{toDotRacine} qui va appeler à son tour la méthode \texttt{toDot} pour chaque sous-preuve de la preuve complète. Chaque sous-preuve va alors ajouter au graphe des flèches partants de l'état parent, allants vers les états validants la sous-preuve et ayants le label de la formule associée à côté (figure \ref{fig:PreuveAffichageDot2}). Les sous-preuves appellent également la méthode \texttt{toDot} pour leurs sous-preuves. Une fois que toutes les sous-preuves ont été ajoutées au graphe, on le complète en ajoutant les flèches manquantes entre deux états (figure \ref{fig:PreuveAffichageDot3}).
+
+\input{"Rapport/preuve_affichage_dot.tex"}
+
+Pour l'ajout des flèches manquantes, on utilise une map de type \texttt{Map<Integer, {Set<Integer>}>} où les clefs sont les numéros des états et les valeurs sont les listes des états auxquels ils sont reliés. Pour s'assurer qu'une même preuve ne soit affichée qu'une fois (figure \ref{fig:PreuveAffichageDot4}), on utilise une liste de type \texttt{Set<String>} où les éléments sont les flèches (au format \texttt{.dot}) du graphe.
+
+\input{"Rapport/preuve_affichage_dot2.tex"}
+
+\subsubsection{Coloration}
+
+La coloration des preuves est gérée par la classe \texttt{Coloration} (listing \ref{lst:Coloration}). Son but est d'associer une couleur unique (si possible) et un label coloré (pour l'exportation au format \texttt{.dot}) à une formule. Lors de l'exportation, les accesseurs \texttt{getCouleur} et \texttt{getLabel} permettront alors de récupérer les informations liées à la formule donnée.
+
+Les couleurs sont générées par la méthode \texttt{genererCouleur}. Dans l'idéal, toutes les couleurs utilisées doivent être uniques et ne doivent pas trop se ressembler pour que la preuve soit suffisamment claire. Ici, on génère juste des couleurs au format HSV avec $s=1$, $v=0.75$ et en incrémentant le $h$ d'une certaine valeur à chaque appel de la méthode.
+
+La couleur d'une formule est utilisée pour colorer une flèche partant d'un état validant la formule et allant vers un état validant une sous-formule alors que le label de la sous-formule est affiché sur la flèche (figure \ref{fig:Coloration}).
+
+\input{"Rapport/preuve_coloration.tex"}
+
+\subsection{Preuves atomiques}
+
+Les preuves atomiques sont les preuves associées aux formules atomiques $p$, $true$, $false$, $dead$ et $initial$. Elles correspondent respectivement aux classes \texttt{Atom}, \texttt{True}, \texttt{False}, \texttt{Dead} et \texttt{Initial}. Comme leur implémentation est assez simple puisqu'elle n'ont pas de sous-preuves, on montrera juste les affichages obtenus au format textuel (figure \ref{fig:PreuveAtomiqueTextuel}) et au format \texttt{.dot} (figure \ref{fig:PreuveAtomiqueDot}).
+
+\begin{figure}{ht}
+
+\end{figure}
+
+\subsection{Création de la preuve}
+
+\newpage
+
+\begin{lstlisting}[caption={Interface \psverb+IPreuve+ commune à toutes les preuves}, label={lst:IPreuve}]
+public interface IPreuve {
+
+	public Tree getFormule();
+	public boolean[] getMarquage();
+	public void setMarquage(boolean[] marquage);
+	public List<IPreuve> getPreuves();
+
+	public void couperRacine(CTL ctl, int[][] pred, int etat);
+	public void couper(CTL ctl, int[][] pred, boolean[] parents);
+
+	public String toTree();
+	public String toTree(String indent);
+
+	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs);
+	public void toDot(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs);
+
+	public String toDotLabel(Coloration couleurs);
+	public IPreuve clone();
+	public String formuleToString();
+
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Classe \psverb+Coloration+}, label={lst:Coloration}]
+public class Coloration {
+
+	private Map<Tree, String> couleursFormules;
+	private Map<Tree, String> labelsFormules;
+
+	public String getCouleur(Tree formule);
+	public String getLabel(Tree formule);
+
+	public void ajouter(Tree formule, String couleur, String label);
+	public FakeTree ajouter(String label);
+
+	public String genererCouleur();
+
+}
+\end{lstlisting}
+
+\end{document}

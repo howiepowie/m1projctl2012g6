@@ -53,8 +53,7 @@ public class EU extends CheminBase {
 				// On crée la sous-preuve avec l'état i à true uniquement.
 				boolean[] pM = new boolean[m.length];
 				pM[i] = true;
-				IPreuve p = new FakeEU(getFormule(), getEtats().clone(),
-						getDebut().clone(), getFin().clone());
+				IPreuve p = genererSousPreuve();
 				p.setMarquage(pM);
 				// On appelle couper.
 				p.couper(ctl, pred, pM);
@@ -62,6 +61,11 @@ public class EU extends CheminBase {
 				preuves.add(p);
 			}
 		}
+	}
+
+	protected IChemin genererSousPreuve() {
+		return new FakeEU(getFormule(), getEtats().clone(), getDebut().clone(),
+				getFin().clone());
 	}
 
 	/**
