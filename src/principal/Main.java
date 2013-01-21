@@ -284,7 +284,7 @@ public class Main implements ICallback {
 	 * @return les états validant la formule.
 	 */
 	public boolean[] evaluer(Tree formule) {
-		int[][] succ = listToInt(grapheRdP.succ);
+		int[][] pred = listToInt(grapheRdP.pred);
 		/*
 		 * AP: en y les places, en x les états pour lesquels la place est à
 		 * true.
@@ -296,7 +296,7 @@ public class Main implements ICallback {
 				b[i] = grapheRdP.etat.get(i)[j];
 			}
 		}
-		CTL ctl = new CTL(succ, AP);
+		CTL ctl = new CTL(pred, AP);
 		return ctl.valeur(rdp, formule);
 	}
 
@@ -310,7 +310,6 @@ public class Main implements ICallback {
 	 * @return la justification.
 	 */
 	public IPreuve justifier(Tree formule, int etat, Coloration couleurs) {
-		int[][] succ = listToInt(grapheRdP.succ);
 		int[][] pred = listToInt(grapheRdP.pred);
 		boolean[][] AP = new boolean[rdp.tablePlace.size()][grapheRdP.nbEtat];
 		for (int j = 0; j < AP.length; ++j) {
@@ -319,7 +318,7 @@ public class Main implements ICallback {
 				b[i] = grapheRdP.etat.get(i)[j];
 			}
 		}
-		CTL ctl = new CTL(succ, AP);
+		CTL ctl = new CTL(pred, AP);
 		IPreuve p = new Preuve(formule);
 		ctl.justifie(rdp, formule, p, couleurs);
 		p.getPreuves().get(0).couperRacine(ctl, pred, etat);
