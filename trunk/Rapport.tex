@@ -73,6 +73,14 @@ Une fois qu'on a construit la preuve complète, on appelle la méthode \texttt{c
 
 \subsubsection{Affichage au format textuel}
 
+L'affichage de la preuve au format textuel est assez simple. Une fois que tous les états non nécessaires ont été retirés par le coupage, on peut afficher la formule associée à la preuve, suivie de la liste des états la validant. Les sous-preuves sont affichées récursivement en appelant leur méthode \texttt{toTree} avec le niveau d'indentation désiré. On obtient alors un arbre dont la racine est la preuve complète et les dont les branches sont les formules atomiques (figure \ref{fig:PreuveAffichageTextuel}).
+
+\input{"Rapport/preuve_affichage_textuel.tex"}
+
+Certaines preuves plus complexes, comme les chemins, affichent les preuves pour tous les états du chemin avec le même niveau d'indentation et les entourent par des accolades (figure \ref{fig:PreuveAffichageTextuelChemin}).
+
+\input{"Rapport/preuve_affichage_textuel_chemin.tex"}
+
 \subsubsection{Affichage au format .dot}
 
 L'exportation de la preuve au format \texttt{.dot} commence dans la méthode \texttt{justifieToDot} de la classe \texttt{GrapheRdP}. On appelle la méthode \texttt{toDotRacine} de la preuve complète en lui donnant en paramètres une variable de type \texttt{Map<Integer, {Set<Integer>}>} et une variable de type \texttt{Set<String>}. La première, dont les clefs sont les états du réseau de pétri et les valeurs sont les listes des états auxquels ils sont reliés, permettra à toutes les sous-preuves d'indiquer quels états sont reliés par une justification. La seconde devra contenir l'ensemble des flèches du graphe (au format \texttt{.dot}) qui font parties de la justification.
@@ -101,11 +109,9 @@ La couleur d'une formule est utilisée pour colorer une flèche partant d'un ét
 
 Les preuves atomiques sont les preuves associées aux formules atomiques $p$, $true$, $false$, $dead$ et $initial$. Elles correspondent respectivement aux classes \texttt{Atom}, \texttt{True}, \texttt{False}, \texttt{Dead} et \texttt{Initial}. Comme leur implémentation est assez simple puisqu'elle n'ont pas de sous-preuves, on montrera juste les affichages obtenus au format textuel (figure \ref{fig:PreuveAtomiqueTextuel}) et au format \texttt{.dot} (figure \ref{fig:PreuveAtomiqueDot}) (sauf pour $false$ qui ne peut pas être affichée).
 
+\input{"Rapport/preuve_atomique_textuel.tex"}
+
 \input{"Rapport/preuve_atomique_dot.tex"}
-
-\begin{figure}{ht}
-
-\end{figure}
 
 \section{Utilisation du programme}
 
@@ -165,7 +171,7 @@ java -jar modelprojet.jar << -END_PARAMS
 END_PARAMS
 \end{verbatim}
 
-\^{A} noter que des commandes séparées par un retour à la ligne produiront le même effet que si l'utilisateur avait saisi la première, appuyé sur entrée puis avait saisi la seconde. \^{A} l'inverse, deux commandes séparées par une point-virgule seront parsées et exécutées à la suite comme si elles avaient été saisies en même temps par l'utilisateur.
+\`{A} noter que des commandes séparées par un retour à la ligne produiront le même effet que si l'utilisateur avait saisi la première, appuyé sur entrée puis avait saisi la seconde. \`{A} l'inverse, deux commandes séparées par une point-virgule seront parsées et exécutées à la suite comme si elles avaient été saisies en même temps par l'utilisateur.
 
 La différence est que, dans le second cas, les résultats des deux commandes seront affichés à la suite sans savoir quelle commande a produit quel résultat. Alors que dans le premier cas, le résultat de la première commande sera séparé du résultat de la seconde par le symbole \texttt{>} et l'affichage de la seconde commande.
 
