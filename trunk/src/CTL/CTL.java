@@ -241,8 +241,11 @@ public class CTL {
 
 	public boolean[] dead() {
 		boolean[] res = new boolean[systeme.length];
+		Arrays.fill(res, true);
 		for (int i = 0; i < systeme.length; ++i) {
-			res[i] = systeme[i].length == 0;
+			for (int j = 0; j < systeme[i].length; ++j) {
+				res[systeme[i][j]] = false;
+			}
 		}
 		return res;
 	}
@@ -277,16 +280,30 @@ public class CTL {
 
 	public boolean[] EX(boolean[] a) {
 		boolean[] res = new boolean[systeme.length];
-		for (int i = 0; i < systeme.length; i++) {
-			res[i] = false;
-			for (int j = 0; !res[i] && j < systeme[i].length; j++)
-				res[i] = a[systeme[i][j]];
+		for (int i = 0; i < a.length; i++) {
+			if (a[i]) {
+				for (int j = 0; j < systeme[i].length; ++j) {
+					res[systeme[i][j]] = true;
+				}
+			}
 		}
 		return res;
 	}
 
 	public boolean[] AX(boolean[] a) {
-		return neg(EX(neg(a)));
+		boolean[] res = new boolean[systeme.length];
+		Arrays.fill(res, true);
+		for (int i = 0; i < a.length; ++i) {
+			if (a[i]) {
+				for (int j = 0; j < systeme[i].length; ++j) {
+					res[systeme[i][j]] = false;
+				}
+			}
+		}
+		for (int i = 0; i < res.length; ++i) {
+			res[i] = !res[i];
+		}
+		return res;
 	}
 
 	public boolean[] EU(boolean[] a, boolean[] b) {

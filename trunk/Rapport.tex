@@ -11,6 +11,8 @@
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{float}
+\usepackage{tabularx}
 \usetikzlibrary{automata,positioning}
 \setcounter{secnumdepth}{0}
 
@@ -61,13 +63,27 @@ Une preuve dispose aussi de plusieurs méthodes pour la visualiser. On peut réc
 
 Lors du calcul de la preuve, les méthodes \texttt{couperRacine} et \texttt{couper} permettent de supprimer les états qui sont inutiles car ils n'ont pas de prédécesseurs dans la preuve parent.
 
+\subsubsection{Création}
+
+La création d'une preuve se fait en même temps que la validation de la formule CTL associée. Si la formule est un ensemble de sous-formules, on commence d'abord par les justifier. Ensuite, on peut créer une preuve du même type que la formule, en lui donnant le marquage la validant et la liste des sous-preuves. Au passage, on génère la couleur et le label (au format \texttt{.dot}) de la formule. Le label est l'ensemble des labels des sous-formules auxquels on ajoute le nom de la formule avec la couleur correspondante. Par exemple, pour $E(\$A \cup \$B)$, on obtient le label \texttt{<FONT COLOR="...">E(... U ...)</FONT>}.
+
+\subsubsection{Coupage}
+
+Une fois qu'on a construit la preuve complète, on appelle la méthode \texttt{couperRacine} en donnant en paramètre le numéro de l'état pour lequel on doit justifier la formule CTL. Cet appel a pour conséquence de mettre tous les états validant la preuve à $false$, sauf celui donné. La preuve appelle ensuite la méthode \texttt{couper} des sous-preuves en donnant son marquage en paramètre. Les sous-preuves vont alors remettre à $false$ tous les états valident qui n'ont pas de prédécesseurs dans le marquage donné, puis, elles vont à leur tour appeler la méthode pour leurs sous-preuves en donnant leur propre marquage. Ainsi, à la fin, il ne restera dans les preuves que les états qui sont réellement nécessaires à la justification.
+
+\subsubsection{Affichage au format textuel}
+
 \subsubsection{Affichage au format .dot}
 
-L'exportation de la preuve au format \texttt{.dot} se fait au travers des méthodes \texttt{toDotRacine} et \texttt{toDot}. Il y a deux méthodes car l'affichage de la preuve complète est différent de celui des sous-preuves. Pour l'état de départ (celui pour lequel on doit justifier la formule CTL), on affiche son marquage ainsi que le label de la formule complète (figure \ref{fig:PreuveAffichageDot1}). On appelle ensuite \texttt{toDotRacine} qui va appeler à son tour la méthode \texttt{toDot} pour chaque sous-preuve de la preuve complète. Chaque sous-preuve va alors ajouter au graphe des flèches partants de l'état parent, allants vers les états validants la sous-preuve et ayants le label de la formule associée à côté (figure \ref{fig:PreuveAffichageDot2}). Les sous-preuves appellent également la méthode \texttt{toDot} pour leurs sous-preuves. Une fois que toutes les sous-preuves ont été ajoutées au graphe, on le complète en ajoutant les flèches manquantes entre deux états (figure \ref{fig:PreuveAffichageDot3}).
+L'exportation de la preuve au format \texttt{.dot} commence dans la méthode \texttt{justifieToDot} de la classe \texttt{GrapheRdP}. On appelle la méthode \texttt{toDotRacine} de la preuve complète en lui donnant en paramètres une variable de type \texttt{Map<Integer, {Set<Integer>}>} et une variable de type \texttt{Set<String>}. La première, dont les clefs sont les états du réseau de pétri et les valeurs sont les listes des états auxquels ils sont reliés, permettra à toutes les sous-preuves d'indiquer quels états sont reliés par une justification. La seconde devra contenir l'ensemble des flèches du graphe (au format \texttt{.dot}) qui font parties de la justification.
+
+La méthode \texttt{toDotRacine} sert uniquement à appeler la méthode \texttt{toDot} pour toutes les sous-preuves sans qu'une flèche ne soit ajoutée pour l'état de départ. La méthode \texttt{toDot} permet à une preuve d'ajouter toutes les flèches nécessaires au graphe puis de s'appeler pour toutes les sous-preuves. Une flèche doit partir d'un état parent, aller vers un état validant la sous-preuve et elle doit avoir le label de la formule associée à la sous-preuve à côté.
+
+Une fois que toutes les flèches ont été ajoutées, on commence par exporter la liste des états avec leur marquage et avec le label de la formule complète pour l'état pour lequel on doit justifier la formule (figure \ref{fig:PreuveAffichageDot1}). On exporte ensuite l'ensemble des flèches qui se trouvent dans la variable précédente (figure \ref{fig:PreuveAffichageDot2}). Puis on complète le graphe avec les flèches manquantes (celles qui ne font pas parties de la justification) (figure \ref{fig:PreuveAffichageDot3}).
 
 \input{"Rapport/preuve_affichage_dot.tex"}
 
-Pour l'ajout des flèches manquantes, on utilise une map de type \texttt{Map<Integer, {Set<Integer>}>} où les clefs sont les numéros des états et les valeurs sont les listes des états auxquels ils sont reliés. Pour s'assurer qu'une même preuve ne soit affichée qu'une fois (figure \ref{fig:PreuveAffichageDot4}), on utilise une liste de type \texttt{Set<String>} où les éléments sont les flèches (au format \texttt{.dot}) du graphe.
+Pour l'ajout des flèches manquantes, on utilise la liste des états reliés pour savoir si elle existe déjà. La liste des flèches nous permet de nous assurer qu'une même preuve ne soit affichée qu'une fois (figure \ref{fig:PreuveAffichageDot4}).
 
 \input{"Rapport/preuve_affichage_dot2.tex"}
 
@@ -83,13 +99,93 @@ La couleur d'une formule est utilisée pour colorer une flèche partant d'un ét
 
 \subsection{Preuves atomiques}
 
-Les preuves atomiques sont les preuves associées aux formules atomiques $p$, $true$, $false$, $dead$ et $initial$. Elles correspondent respectivement aux classes \texttt{Atom}, \texttt{True}, \texttt{False}, \texttt{Dead} et \texttt{Initial}. Comme leur implémentation est assez simple puisqu'elle n'ont pas de sous-preuves, on montrera juste les affichages obtenus au format textuel (figure \ref{fig:PreuveAtomiqueTextuel}) et au format \texttt{.dot} (figure \ref{fig:PreuveAtomiqueDot}).
+Les preuves atomiques sont les preuves associées aux formules atomiques $p$, $true$, $false$, $dead$ et $initial$. Elles correspondent respectivement aux classes \texttt{Atom}, \texttt{True}, \texttt{False}, \texttt{Dead} et \texttt{Initial}. Comme leur implémentation est assez simple puisqu'elle n'ont pas de sous-preuves, on montrera juste les affichages obtenus au format textuel (figure \ref{fig:PreuveAtomiqueTextuel}) et au format \texttt{.dot} (figure \ref{fig:PreuveAtomiqueDot}) (sauf pour $false$ qui ne peut pas être affichée).
+
+\input{"Rapport/preuve_atomique_dot.tex"}
 
 \begin{figure}{ht}
 
 \end{figure}
 
-\subsection{Création de la preuve}
+\section{Utilisation du programme}
+
+\subsection{Invité de commande}
+
+Par défaut, le programme s'utilise en invité de commande. Dans ce mode, il affiche le symbole \texttt{>} et attend la saisie d'une commande. Les commandes données sont parsées à l'aide d'un parseur généré par ANTLR (voir \texttt{principal/CommandLine.g}) qui va se charger d'appeler les méthodes correspondantes dans la classe \texttt{Main}.
+
+Les commandes disponibles sont toutes celles demandées dans le sujet ainsi que quelques unes qui ont été ajoutées.
+
+\subsection{Commandes}
+
+\noindent\begin{tabularx}{\linewidth}{@{}l l X@{}}
+load & <fichier.net> & charge le réseau de pétri depuis le fichier \\
+graphe & & calcule le graphe des états accessibles \\
+look & <etat> & affiche le marquage de l'état \\
+succ & <etat> & affiche la liste des successeurs de l'état \\
+todot & <fichier.dot> & exporte le graphe au format \texttt{.dot} dans le fichier \\
+ctl & <formule> & affiche le nombre d'états validant la formule \\
+ctl & <formule> <etat> & affiche $vrai$ si l'état valide la formule ou $faux$ \\
+ctltodot & <formule> <fichier.dot> & exporte le graphe au format \texttt{.dot} en colorant les états qui valident la formule \\
+Justifie & <formule> <etat> & affiche la preuve au format textuel que l'état valide la formule \\
+Justifietodot & <formule> <etat> <fichier.dot> & exporte le graphe et la preuve que l'état valide la formule au format \texttt{.dot} dans le fichier \\
+shell & & passe en mode shell \\
+stop & & arrête le programme \\
+\end{tabularx}
+
+\subsection{Création d'un script}
+
+Outre le mode invité de commande, il est possible de créer un script pour lancer le programme et lui faire exécuter un ensemble de commandes. Les différents exemples fournis avec le projet fonctionnent ainsi:\\
+
+On lance le programme normalement avec \texttt{java -jar modelprojet.jar} et on lui donne une liste de paramètres entre les deux balises \texttt{END\_PARAMS}.
+\begin{verbatim}
+java -jar modelprojet.jar << -END_PARAMS
+    ...
+END_PARAMS
+\end{verbatim}
+
+On commence par exécuter la commande \texttt{shell} qui permet au programme de passer en mode shell. Dans ce mode, toutes les commandes exécutées sont affichées après le symbole \texttt{>}. Ce mode est nécessaire car les commandes fournies au programme entre les balises \texttt{END\_PARAMS} ne sont pas affichées dans la console comme si elles avaient été saisies par l'utilisateur. La dernière commande à exécuter doit être la commande \texttt{stop} pour demander au programme de s'arrêter une fois le script fini.
+
+\begin{verbatim}
+java -jar modelprojet.jar << -END_PARAMS
+    shell
+    ...
+    stop
+END_PARAMS
+\end{verbatim}
+
+C'est entre les deux commandes \texttt{shell} et \texttt{stop} que l'on peut ajouter toutes les commandes du script.
+
+\begin{verbatim}
+java -jar modelprojet.jar << -END_PARAMS
+    shell
+    load "hello.net"
+    graphe; todot "hello.dot"
+    ctl EX(EX(\$C)); ctl EX(\$C)
+    stop
+END_PARAMS
+\end{verbatim}
+
+\^{A} noter que des commandes séparées par un retour à la ligne produiront le même effet que si l'utilisateur avait saisi la première, appuyé sur entrée puis avait saisi la seconde. \^{A} l'inverse, deux commandes séparées par une point-virgule seront parsées et exécutées à la suite comme si elles avaient été saisies en même temps par l'utilisateur.
+
+La différence est que, dans le second cas, les résultats des deux commandes seront affichés à la suite sans savoir quelle commande a produit quel résultat. Alors que dans le premier cas, le résultat de la première commande sera séparé du résultat de la seconde par le symbole \texttt{>} et l'affichage de la seconde commande.
+
+\section{Exemples}
+
+De nombreux exemples ont été créés et sont disponibles dans le dossier d'exemples du projet. Ces exemples sont sous la forme d'un script \texttt{.sh} qui doit se trouver dans le même dossier que le \texttt{.jar} du programme.\\
+
+Chaque exemple contient des commentaires indiquant son intérêt et les fichiers produits. Cependant, voici une liste récapitulative des plus importants:\\
+
+\noindent\begin{tabularx}{\linewidth}{| @{}l | X@{} |}
+\hline
+Script \texttt{.sh} & Description \\
+\hline
+test commandes & exécute toutes les commandes demandées dans le sujet sur le fichier \texttt{hello.net} \\
+\hline
+test justifie & produit une justification au format textuel et \texttt{.dot} de l'ensemble des formules possibles sur les différents fichiers \texttt{.net} \\
+\hline
+preuves atomiques & produit une justification au format textuel et \texttt{.dot} des formules atomiques $p$, $true$, $dead$ et $initial$ sur le fichier \texttt{atomique.net} \\
+\hline
+\end{tabularx}
 
 \newpage
 

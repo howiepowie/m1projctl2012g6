@@ -1,0 +1,105 @@
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{.24\textwidth}
+\centering
+  \begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.2
+  ]
+    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{EX(\textcolor{Blue}{\$B})}$};
+    \node[state] (N2) [below left of=N1] {$B$};
+    \node[state] (N3) [below right of=N1] {$C$};
+
+\path[->, BrickRed]
+	(N1) edge node [above left] {$\textcolor{Blue}{\$B}$} (N2);
+
+\path[->]
+	(N1) edge [bend right] node {} (N3)
+	(N3) edge node {} (N1);
+  \end{tikzpicture}
+\caption{$EX(\$B)$}
+\end{subfigure}
+\begin{subfigure}[b]{.24\textwidth}
+\centering
+  \begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.2
+  ]
+    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{EX(\textcolor{Blue}{true})}$};
+    \node[state] (N2) [below left of=N1] {$B$};
+    \node[state] (N3) [below right of=N1] {$C$};
+
+\path[->, BrickRed]
+	(N1) edge node [above left] {$\textcolor{Blue}{true}$} (N2);
+
+\path[->]
+	(N1) edge [bend right] node {} (N3)
+	(N3) edge node {} (N1);
+  \end{tikzpicture}
+\caption{$EX(true)$}
+\end{subfigure}
+\begin{subfigure}[b]{.24\textwidth}
+\centering
+  \begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.2
+  ]
+    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{EX(\textcolor{Blue}{dead})}$};
+    \node[state] (N2) [below left of=N1] {$B$};
+    \node[state] (N3) [below right of=N1] {$C$};
+
+\path[->, BrickRed]
+	(N1) edge node [above left] {$\textcolor{Blue}{dead}$} (N2);
+
+\path[->]
+	(N1) edge [bend right] node {} (N3)
+	(N3) edge node {} (N1);
+  \end{tikzpicture}
+\caption{$EX(dead)$}
+\end{subfigure}
+\begin{subfigure}[b]{.24\textwidth}
+\centering
+  \begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.2
+  ]
+    \node[state] (N1) {$A$};
+    \node[state] (N2) [below left of=N1] {$B$};
+    \node[state, rectangle, align=center] (N3) [below right of=N1] {$C$\\$\textcolor{BrickRed}{EX(\textcolor{Blue}{initial})}$};
+
+\path[->, BrickRed]
+	(N3) edge node [above right] {$\textcolor{Blue}{initial}$} (N1);
+
+\path[->]
+	(N1) edge node {} (N2)
+	(N1) edge [bend right] node {} (N3);
+  \end{tikzpicture}
+\caption{$EX(initial)$}
+\end{subfigure}
+\caption{Affichages obtenus pour les preuves atomiques}
+\label{fig:PreuveAtomiqueDot}
+\end{figure}
