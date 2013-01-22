@@ -14,7 +14,10 @@
 \usepackage{float}
 \usepackage{tabularx}
 \usetikzlibrary{automata,positioning}
-\setcounter{secnumdepth}{0}
+
+\renewcommand{\thesection}{\arabic{section}}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 \lstset{% This applies to ALL lstlisting
     backgroundcolor=\color{white!10},%
@@ -46,6 +49,8 @@
 \author{Hamza Benkabbou, Kevin Bourgeois, Jérémy Morosi,\\Jean-Baptiste Perrin, Zo Rabarijaona}         % type author(s) between braces
 \date{\today}    % type date between braces
 \maketitle
+
+\tableofcontents
 
 \newpage
 
@@ -112,6 +117,40 @@ Les preuves atomiques sont les preuves associées aux formules atomiques $p$, $t
 \input{"Rapport/preuve_atomique_textuel.tex"}
 
 \input{"Rapport/preuve_atomique_dot.tex"}
+
+\subsection{Preuves chemins}
+
+Les preuves qui consistent en un chemin d'états implémentent l'interface \texttt{IChemin} (listing \ref{lst:IChemin}) qui est elle-même basée sur \texttt{IPreuve}.
+
+La structure d'un chemin consiste en la preuve pour l'état de départ (\texttt{getDebut}), celle pour l'état d'arrivée (\texttt{getFin}) et la liste des états par lesquels on passe (\texttt{getChemins}). Il n'y a qu'un seul état d'arrivée car, par exemple, si on doit prouver $AF(\cdots)$ pour plusieurs états, on va décomposer la preuve en plusieurs sous-preuves $AF(\cdots)$ pour chaque état (figure \ref{fig:PreuveCheminAF}).
+
+\input{"Rapport/preuve_chemin_af.tex"}
+
+Un chemin dispose aussi des accesseurs \texttt{estFin} et \texttt{aVoisinFin} qui lui permettent de savoir si il doit continuer la preuve pour les états voisins ou non.
+
+\subsubsection{$EX$}
+
+\subsubsection{$AX$}
+
+\subsubsection{$EF$}
+
+\subsubsection{$AF$}
+
+\subsubsection{$EG$}
+
+\subsubsection{$AG$}
+
+\subsection{Preuves opérateurs}
+
+\subsubsection{$!$}
+
+\subsubsection{$\&\&$}
+
+\subsubsection{$\|$}
+
+\subsubsection{$\Rightarrow$}
+
+\subsubsection{$\Leftrightarrow$}
 
 \section{Utilisation du programme}
 
@@ -236,6 +275,23 @@ public class Coloration {
 	public FakeTree ajouter(String label);
 
 	public String genererCouleur();
+
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Interface \psverb+IChemin+}, label={lst:IChemin}]
+public interface IChemin extends IPreuve {
+
+	List<boolean[]> getChemins();
+
+	IPreuve getDebut();
+	void setDebut(IPreuve preuve);
+
+	IPreuve getFin();
+	void setFin(IPreuve preuve);
+
+	boolean estFin();
+	boolean aVoisinFin();
 
 }
 \end{lstlisting}
