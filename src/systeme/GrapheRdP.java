@@ -79,6 +79,9 @@ public class GrapheRdP {
 		res.append("N" + 0 + " [label=<" + rdp.toStringMarquage(etat.get(0)));
 		if (depart == 0) {
 			res.append("<BR/>");
+			if (preuve.isContreExemple()) {
+				res.append("Contre exemple<BR/>");
+			}
 			res.append(couleurs.getLabel(preuve.getFormule()));
 		}
 		res.append(">,shape=octagon]\n");
@@ -88,6 +91,9 @@ public class GrapheRdP {
 					+ rdp.toStringMarquage(etat.get(e)));
 			if (depart == e) {
 				res.append("<BR/>");
+				if (preuve.isContreExemple()) {
+					res.append("Contre exemple<BR/>");
+				}
 				res.append(couleurs.getLabel(preuve.getFormule()));
 			}
 			res.append(">]\n");

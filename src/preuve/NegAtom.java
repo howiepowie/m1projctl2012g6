@@ -7,9 +7,9 @@ import org.antlr.runtime.tree.Tree;
 
 import CTL.CTL;
 
-public class Neg extends Preuve {
+public class NegAtom extends Preuve {
 
-	public Neg(Tree formule) {
+	public NegAtom(Tree formule) {
 		super(formule, null);
 	}
 
@@ -71,7 +71,7 @@ public class Neg extends Preuve {
 	 */
 	@Override
 	public IPreuve clone() {
-		Neg res = new Neg(getFormule());
+		NegAtom res = new NegAtom(getFormule());
 		res.setMarquage(getMarquageCopie());
 		for (IPreuve p : getPreuves()) {
 			res.getPreuves().add(p.clone());

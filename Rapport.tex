@@ -124,17 +124,37 @@ Les preuves qui consistent en un chemin d'états implémentent l'interface \text
 
 La structure d'un chemin consiste en la preuve pour l'état de départ (\texttt{getDebut}), celle pour l'état d'arrivée (\texttt{getFin}) et la liste des états par lesquels on passe (\texttt{getChemins}). Il n'y a qu'un seul état d'arrivée car, par exemple, si on doit prouver $AF(\cdots)$ pour plusieurs états, on va décomposer la preuve en plusieurs sous-preuves $AF(\cdots)$ pour chaque état (figure \ref{fig:PreuveCheminAF}).
 
-\input{"Rapport/preuve_chemin_af.tex"}
+\input{"Rapport/preuve_chemin_af_decompose.tex"}
 
 Un chemin dispose aussi des accesseurs \texttt{estFin} et \texttt{aVoisinFin} qui lui permettent de savoir si il doit continuer la preuve pour les états voisins ou non.
 
-\subsubsection{$EX$}
+\subsubsection{$EU$}
 
-\subsubsection{$AX$}
+Après avoir été créée, la preuve de type $EU$ contient la preuve pour les états validant la condition du chemin, celle pour les états validant la condition d'arrêt et la liste des états qui ont un tel chemin.
+
+Le coupage de la preuve entraîne la création d'une liste de sous-preuves pour tous les états par lesquels le chemin passe. Pour ce faire, on sait que la preuve parent a été coupée et qu'on doit prouver le chemin à partir des états restants. On va donc utiliser la liste des états ayant un tel chemin et ne garder que ceux qui ont pour prédécesseurs un ou plusieurs états de départ. On continue d'appliquer cette technique jusqu'à avoir atteint un des états validant la condition d'arrêt du chemin. Une fois que c'est fait, on peut supprimer tous les états du chemin qui ne sont pas nécessaires.
+
+L'affichage d'un preuve de type $EU$ consiste donc en la preuve de la condition de départ pour chaque état du chemin et de la condition d'arrêt pour l'état final (figure \ref{fig:PreuveCheminEU}). Pour l'affichage au format textuel, la liste des états est affichée entre deux accolades et chaque étape du chemin possède la même indentation (figure \ref{fig:PreuveCheminEUTextuel}).
+
+\input{"Rapport/preuve_chemin_eu.tex"}
+
+\subsubsection{$AU$}
+
+Tout comme pour la preuve de type $EU$, la preuve de type $AU$ va créer une liste de sous-preuves pour chaque états du chemin. Cependant, cette liste consistera en la dupplication de la preuve pour chacun de ces états. Ainsi, pour chaque état on prouvera que pour tous les états voisins il existe aussi le chemin (figure \ref{fig:PreuveCheminAU}).
+
+\input{"Rapport/preuve_chemin_au.tex"}
 
 \subsubsection{$EF$}
 
+Une preuve de type $EF$ est une preuve similaire à celle de type $EU$ à la différence qu'elle n'a pas de condition à vérifier sur l'ensemble du chemin. Ainsi, on utilise une preuve $EU$ pour laquelle tous les états du chemin doivent vérifier $true$ (figure \ref{fig:PreuveCheminEF}).
+
+\input{"Rapport/preuve_chemin_ef.tex"}
+
 \subsubsection{$AF$}
+
+Comme pour la preuve de type $EF$, la preuve de type $AF$ utilise une preuve $AU$ pour laquelle tous les états du chemin doivent vérifier $true$ (figure \ref{fig:PreuveCheminAF}).
+
+\input{"Rapport/preuve_chemin_af.tex"}
 
 \subsubsection{$EG$}
 
@@ -142,9 +162,13 @@ Un chemin dispose aussi des accesseurs \texttt{estFin} et \texttt{aVoisinFin} qu
 
 \subsection{Preuves opérateurs}
 
-\subsubsection{$!$}
+Les preuves des opérateurs agissent de manière transparente, les méthodes de coupage et d'affichage sont directement redirigées vers les sous-preuves et la liste des états validant la preuve est ensuite adapté.
 
 \subsubsection{$\&\&$}
+
+La preuve de type $\&\&$ affiche les preuves des deux conditions pour les états qui la valident (figure \ref{fig:PreuveOperateurAnd}).
+
+\input{"Rapport/preuve_operateur_and.tex"}
 
 \subsubsection{$\|$}
 

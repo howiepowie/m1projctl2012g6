@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g 2013-01-05 12:18:25
+// $ANTLR 3.4 /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g 2013-01-24 11:30:43
 
 	package principal;
 
@@ -2241,7 +2241,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "term0"
-    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:220:1: term0 : ( atom | '!' atom -> ^( NEG atom ) | 'EF' atom -> ^( EF atom ) | 'EG' atom -> ^( EG atom ) | 'EX' atom -> ^( EX atom ) | 'AF' atom -> ^( AF atom ) | 'AG' atom -> ^( AG atom ) | 'AX' atom -> ^( AX atom ) | 'E' '(' formule 'U' formule ')' -> ^( EU formule formule ) | 'A' '(' formule 'U' formule ')' -> ^( AU formule formule ) );
+    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:220:1: term0 : ( atom | term01 | term02 );
     public final CommandLineParser.term0_return term0() throws RecognitionException {
         CommandLineParser.term0_return retval = new CommandLineParser.term0_return();
         retval.start = input.LT(1);
@@ -2249,78 +2249,17 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token char_literal49=null;
-        Token string_literal51=null;
-        Token string_literal53=null;
-        Token string_literal55=null;
-        Token string_literal57=null;
-        Token string_literal59=null;
-        Token string_literal61=null;
-        Token char_literal63=null;
-        Token char_literal64=null;
-        Token char_literal66=null;
-        Token char_literal68=null;
-        Token char_literal69=null;
-        Token char_literal70=null;
-        Token char_literal72=null;
-        Token char_literal74=null;
         CommandLineParser.atom_return atom48 =null;
 
-        CommandLineParser.atom_return atom50 =null;
+        CommandLineParser.term01_return term0149 =null;
 
-        CommandLineParser.atom_return atom52 =null;
-
-        CommandLineParser.atom_return atom54 =null;
-
-        CommandLineParser.atom_return atom56 =null;
-
-        CommandLineParser.atom_return atom58 =null;
-
-        CommandLineParser.atom_return atom60 =null;
-
-        CommandLineParser.atom_return atom62 =null;
-
-        CommandLineParser.formule_return formule65 =null;
-
-        CommandLineParser.formule_return formule67 =null;
-
-        CommandLineParser.formule_return formule71 =null;
-
-        CommandLineParser.formule_return formule73 =null;
+        CommandLineParser.term02_return term0250 =null;
 
 
-        Object char_literal49_tree=null;
-        Object string_literal51_tree=null;
-        Object string_literal53_tree=null;
-        Object string_literal55_tree=null;
-        Object string_literal57_tree=null;
-        Object string_literal59_tree=null;
-        Object string_literal61_tree=null;
-        Object char_literal63_tree=null;
-        Object char_literal64_tree=null;
-        Object char_literal66_tree=null;
-        Object char_literal68_tree=null;
-        Object char_literal69_tree=null;
-        Object char_literal70_tree=null;
-        Object char_literal72_tree=null;
-        Object char_literal74_tree=null;
-        RewriteRuleTokenStream stream_49=new RewriteRuleTokenStream(adaptor,"token 49");
-        RewriteRuleTokenStream stream_48=new RewriteRuleTokenStream(adaptor,"token 48");
-        RewriteRuleTokenStream stream_45=new RewriteRuleTokenStream(adaptor,"token 45");
-        RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
-        RewriteRuleTokenStream stream_47=new RewriteRuleTokenStream(adaptor,"token 47");
-        RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
-        RewriteRuleTokenStream stream_51=new RewriteRuleTokenStream(adaptor,"token 51");
-        RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
-        RewriteRuleTokenStream stream_36=new RewriteRuleTokenStream(adaptor,"token 36");
-        RewriteRuleTokenStream stream_54=new RewriteRuleTokenStream(adaptor,"token 54");
-        RewriteRuleTokenStream stream_37=new RewriteRuleTokenStream(adaptor,"token 37");
-        RewriteRuleTokenStream stream_50=new RewriteRuleTokenStream(adaptor,"token 50");
-        RewriteRuleSubtreeStream stream_atom=new RewriteRuleSubtreeStream(adaptor,"rule atom");
-        RewriteRuleSubtreeStream stream_formule=new RewriteRuleSubtreeStream(adaptor,"rule formule");
+
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:221:2: ( atom | '!' atom -> ^( NEG atom ) | 'EF' atom -> ^( EF atom ) | 'EG' atom -> ^( EG atom ) | 'EX' atom -> ^( EX atom ) | 'AF' atom -> ^( AF atom ) | 'AG' atom -> ^( AG atom ) | 'AX' atom -> ^( AX atom ) | 'E' '(' formule 'U' formule ')' -> ^( EU formule formule ) | 'A' '(' formule 'U' formule ')' -> ^( AU formule formule ) )
-            int alt13=10;
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:221:2: ( atom | term01 | term02 )
+            int alt13=3;
             switch ( input.LA(1) ) {
             case ATOM:
             case 36:
@@ -2338,44 +2277,16 @@ public TreeAdaptor getTreeAdaptor() {
                 alt13=2;
                 }
                 break;
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
             case 49:
-                {
-                alt13=3;
-                }
-                break;
             case 50:
-                {
-                alt13=4;
-                }
-                break;
             case 51:
                 {
-                alt13=5;
-                }
-                break;
-            case 45:
-                {
-                alt13=6;
-                }
-                break;
-            case 46:
-                {
-                alt13=7;
-                }
-                break;
-            case 47:
-                {
-                alt13=8;
-                }
-                break;
-            case 48:
-                {
-                alt13=9;
-                }
-                break;
-            case 44:
-                {
-                alt13=10;
+                alt13=3;
                 }
                 break;
             default:
@@ -2403,21 +2314,250 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:222:4: '!' atom
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:222:4: term01
                     {
-                    char_literal49=(Token)match(input,35,FOLLOW_35_in_term0601);  
-                    stream_35.add(char_literal49);
+                    root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_atom_in_term0603);
-                    atom50=atom();
+                    pushFollow(FOLLOW_term01_in_term0601);
+                    term0149=term01();
 
                     state._fsp--;
 
-                    stream_atom.add(atom50.getTree());
+                    adaptor.addChild(root_0, term0149.getTree());
+
+                    }
+                    break;
+                case 3 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:223:4: term02
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+
+                    pushFollow(FOLLOW_term02_in_term0606);
+                    term0250=term02();
+
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, term0250.getTree());
+
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+
+        finally {
+        	// do for sure before leaving
+        }
+        return retval;
+    }
+    // $ANTLR end "term0"
+
+
+    public static class term01_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+
+    // $ANTLR start "term01"
+    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:226:1: term01 : ( '!' ( atom -> ^( NEG atom ) | term02 -> ^( NEG term02 ) ) | '!' term01 -> ^( NEG term01 ) );
+    public final CommandLineParser.term01_return term01() throws RecognitionException {
+        CommandLineParser.term01_return retval = new CommandLineParser.term01_return();
+        retval.start = input.LT(1);
+
+
+        Object root_0 = null;
+
+        Token char_literal51=null;
+        Token char_literal54=null;
+        CommandLineParser.atom_return atom52 =null;
+
+        CommandLineParser.term02_return term0253 =null;
+
+        CommandLineParser.term01_return term0155 =null;
+
+
+        Object char_literal51_tree=null;
+        Object char_literal54_tree=null;
+        RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
+        RewriteRuleSubtreeStream stream_term01=new RewriteRuleSubtreeStream(adaptor,"rule term01");
+        RewriteRuleSubtreeStream stream_atom=new RewriteRuleSubtreeStream(adaptor,"rule atom");
+        RewriteRuleSubtreeStream stream_term02=new RewriteRuleSubtreeStream(adaptor,"rule term02");
+        try {
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:227:2: ( '!' ( atom -> ^( NEG atom ) | term02 -> ^( NEG term02 ) ) | '!' term01 -> ^( NEG term01 ) )
+            int alt15=2;
+            int LA15_0 = input.LA(1);
+
+            if ( (LA15_0==35) ) {
+                int LA15_1 = input.LA(2);
+
+                if ( (LA15_1==ATOM||LA15_1==36||(LA15_1 >= 44 && LA15_1 <= 51)||LA15_1==58||(LA15_1 >= 60 && LA15_1 <= 61)||LA15_1==63||LA15_1==71) ) {
+                    alt15=1;
+                }
+                else if ( (LA15_1==35) ) {
+                    alt15=2;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 15, 1, input);
+
+                    throw nvae;
+
+                }
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 15, 0, input);
+
+                throw nvae;
+
+            }
+            switch (alt15) {
+                case 1 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:227:4: '!' ( atom -> ^( NEG atom ) | term02 -> ^( NEG term02 ) )
+                    {
+                    char_literal51=(Token)match(input,35,FOLLOW_35_in_term01618);  
+                    stream_35.add(char_literal51);
+
+
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:227:8: ( atom -> ^( NEG atom ) | term02 -> ^( NEG term02 ) )
+                    int alt14=2;
+                    int LA14_0 = input.LA(1);
+
+                    if ( (LA14_0==ATOM||LA14_0==36||LA14_0==58||(LA14_0 >= 60 && LA14_0 <= 61)||LA14_0==63||LA14_0==71) ) {
+                        alt14=1;
+                    }
+                    else if ( ((LA14_0 >= 44 && LA14_0 <= 51)) ) {
+                        alt14=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 14, 0, input);
+
+                        throw nvae;
+
+                    }
+                    switch (alt14) {
+                        case 1 :
+                            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:228:3: atom
+                            {
+                            pushFollow(FOLLOW_atom_in_term01624);
+                            atom52=atom();
+
+                            state._fsp--;
+
+                            stream_atom.add(atom52.getTree());
+
+                            // AST REWRITE
+                            // elements: atom
+                            // token labels: 
+                            // rule labels: retval
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
+                            retval.tree = root_0;
+                            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                            root_0 = (Object)adaptor.nil();
+                            // 228:8: -> ^( NEG atom )
+                            {
+                                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:228:11: ^( NEG atom )
+                                {
+                                Object root_1 = (Object)adaptor.nil();
+                                root_1 = (Object)adaptor.becomeRoot(
+                                (Object)adaptor.create(NEG, "NEG")
+                                , root_1);
+
+                                adaptor.addChild(root_1, stream_atom.nextTree());
+
+                                adaptor.addChild(root_0, root_1);
+                                }
+
+                            }
+
+
+                            retval.tree = root_0;
+
+                            }
+                            break;
+                        case 2 :
+                            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:229:5: term02
+                            {
+                            pushFollow(FOLLOW_term02_in_term01638);
+                            term0253=term02();
+
+                            state._fsp--;
+
+                            stream_term02.add(term0253.getTree());
+
+                            // AST REWRITE
+                            // elements: term02
+                            // token labels: 
+                            // rule labels: retval
+                            // token list labels: 
+                            // rule list labels: 
+                            // wildcard labels: 
+                            retval.tree = root_0;
+                            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                            root_0 = (Object)adaptor.nil();
+                            // 229:12: -> ^( NEG term02 )
+                            {
+                                // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:229:15: ^( NEG term02 )
+                                {
+                                Object root_1 = (Object)adaptor.nil();
+                                root_1 = (Object)adaptor.becomeRoot(
+                                (Object)adaptor.create(NEG, "NEG")
+                                , root_1);
+
+                                adaptor.addChild(root_1, stream_term02.nextTree());
+
+                                adaptor.addChild(root_0, root_1);
+                                }
+
+                            }
+
+
+                            retval.tree = root_0;
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:231:4: '!' term01
+                    {
+                    char_literal54=(Token)match(input,35,FOLLOW_35_in_term01654);  
+                    stream_35.add(char_literal54);
+
+
+                    pushFollow(FOLLOW_term01_in_term01656);
+                    term0155=term01();
+
+                    state._fsp--;
+
+                    stream_term01.add(term0155.getTree());
 
                     // AST REWRITE
-                    // elements: atom
+                    // elements: term01
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2427,16 +2567,16 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 222:13: -> ^( NEG atom )
+                    // 231:15: -> ^( NEG term01 )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:222:16: ^( NEG atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:231:18: ^( NEG term01 )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
                         (Object)adaptor.create(NEG, "NEG")
                         , root_1);
 
-                        adaptor.addChild(root_1, stream_atom.nextTree());
+                        adaptor.addChild(root_1, stream_term01.nextTree());
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -2448,19 +2588,173 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 3 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:223:4: 'EF' atom
+
+            }
+            retval.stop = input.LT(-1);
+
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+
+        finally {
+        	// do for sure before leaving
+        }
+        return retval;
+    }
+    // $ANTLR end "term01"
+
+
+    public static class term02_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+
+    // $ANTLR start "term02"
+    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:234:1: term02 : ( 'EF' atom -> ^( EF atom ) | 'EG' atom -> ^( EG atom ) | 'EX' atom -> ^( EX atom ) | 'AF' atom -> ^( AF atom ) | 'AG' atom -> ^( AG atom ) | 'AX' atom -> ^( AX atom ) | 'E' '(' formule 'U' formule ')' -> ^( EU formule formule ) | 'A' '(' formule 'U' formule ')' -> ^( AU formule formule ) );
+    public final CommandLineParser.term02_return term02() throws RecognitionException {
+        CommandLineParser.term02_return retval = new CommandLineParser.term02_return();
+        retval.start = input.LT(1);
+
+
+        Object root_0 = null;
+
+        Token string_literal56=null;
+        Token string_literal58=null;
+        Token string_literal60=null;
+        Token string_literal62=null;
+        Token string_literal64=null;
+        Token string_literal66=null;
+        Token char_literal68=null;
+        Token char_literal69=null;
+        Token char_literal71=null;
+        Token char_literal73=null;
+        Token char_literal74=null;
+        Token char_literal75=null;
+        Token char_literal77=null;
+        Token char_literal79=null;
+        CommandLineParser.atom_return atom57 =null;
+
+        CommandLineParser.atom_return atom59 =null;
+
+        CommandLineParser.atom_return atom61 =null;
+
+        CommandLineParser.atom_return atom63 =null;
+
+        CommandLineParser.atom_return atom65 =null;
+
+        CommandLineParser.atom_return atom67 =null;
+
+        CommandLineParser.formule_return formule70 =null;
+
+        CommandLineParser.formule_return formule72 =null;
+
+        CommandLineParser.formule_return formule76 =null;
+
+        CommandLineParser.formule_return formule78 =null;
+
+
+        Object string_literal56_tree=null;
+        Object string_literal58_tree=null;
+        Object string_literal60_tree=null;
+        Object string_literal62_tree=null;
+        Object string_literal64_tree=null;
+        Object string_literal66_tree=null;
+        Object char_literal68_tree=null;
+        Object char_literal69_tree=null;
+        Object char_literal71_tree=null;
+        Object char_literal73_tree=null;
+        Object char_literal74_tree=null;
+        Object char_literal75_tree=null;
+        Object char_literal77_tree=null;
+        Object char_literal79_tree=null;
+        RewriteRuleTokenStream stream_49=new RewriteRuleTokenStream(adaptor,"token 49");
+        RewriteRuleTokenStream stream_48=new RewriteRuleTokenStream(adaptor,"token 48");
+        RewriteRuleTokenStream stream_45=new RewriteRuleTokenStream(adaptor,"token 45");
+        RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
+        RewriteRuleTokenStream stream_47=new RewriteRuleTokenStream(adaptor,"token 47");
+        RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
+        RewriteRuleTokenStream stream_51=new RewriteRuleTokenStream(adaptor,"token 51");
+        RewriteRuleTokenStream stream_36=new RewriteRuleTokenStream(adaptor,"token 36");
+        RewriteRuleTokenStream stream_54=new RewriteRuleTokenStream(adaptor,"token 54");
+        RewriteRuleTokenStream stream_37=new RewriteRuleTokenStream(adaptor,"token 37");
+        RewriteRuleTokenStream stream_50=new RewriteRuleTokenStream(adaptor,"token 50");
+        RewriteRuleSubtreeStream stream_atom=new RewriteRuleSubtreeStream(adaptor,"rule atom");
+        RewriteRuleSubtreeStream stream_formule=new RewriteRuleSubtreeStream(adaptor,"rule formule");
+        try {
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:235:2: ( 'EF' atom -> ^( EF atom ) | 'EG' atom -> ^( EG atom ) | 'EX' atom -> ^( EX atom ) | 'AF' atom -> ^( AF atom ) | 'AG' atom -> ^( AG atom ) | 'AX' atom -> ^( AX atom ) | 'E' '(' formule 'U' formule ')' -> ^( EU formule formule ) | 'A' '(' formule 'U' formule ')' -> ^( AU formule formule ) )
+            int alt16=8;
+            switch ( input.LA(1) ) {
+            case 49:
+                {
+                alt16=1;
+                }
+                break;
+            case 50:
+                {
+                alt16=2;
+                }
+                break;
+            case 51:
+                {
+                alt16=3;
+                }
+                break;
+            case 45:
+                {
+                alt16=4;
+                }
+                break;
+            case 46:
+                {
+                alt16=5;
+                }
+                break;
+            case 47:
+                {
+                alt16=6;
+                }
+                break;
+            case 48:
+                {
+                alt16=7;
+                }
+                break;
+            case 44:
+                {
+                alt16=8;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 16, 0, input);
+
+                throw nvae;
+
+            }
+
+            switch (alt16) {
+                case 1 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:235:4: 'EF' atom
                     {
-                    string_literal51=(Token)match(input,49,FOLLOW_49_in_term0616);  
-                    stream_49.add(string_literal51);
+                    string_literal56=(Token)match(input,49,FOLLOW_49_in_term02676);  
+                    stream_49.add(string_literal56);
 
 
-                    pushFollow(FOLLOW_atom_in_term0618);
-                    atom52=atom();
+                    pushFollow(FOLLOW_atom_in_term02678);
+                    atom57=atom();
 
                     state._fsp--;
 
-                    stream_atom.add(atom52.getTree());
+                    stream_atom.add(atom57.getTree());
 
                     // AST REWRITE
                     // elements: atom
@@ -2473,9 +2767,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 223:14: -> ^( EF atom )
+                    // 235:14: -> ^( EF atom )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:223:17: ^( EF atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:235:17: ^( EF atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2494,19 +2788,19 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 4 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:224:4: 'EG' atom
+                case 2 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:236:4: 'EG' atom
                     {
-                    string_literal53=(Token)match(input,50,FOLLOW_50_in_term0631);  
-                    stream_50.add(string_literal53);
+                    string_literal58=(Token)match(input,50,FOLLOW_50_in_term02691);  
+                    stream_50.add(string_literal58);
 
 
-                    pushFollow(FOLLOW_atom_in_term0633);
-                    atom54=atom();
+                    pushFollow(FOLLOW_atom_in_term02693);
+                    atom59=atom();
 
                     state._fsp--;
 
-                    stream_atom.add(atom54.getTree());
+                    stream_atom.add(atom59.getTree());
 
                     // AST REWRITE
                     // elements: atom
@@ -2519,9 +2813,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 224:14: -> ^( EG atom )
+                    // 236:14: -> ^( EG atom )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:224:17: ^( EG atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:236:17: ^( EG atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2540,19 +2834,19 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 5 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:225:4: 'EX' atom
+                case 3 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:237:4: 'EX' atom
                     {
-                    string_literal55=(Token)match(input,51,FOLLOW_51_in_term0646);  
-                    stream_51.add(string_literal55);
+                    string_literal60=(Token)match(input,51,FOLLOW_51_in_term02706);  
+                    stream_51.add(string_literal60);
 
 
-                    pushFollow(FOLLOW_atom_in_term0648);
-                    atom56=atom();
+                    pushFollow(FOLLOW_atom_in_term02708);
+                    atom61=atom();
 
                     state._fsp--;
 
-                    stream_atom.add(atom56.getTree());
+                    stream_atom.add(atom61.getTree());
 
                     // AST REWRITE
                     // elements: atom
@@ -2565,9 +2859,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 225:14: -> ^( EX atom )
+                    // 237:14: -> ^( EX atom )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:225:17: ^( EX atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:237:17: ^( EX atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2586,19 +2880,19 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 6 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:226:4: 'AF' atom
+                case 4 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:238:4: 'AF' atom
                     {
-                    string_literal57=(Token)match(input,45,FOLLOW_45_in_term0661);  
-                    stream_45.add(string_literal57);
+                    string_literal62=(Token)match(input,45,FOLLOW_45_in_term02721);  
+                    stream_45.add(string_literal62);
 
 
-                    pushFollow(FOLLOW_atom_in_term0663);
-                    atom58=atom();
+                    pushFollow(FOLLOW_atom_in_term02723);
+                    atom63=atom();
 
                     state._fsp--;
 
-                    stream_atom.add(atom58.getTree());
+                    stream_atom.add(atom63.getTree());
 
                     // AST REWRITE
                     // elements: atom
@@ -2611,9 +2905,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 226:14: -> ^( AF atom )
+                    // 238:14: -> ^( AF atom )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:226:17: ^( AF atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:238:17: ^( AF atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2632,19 +2926,19 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 7 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:227:4: 'AG' atom
+                case 5 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:239:4: 'AG' atom
                     {
-                    string_literal59=(Token)match(input,46,FOLLOW_46_in_term0676);  
-                    stream_46.add(string_literal59);
+                    string_literal64=(Token)match(input,46,FOLLOW_46_in_term02736);  
+                    stream_46.add(string_literal64);
 
 
-                    pushFollow(FOLLOW_atom_in_term0678);
-                    atom60=atom();
+                    pushFollow(FOLLOW_atom_in_term02738);
+                    atom65=atom();
 
                     state._fsp--;
 
-                    stream_atom.add(atom60.getTree());
+                    stream_atom.add(atom65.getTree());
 
                     // AST REWRITE
                     // elements: atom
@@ -2657,9 +2951,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 227:14: -> ^( AG atom )
+                    // 239:14: -> ^( AG atom )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:227:17: ^( AG atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:239:17: ^( AG atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2678,19 +2972,19 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 8 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:228:4: 'AX' atom
+                case 6 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:240:4: 'AX' atom
                     {
-                    string_literal61=(Token)match(input,47,FOLLOW_47_in_term0691);  
-                    stream_47.add(string_literal61);
+                    string_literal66=(Token)match(input,47,FOLLOW_47_in_term02751);  
+                    stream_47.add(string_literal66);
 
 
-                    pushFollow(FOLLOW_atom_in_term0693);
-                    atom62=atom();
+                    pushFollow(FOLLOW_atom_in_term02753);
+                    atom67=atom();
 
                     state._fsp--;
 
-                    stream_atom.add(atom62.getTree());
+                    stream_atom.add(atom67.getTree());
 
                     // AST REWRITE
                     // elements: atom
@@ -2703,9 +2997,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 228:14: -> ^( AX atom )
+                    // 240:14: -> ^( AX atom )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:228:17: ^( AX atom )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:240:17: ^( AX atom )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2724,37 +3018,37 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 9 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:229:4: 'E' '(' formule 'U' formule ')'
+                case 7 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:241:4: 'E' '(' formule 'U' formule ')'
                     {
-                    char_literal63=(Token)match(input,48,FOLLOW_48_in_term0706);  
-                    stream_48.add(char_literal63);
+                    char_literal68=(Token)match(input,48,FOLLOW_48_in_term02766);  
+                    stream_48.add(char_literal68);
 
 
-                    char_literal64=(Token)match(input,36,FOLLOW_36_in_term0708);  
-                    stream_36.add(char_literal64);
+                    char_literal69=(Token)match(input,36,FOLLOW_36_in_term02768);  
+                    stream_36.add(char_literal69);
 
 
-                    pushFollow(FOLLOW_formule_in_term0710);
-                    formule65=formule();
-
-                    state._fsp--;
-
-                    stream_formule.add(formule65.getTree());
-
-                    char_literal66=(Token)match(input,54,FOLLOW_54_in_term0712);  
-                    stream_54.add(char_literal66);
-
-
-                    pushFollow(FOLLOW_formule_in_term0714);
-                    formule67=formule();
+                    pushFollow(FOLLOW_formule_in_term02770);
+                    formule70=formule();
 
                     state._fsp--;
 
-                    stream_formule.add(formule67.getTree());
+                    stream_formule.add(formule70.getTree());
 
-                    char_literal68=(Token)match(input,37,FOLLOW_37_in_term0716);  
-                    stream_37.add(char_literal68);
+                    char_literal71=(Token)match(input,54,FOLLOW_54_in_term02772);  
+                    stream_54.add(char_literal71);
+
+
+                    pushFollow(FOLLOW_formule_in_term02774);
+                    formule72=formule();
+
+                    state._fsp--;
+
+                    stream_formule.add(formule72.getTree());
+
+                    char_literal73=(Token)match(input,37,FOLLOW_37_in_term02776);  
+                    stream_37.add(char_literal73);
 
 
                     // AST REWRITE
@@ -2768,9 +3062,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 229:36: -> ^( EU formule formule )
+                    // 241:36: -> ^( EU formule formule )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:229:39: ^( EU formule formule )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:241:39: ^( EU formule formule )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2791,37 +3085,37 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 10 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:230:4: 'A' '(' formule 'U' formule ')'
+                case 8 :
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:242:4: 'A' '(' formule 'U' formule ')'
                     {
-                    char_literal69=(Token)match(input,44,FOLLOW_44_in_term0731);  
-                    stream_44.add(char_literal69);
+                    char_literal74=(Token)match(input,44,FOLLOW_44_in_term02791);  
+                    stream_44.add(char_literal74);
 
 
-                    char_literal70=(Token)match(input,36,FOLLOW_36_in_term0733);  
-                    stream_36.add(char_literal70);
+                    char_literal75=(Token)match(input,36,FOLLOW_36_in_term02793);  
+                    stream_36.add(char_literal75);
 
 
-                    pushFollow(FOLLOW_formule_in_term0735);
-                    formule71=formule();
-
-                    state._fsp--;
-
-                    stream_formule.add(formule71.getTree());
-
-                    char_literal72=(Token)match(input,54,FOLLOW_54_in_term0737);  
-                    stream_54.add(char_literal72);
-
-
-                    pushFollow(FOLLOW_formule_in_term0739);
-                    formule73=formule();
+                    pushFollow(FOLLOW_formule_in_term02795);
+                    formule76=formule();
 
                     state._fsp--;
 
-                    stream_formule.add(formule73.getTree());
+                    stream_formule.add(formule76.getTree());
 
-                    char_literal74=(Token)match(input,37,FOLLOW_37_in_term0741);  
-                    stream_37.add(char_literal74);
+                    char_literal77=(Token)match(input,54,FOLLOW_54_in_term02797);  
+                    stream_54.add(char_literal77);
+
+
+                    pushFollow(FOLLOW_formule_in_term02799);
+                    formule78=formule();
+
+                    state._fsp--;
+
+                    stream_formule.add(formule78.getTree());
+
+                    char_literal79=(Token)match(input,37,FOLLOW_37_in_term02801);  
+                    stream_37.add(char_literal79);
 
 
                     // AST REWRITE
@@ -2835,9 +3129,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 230:36: -> ^( AU formule formule )
+                    // 242:36: -> ^( AU formule formule )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:230:39: ^( AU formule formule )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:242:39: ^( AU formule formule )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2879,7 +3173,7 @@ public TreeAdaptor getTreeAdaptor() {
         }
         return retval;
     }
-    // $ANTLR end "term0"
+    // $ANTLR end "term02"
 
 
     public static class atom_return extends ParserRuleReturnScope {
@@ -2889,7 +3183,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "atom"
-    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:233:1: atom : (p= ATOM | 'dead' -> DEAD | 'initial' -> INITIAL | 'enable' '(' ATOM ')' -> ^( ENABLE ATOM ) | 'true' -> TRUE | 'false' -> FALSE | '(' ! formule ')' !);
+    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:1: atom : (p= ATOM | 'dead' -> DEAD | 'initial' -> INITIAL | 'enable' '(' ATOM ')' -> ^( ENABLE ATOM ) | 'true' -> TRUE | 'false' -> FALSE | '(' ! formule ')' !);
     public final CommandLineParser.atom_return atom() throws RecognitionException {
         CommandLineParser.atom_return retval = new CommandLineParser.atom_return();
         retval.start = input.LT(1);
@@ -2898,30 +3192,30 @@ public TreeAdaptor getTreeAdaptor() {
         Object root_0 = null;
 
         Token p=null;
-        Token string_literal75=null;
-        Token string_literal76=null;
-        Token string_literal77=null;
-        Token char_literal78=null;
-        Token ATOM79=null;
-        Token char_literal80=null;
+        Token string_literal80=null;
         Token string_literal81=null;
         Token string_literal82=null;
         Token char_literal83=null;
+        Token ATOM84=null;
         Token char_literal85=null;
-        CommandLineParser.formule_return formule84 =null;
+        Token string_literal86=null;
+        Token string_literal87=null;
+        Token char_literal88=null;
+        Token char_literal90=null;
+        CommandLineParser.formule_return formule89 =null;
 
 
         Object p_tree=null;
-        Object string_literal75_tree=null;
-        Object string_literal76_tree=null;
-        Object string_literal77_tree=null;
-        Object char_literal78_tree=null;
-        Object ATOM79_tree=null;
-        Object char_literal80_tree=null;
+        Object string_literal80_tree=null;
         Object string_literal81_tree=null;
         Object string_literal82_tree=null;
         Object char_literal83_tree=null;
+        Object ATOM84_tree=null;
         Object char_literal85_tree=null;
+        Object string_literal86_tree=null;
+        Object string_literal87_tree=null;
+        Object char_literal88_tree=null;
+        Object char_literal90_tree=null;
         RewriteRuleTokenStream stream_58=new RewriteRuleTokenStream(adaptor,"token 58");
         RewriteRuleTokenStream stream_ATOM=new RewriteRuleTokenStream(adaptor,"token ATOM");
         RewriteRuleTokenStream stream_36=new RewriteRuleTokenStream(adaptor,"token 36");
@@ -2932,60 +3226,60 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_37=new RewriteRuleTokenStream(adaptor,"token 37");
 
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:234:2: (p= ATOM | 'dead' -> DEAD | 'initial' -> INITIAL | 'enable' '(' ATOM ')' -> ^( ENABLE ATOM ) | 'true' -> TRUE | 'false' -> FALSE | '(' ! formule ')' !)
-            int alt14=7;
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:2: (p= ATOM | 'dead' -> DEAD | 'initial' -> INITIAL | 'enable' '(' ATOM ')' -> ^( ENABLE ATOM ) | 'true' -> TRUE | 'false' -> FALSE | '(' ! formule ')' !)
+            int alt17=7;
             switch ( input.LA(1) ) {
             case ATOM:
                 {
-                alt14=1;
+                alt17=1;
                 }
                 break;
             case 58:
                 {
-                alt14=2;
+                alt17=2;
                 }
                 break;
             case 63:
                 {
-                alt14=3;
+                alt17=3;
                 }
                 break;
             case 60:
                 {
-                alt14=4;
+                alt17=4;
                 }
                 break;
             case 71:
                 {
-                alt14=5;
+                alt17=5;
                 }
                 break;
             case 61:
                 {
-                alt14=6;
+                alt17=6;
                 }
                 break;
             case 36:
                 {
-                alt14=7;
+                alt17=7;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 17, 0, input);
 
                 throw nvae;
 
             }
 
-            switch (alt14) {
+            switch (alt17) {
                 case 1 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:234:4: p= ATOM
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:246:4: p= ATOM
                     {
                     root_0 = (Object)adaptor.nil();
 
 
-                    p=(Token)match(input,ATOM,FOLLOW_ATOM_in_atom765); 
+                    p=(Token)match(input,ATOM,FOLLOW_ATOM_in_atom825); 
                     p_tree = 
                     (Object)adaptor.create(p)
                     ;
@@ -2997,10 +3291,10 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:235:4: 'dead'
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:247:4: 'dead'
                     {
-                    string_literal75=(Token)match(input,58,FOLLOW_58_in_atom772);  
-                    stream_58.add(string_literal75);
+                    string_literal80=(Token)match(input,58,FOLLOW_58_in_atom832);  
+                    stream_58.add(string_literal80);
 
 
                     // AST REWRITE
@@ -3014,7 +3308,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 235:11: -> DEAD
+                    // 247:11: -> DEAD
                     {
                         adaptor.addChild(root_0, 
                         (Object)adaptor.create(DEAD, "DEAD")
@@ -3028,10 +3322,10 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:236:4: 'initial'
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:248:4: 'initial'
                     {
-                    string_literal76=(Token)match(input,63,FOLLOW_63_in_atom781);  
-                    stream_63.add(string_literal76);
+                    string_literal81=(Token)match(input,63,FOLLOW_63_in_atom841);  
+                    stream_63.add(string_literal81);
 
 
                     // AST REWRITE
@@ -3045,7 +3339,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 236:14: -> INITIAL
+                    // 248:14: -> INITIAL
                     {
                         adaptor.addChild(root_0, 
                         (Object)adaptor.create(INITIAL, "INITIAL")
@@ -3059,22 +3353,22 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:237:4: 'enable' '(' ATOM ')'
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:249:4: 'enable' '(' ATOM ')'
                     {
-                    string_literal77=(Token)match(input,60,FOLLOW_60_in_atom790);  
-                    stream_60.add(string_literal77);
+                    string_literal82=(Token)match(input,60,FOLLOW_60_in_atom850);  
+                    stream_60.add(string_literal82);
 
 
-                    char_literal78=(Token)match(input,36,FOLLOW_36_in_atom792);  
-                    stream_36.add(char_literal78);
+                    char_literal83=(Token)match(input,36,FOLLOW_36_in_atom852);  
+                    stream_36.add(char_literal83);
 
 
-                    ATOM79=(Token)match(input,ATOM,FOLLOW_ATOM_in_atom794);  
-                    stream_ATOM.add(ATOM79);
+                    ATOM84=(Token)match(input,ATOM,FOLLOW_ATOM_in_atom854);  
+                    stream_ATOM.add(ATOM84);
 
 
-                    char_literal80=(Token)match(input,37,FOLLOW_37_in_atom796);  
-                    stream_37.add(char_literal80);
+                    char_literal85=(Token)match(input,37,FOLLOW_37_in_atom856);  
+                    stream_37.add(char_literal85);
 
 
                     // AST REWRITE
@@ -3088,9 +3382,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 237:26: -> ^( ENABLE ATOM )
+                    // 249:26: -> ^( ENABLE ATOM )
                     {
-                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:237:29: ^( ENABLE ATOM )
+                        // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:249:29: ^( ENABLE ATOM )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -3112,10 +3406,10 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:238:4: 'true'
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:250:4: 'true'
                     {
-                    string_literal81=(Token)match(input,71,FOLLOW_71_in_atom809);  
-                    stream_71.add(string_literal81);
+                    string_literal86=(Token)match(input,71,FOLLOW_71_in_atom869);  
+                    stream_71.add(string_literal86);
 
 
                     // AST REWRITE
@@ -3129,7 +3423,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 238:11: -> TRUE
+                    // 250:11: -> TRUE
                     {
                         adaptor.addChild(root_0, 
                         (Object)adaptor.create(TRUE, "TRUE")
@@ -3143,10 +3437,10 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 6 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:239:4: 'false'
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:251:4: 'false'
                     {
-                    string_literal82=(Token)match(input,61,FOLLOW_61_in_atom818);  
-                    stream_61.add(string_literal82);
+                    string_literal87=(Token)match(input,61,FOLLOW_61_in_atom878);  
+                    stream_61.add(string_literal87);
 
 
                     // AST REWRITE
@@ -3160,7 +3454,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 239:12: -> FALSE
+                    // 251:12: -> FALSE
                     {
                         adaptor.addChild(root_0, 
                         (Object)adaptor.create(FALSE, "FALSE")
@@ -3174,21 +3468,21 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 7 :
-                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:240:4: '(' ! formule ')' !
+                    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:252:4: '(' ! formule ')' !
                     {
                     root_0 = (Object)adaptor.nil();
 
 
-                    char_literal83=(Token)match(input,36,FOLLOW_36_in_atom827); 
+                    char_literal88=(Token)match(input,36,FOLLOW_36_in_atom887); 
 
-                    pushFollow(FOLLOW_formule_in_atom830);
-                    formule84=formule();
+                    pushFollow(FOLLOW_formule_in_atom890);
+                    formule89=formule();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, formule84.getTree());
+                    adaptor.addChild(root_0, formule89.getTree());
 
-                    char_literal85=(Token)match(input,37,FOLLOW_37_in_atom832); 
+                    char_literal90=(Token)match(input,37,FOLLOW_37_in_atom892); 
 
                     }
                     break;
@@ -3223,7 +3517,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "etat"
-    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:244:1: etat : ( NUMBER )+ ;
+    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:256:1: etat : ( NUMBER )+ ;
     public final CommandLineParser.etat_return etat() throws RecognitionException {
         CommandLineParser.etat_return retval = new CommandLineParser.etat_return();
         retval.start = input.LT(1);
@@ -3231,50 +3525,50 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token NUMBER86=null;
+        Token NUMBER91=null;
 
-        Object NUMBER86_tree=null;
+        Object NUMBER91_tree=null;
 
         try {
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:2: ( ( NUMBER )+ )
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:4: ( NUMBER )+
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:257:2: ( ( NUMBER )+ )
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:257:4: ( NUMBER )+
             {
             root_0 = (Object)adaptor.nil();
 
 
-            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:4: ( NUMBER )+
-            int cnt15=0;
-            loop15:
+            // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:257:4: ( NUMBER )+
+            int cnt18=0;
+            loop18:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt18=2;
+                int LA18_0 = input.LA(1);
 
-                if ( (LA15_0==NUMBER) ) {
-                    alt15=1;
+                if ( (LA18_0==NUMBER) ) {
+                    alt18=1;
                 }
 
 
-                switch (alt15) {
+                switch (alt18) {
             	case 1 :
-            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:245:4: NUMBER
+            	    // /Users/jeremymorosi/Documents/Programmation/Modelisation et verif/modelproj/src/principal/CommandLine.g:257:4: NUMBER
             	    {
-            	    NUMBER86=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_etat847); 
-            	    NUMBER86_tree = 
-            	    (Object)adaptor.create(NUMBER86)
+            	    NUMBER91=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_etat907); 
+            	    NUMBER91_tree = 
+            	    (Object)adaptor.create(NUMBER91)
             	    ;
-            	    adaptor.addChild(root_0, NUMBER86_tree);
+            	    adaptor.addChild(root_0, NUMBER91_tree);
 
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt15 >= 1 ) break loop15;
+            	    if ( cnt18 >= 1 ) break loop18;
                         EarlyExitException eee =
-                            new EarlyExitException(15, input);
+                            new EarlyExitException(18, input);
                         throw eee;
                 }
-                cnt15++;
+                cnt18++;
             } while (true);
 
 
@@ -3367,44 +3661,49 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_AND_in_term1578 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
     public static final BitSet FOLLOW_term0_in_term1581 = new BitSet(new long[]{0x0000000000000042L});
     public static final BitSet FOLLOW_atom_in_term0596 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_term0601 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0603 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_term0616 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0618 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_term0631 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_term0646 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_term0661 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0663 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_term0676 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0678 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_term0691 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_atom_in_term0693 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_48_in_term0706 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_term0708 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_formule_in_term0710 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_54_in_term0712 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_formule_in_term0714 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_term0716 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_term0731 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_term0733 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_formule_in_term0735 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_54_in_term0737 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_formule_in_term0739 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_term0741 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ATOM_in_atom765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_atom772 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_atom781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_atom790 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_atom792 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_ATOM_in_atom794 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_atom796 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_atom809 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_61_in_atom818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_atom827 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
-    public static final BitSet FOLLOW_formule_in_atom830 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_atom832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_etat847 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_term01_in_term0601 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_term02_in_term0606 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_term01618 = new BitSet(new long[]{0xB40FF01000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term01624 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_term02_in_term01638 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_term01654 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_term01_in_term01656 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_term02676 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term02678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_term02691 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term02693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_term02706 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term02708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_term02721 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term02723 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_term02736 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term02738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_47_in_term02751 = new BitSet(new long[]{0xB400001000000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_atom_in_term02753 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_term02766 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_term02768 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_formule_in_term02770 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_54_in_term02772 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_formule_in_term02774 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_term02776 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_term02791 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_term02793 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_formule_in_term02795 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_54_in_term02797 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_formule_in_term02799 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_term02801 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ATOM_in_atom825 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_58_in_atom832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_63_in_atom841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_atom850 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_atom852 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_ATOM_in_atom854 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_atom856 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_71_in_atom869 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_61_in_atom878 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_atom887 = new BitSet(new long[]{0xB40FF01800000080L,0x0000000000000080L});
+    public static final BitSet FOLLOW_formule_in_atom890 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_atom892 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_etat907 = new BitSet(new long[]{0x0000000004000002L});
 
 }

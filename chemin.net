@@ -1,0 +1,21 @@
+#place A mk(<..>)
+#place B
+#place C
+#place D
+#trans t1
+in {A:<..>;}
+out {B:<..>;}
+#endtr
+#trans t2
+in {A:<..>;}
+out {C:<..>;}
+#endtr
+#trans t3
+in {B:<..>;}
+out {D:<..>;}
+#endtr
+#trans t4
+in {C:<..>;}
+out {D:<..>;}
+#endtr
+

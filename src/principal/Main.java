@@ -240,8 +240,12 @@ public class Main implements ICallback {
 			System.out.println("Aucun graphe d'etat charge.");
 		} else {
 			Coloration couleurs = new Coloration();
-			IPreuve p = justifier(formule, etat, couleurs);
-			System.out.println(p.toTree());
+			IPreuve p = justifierOuContreExemple(formule, etat, couleurs);
+			if (p == null) {
+				System.out.println("Erreur");
+			} else {
+				System.out.println(p.toTree());
+			}
 		}
 	}
 
@@ -255,12 +259,17 @@ public class Main implements ICallback {
 		} else {
 			try {
 				Coloration couleurs = new Coloration();
-				IPreuve p = justifier(formule, etat, couleurs);
-				File f = new File(filename);
-				BufferedOutputStream bos = new BufferedOutputStream(
-						new FileOutputStream(f));
-				bos.write(grapheRdP.justifieToDot(p, etat, couleurs).getBytes());
-				bos.close();
+				IPreuve p = justifierOuContreExemple(formule, etat, couleurs);
+				if (p == null) {
+					System.out.println("Erreur");
+				} else {
+					File f = new File(filename);
+					BufferedOutputStream bos = new BufferedOutputStream(
+							new FileOutputStream(f));
+					bos.write(grapheRdP.justifieToDot(p, etat, couleurs)
+							.getBytes());
+					bos.close();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Erreur d'ecriture.");
@@ -301,15 +310,18 @@ public class Main implements ICallback {
 	}
 
 	/**
-	 * Justifie la formule.
+	 * Justifie la formule ou donne un contre exemple.
 	 * 
 	 * @param formule
 	 *            la formule.
 	 * @param etat
 	 *            l'état de départ.
-	 * @return la justification.
+	 * @param couleurs
+	 *            la coloration.
+	 * @return la justification ou le contre exemple.
 	 */
-	public IPreuve justifier(Tree formule, int etat, Coloration couleurs) {
+	public IPreuve justifierOuContreExemple(Tree formule, int etat,
+			Coloration couleurs) {
 		int[][] pred = listToInt(grapheRdP.pred);
 		boolean[][] AP = new boolean[rdp.tablePlace.size()][grapheRdP.nbEtat];
 		for (int j = 0; j < AP.length; ++j) {
@@ -321,8 +333,59 @@ public class Main implements ICallback {
 		CTL ctl = new CTL(pred, AP);
 		IPreuve p = new Preuve(formule);
 		ctl.justifie(rdp, formule, p, couleurs);
-		p.getPreuves().get(0).couperRacine(ctl, pred, etat);
-		return p.getPreuves().get(0);
+		IPreuve p2 = p.getPreuves().get(0);
+		if (!p2.getMarquage()[etat]) {
+			// L'état à prouver n'est pas valide, contre exemple.
+			System.out.println("L'état donné ne valide pas la formule.");
+			try {
+				String s = Preuve.neg(formule);
+				System.out.println("Justification de " + s + " pour l'état "
+						+ etat + ".");
+				Tree nf = Preuve.negTree(s);
+				couleurs.reset();
+				return contreExemple(nf, etat, couleurs);
+			} catch (Exception e) {
+				// Ne devrait jamais arriver.
+				e.printStackTrace();
+				return null;
+			}
+		} else {
+			// L'état à prouver est valide.
+			p2.couperRacine(ctl, pred, etat);
+			return p2;
+		}
+	}
+
+	/**
+	 * Justifie la formule.
+	 * 
+	 * @param formule
+	 *            la formule.
+	 * @param etat
+	 *            l'état de départ.
+	 * @return la justification.
+	 */
+	public IPreuve contreExemple(Tree formule, int etat, Coloration couleurs) {
+		int[][] pred = listToInt(grapheRdP.pred);
+		boolean[][] AP = new boolean[rdp.tablePlace.size()][grapheRdP.nbEtat];
+		for (int j = 0; j < AP.length; ++j) {
+			boolean[] b = AP[j];
+			for (int i = 0; i < b.length; ++i) {
+				b[i] = grapheRdP.etat.get(i)[j];
+			}
+		}
+		CTL ctl = new CTL(pred, AP);
+		IPreuve p = new Preuve(formule);
+		ctl.justifie(rdp, formule, p, couleurs);
+		IPreuve p2 = p.getPreuves().get(0);
+		if (!p2.getMarquage()[etat]) {
+			System.out.println("L'état donné ne valide pas la formule.");
+			return null;
+		} else {
+			p2.couperRacine(ctl, pred, etat);
+			p2.setContreExemple(true);
+			return p2;
+		}
 	}
 
 	/**
