@@ -18,11 +18,11 @@ public class Or extends Preuve {
 	 */
 	@Override
 	public void couperRacine(CTL ctl, int[][] pred, int etat) {
+		tousFalseSauf(etat);
 		IPreuve left = getPreuves().get(0);
 		IPreuve right = getPreuves().get(1);
 		left.couperRacine(ctl, pred, etat);
 		right.couperRacine(ctl, pred, etat);
-		setMarquage(ctl.or(left.getMarquage(), right.getMarquage()));
 	}
 
 	/**
@@ -30,11 +30,20 @@ public class Or extends Preuve {
 	 */
 	@Override
 	public void couper(CTL ctl, int[][] pred, boolean[] parents) {
+		tousFalseSauf(pred, parents);
 		IPreuve left = getPreuves().get(0);
 		IPreuve right = getPreuves().get(1);
-		left.couper(ctl, pred, parents);
-		right.couper(ctl, pred, parents);
-		setMarquage(ctl.or(left.getMarquage(), right.getMarquage()));
+		boolean[] m = getMarquage();
+		boolean[] m1 = left.getMarquage();
+		boolean[] m2 = right.getMarquage();
+		for (int i = 0; i < m.length; ++i) {
+			if (!m[i]) {
+				m1[i] = false;
+				m2[i] = false;
+			}
+		}
+		left.setMarquage(m1);
+		right.setMarquage(m2);
 	}
 
 	/**
@@ -64,7 +73,7 @@ public class Or extends Preuve {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void toDot(Map<Integer, Set<Integer>> fleches,
+	public void toDotRacine(Map<Integer, Set<Integer>> fleches,
 			Set<String> justifications, IPreuve parent, int etatParent,
 			Coloration couleurs) {
 		IPreuve left = getPreuves().get(0);
@@ -75,13 +84,38 @@ public class Or extends Preuve {
 		for (int i = 0; i < marquage.length; ++i) {
 			if (marquage[i]) {
 				if (leftM[i]) {
-					left.toDot(fleches, justifications, parent, etatParent,
-							couleurs);
+					left.toDotRacine(fleches, justifications, parent,
+							etatParent, couleurs);
 					return;
 				} else if (rightM[i]) {
-					right.toDot(fleches, justifications, parent, etatParent,
-							couleurs);
+					right.toDotRacine(fleches, justifications, parent,
+							etatParent, couleurs);
 					return;
+				}
+			}
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void toDot(Map<Integer, Set<Integer>> fleches,
+			Set<String> justifications, IPreuve parent, int etatParent,
+			Coloration couleurs) {
+		IPreuve left = getPreuves().get(0);
+		IPreuve right = getPreuves().get(1);
+		boolean[] marquage = getMarquage();
+		boolean[] leftM = left.getMarquage();
+		boolean[] rightM = right.getMarquage();
+		for (int i = 0; i < marquage.length; ++i) {
+			if (marquage[i]) {
+				if (leftM[i]) {
+					left.toDot(fleches, justifications, this, etatParent,
+							couleurs);
+				} else if (rightM[i]) {
+					right.toDot(fleches, justifications, this, etatParent,
+							couleurs);
 				}
 			}
 		}

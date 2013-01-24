@@ -13,18 +13,18 @@
     scale=0.4
   ]
     \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{E(\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}} \| \textcolor{Sepia}{\$D})}$};
-    \node[state] (N2) at (4, -4) {$B$};
-    \node[state] (N3) at (-4, -4) {$C$};
+    \node[state] (N2) at (-4, -4) {$B$};
+    \node[state] (N3) at (4, -4) {$C$};
 \node[state] (N4) at (0, -8) {$D$};
 
     \path[->, BrickRed]
               (N1) edge [loop right] node {$\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}}$} (N1)
-              (N1) edge node [above left] {$\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}}$} (N3)
-(N3) edge node [below left] {$\textcolor{Sepia}{\$D}$} (N4);
+              (N1) edge node [above left] {$\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}}$} (N2)
+(N2) edge node [below left] {$\textcolor{Sepia}{\$D}$} (N4);
 
     \path[->]
-              (N1) edge node {} (N2)
-(N2) edge node {} (N4);
+              (N1) edge node {} (N3)
+(N3) edge node {} (N4);
   \end{tikzpicture}
 \caption{Affichage \texttt{.dot}}
 \end{subfigure}

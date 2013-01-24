@@ -70,7 +70,7 @@ public class FakeEU extends CheminBase {
 		list.add(avant);
 		int etatFinal = -1;
 		while (etatFinal == -1) {
-			boolean[] etape = etats.clone();
+			boolean[] etape = Arrays.copyOf(etats, etats.length);
 			// On enlève les états qui n'ont pas de prédécesseur dans avant.
 			for (int i = 0; i < etape.length; ++i) {
 				if (etape[i]) {

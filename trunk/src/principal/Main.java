@@ -305,8 +305,8 @@ public class Main implements ICallback {
 				b[i] = grapheRdP.etat.get(i)[j];
 			}
 		}
-		CTL ctl = new CTL(pred, AP);
-		return ctl.valeur(rdp, formule);
+		CTL ctl = new CTL(rdp, pred, AP, null);
+		return ctl.valeur(formule);
 	}
 
 	/**
@@ -330,9 +330,9 @@ public class Main implements ICallback {
 				b[i] = grapheRdP.etat.get(i)[j];
 			}
 		}
-		CTL ctl = new CTL(pred, AP);
+		CTL ctl = new CTL(rdp, pred, AP, couleurs);
 		IPreuve p = new Preuve(formule);
-		ctl.justifie(rdp, formule, p, couleurs);
+		ctl.justifie(formule, p);
 		IPreuve p2 = p.getPreuves().get(0);
 		if (!p2.getMarquage()[etat]) {
 			// L'état à prouver n'est pas valide, contre exemple.
@@ -374,9 +374,9 @@ public class Main implements ICallback {
 				b[i] = grapheRdP.etat.get(i)[j];
 			}
 		}
-		CTL ctl = new CTL(pred, AP);
+		CTL ctl = new CTL(rdp, pred, AP, couleurs);
 		IPreuve p = new Preuve(formule);
-		ctl.justifie(rdp, formule, p, couleurs);
+		ctl.justifie(formule, p);
 		IPreuve p2 = p.getPreuves().get(0);
 		if (!p2.getMarquage()[etat]) {
 			System.out.println("L'état donné ne valide pas la formule.");

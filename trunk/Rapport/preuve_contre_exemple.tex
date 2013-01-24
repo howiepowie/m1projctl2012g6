@@ -1,0 +1,50 @@
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.4
+  ]
+    \node[state, rectangle, align=center] (N1) {$A$\\Contre exemple\\$\textcolor{BrickRed}{AX(\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}})}$};
+    \node[state] (N2) at (-5, -5) {$B$};
+    \node[state] (N3) at (5, -5) {$C$};
+\node[state] (N4) at (0, -10) {$D$};
+
+    \path[->, BrickRed]
+              (N1) edge node [above left] {$\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}}$} (N2)
+              (N1) edge node [above right] {$\textcolor{ForestGreen}{!\textcolor{Blue}{\$D}}$} (N3);
+
+    \path[->]
+              (N2) edge node {} (N4)
+(N3) edge node {} (N4);
+  \end{tikzpicture}
+\caption{Affichage \texttt{.dot}}
+\label{fig:PreuveContreExempleDot}
+\end{subfigure}
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{minipage}{1\linewidth}
+\begin{verbatim}
+> Justifie EX($D) 0
+L'état donné ne valide pas la formule.
+Justification de AX(!$D) pour l'état 0.
+AX(!$D) = { 0 }
+  !$D = { 1 }
+    $D = { 2 }
+  !$D = { 3 }
+    $D = { 2 }
+\end{verbatim}
+\end{minipage}
+\caption{Affichage textuel}
+\label{fig:PreuveContreExempleTextuel}
+\end{subfigure}
+\caption{Contre exemple de $EX(\$D)$ pour l'état 0}
+\label{fig:PreuveContreExemple}
+\end{figure}

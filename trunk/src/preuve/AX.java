@@ -53,13 +53,12 @@ public class AX extends Preuve {
 		for (int etat = 0; etat < marquage.length; ++etat) {
 			if (marquage[etat]) {
 				// On clone la preuve de départ.
-				IPreuve p2 = p.clone();
-				boolean[] p2m = p2.getMarquage();
+				boolean[] p2m = p.getMarquageCopie();
 				// On l'attache à un AX ne contenant que l'état actuel.
 				boolean[] p3m = new boolean[marquage.length];
 				p3m[etat] = true;
 				IPreuve p3 = new FakeAX(getFormule(), p3m);
-				p3.getPreuves().add(p2);
+				List<IPreuve> p3p = p3.getPreuves();
 				// On garde tous les états pour la sous-preuve car AX.
 				for (int i = 0; i < p2m.length; ++i) {
 					if (p2m[i]) {
@@ -67,13 +66,13 @@ public class AX extends Preuve {
 						for (int j = 0; !p2m[i] && j < pred[i].length; ++j) {
 							if (pred[i][j] == etat) {
 								p2m[i] = true;
+								IPreuve p2 = p.clone();
+								p3p.add(p2);
+								p2.couperRacine(ctl, pred, i);
 							}
 						}
 					}
 				}
-				p2.setMarquage(p2m);
-				// On appelle couper pour la nouvelle sous-preuve.
-				p2.couper(ctl, pred, p3m);
 				// On l'ajoute à la liste.
 				preuves.add(p3);
 			}

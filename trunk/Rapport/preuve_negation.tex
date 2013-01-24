@@ -1,0 +1,43 @@
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.4
+  ]
+    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{EX(\textcolor{ForestGreen}{!\textcolor{Blue}{\$A}})}$};
+    \node[state] (N2) at (-4, -4) {$B$};
+    \node[state] (N3) at (4, -4) {$C$};
+\node[state] (N4) at (0, -8) {$D$};
+
+    \path[->, BrickRed]
+              (N1) edge node [above left] {$\textcolor{ForestGreen}{!\textcolor{Blue}{\$A}}$} (N2);
+
+    \path[->]
+	(N1) edge node {} (N3)
+            (N2) edge node {} (N4)
+(N3) edge node {} (N4);
+  \end{tikzpicture}
+\caption{Affichage \texttt{.dot}}
+\end{subfigure}
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{minipage}{0.4\linewidth}
+\begin{verbatim}
+EX(!$A) = { 0 }
+  !$A = { 1 }
+    $A = { }
+\end{verbatim}
+\end{minipage}
+\caption{Affichage textuel}
+\end{subfigure}
+\caption{Preuve de $EX(!\$A)$ pour l'état 0}
+\label{fig:PreuveNegation}
+\end{figure}

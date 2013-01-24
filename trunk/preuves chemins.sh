@@ -1,4 +1,4 @@
-# Exemples donnees dans le rapport.
+# Exemples donnes dans le rapport.
 java -jar modelprojet.jar << -END_PARAMS
 	shell
 	load "chemin.net"

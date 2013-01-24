@@ -1,0 +1,44 @@
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.4
+  ]
+    \node[state, rectangle, align=center] (N1) {$A{+}D$\\$\textcolor{BrickRed}{EG(\textcolor{Blue}{\$D})}$};
+    \node[state] (N2) at (-4, -4) {$B{+}D$};
+    \node[state] (N3) at (4, -4) {$C{+}D$};
+\node[state] (N4) at (0, -8) {$D{+}E$};
+
+    \path[->, BrickRed]
+              (N1) edge [loop right] node {$\textcolor{Blue}{\$D}$} (N1);
+
+\path[->]
+	(N1) edge node {} (N2)
+	(N1) edge node {} (N3)
+	(N2) edge node {} (N4)
+	(N3) edge node {} (N4);
+  \end{tikzpicture}
+\caption{Affichage \texttt{.dot}}
+\end{subfigure}
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{minipage}{0.4\linewidth}
+\begin{verbatim}
+EG($D) = { 0 } {
+  $D = { 0 }
+}
+\end{verbatim}
+\end{minipage}
+\caption{Affichage textuel}
+\end{subfigure}
+\caption{Preuve de $EG(\$D)$ pour l'état 0}
+\label{fig:PreuveCheminEG}
+\end{figure}

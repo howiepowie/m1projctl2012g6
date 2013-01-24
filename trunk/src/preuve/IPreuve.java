@@ -25,6 +25,13 @@ public interface IPreuve {
 	public boolean[] getMarquage();
 
 	/**
+	 * Retourne une copie du marquage.
+	 * 
+	 * @return une copie du marquage.
+	 */
+	public boolean[] getMarquageCopie();
+
+	/**
 	 * Modifie la liste des états vérifiant la formule.
 	 * 
 	 * @param marquage

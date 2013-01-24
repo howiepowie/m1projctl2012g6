@@ -1,0 +1,10 @@
+digraph system {
+N0 [label="A+D",shape=octagon]
+N1 [label="B+D"]
+N2 [label="D+E"]
+N3 [label="C+D"]
+N0 -> N1
+N0 -> N3
+N1 -> N2
+N3 -> N2
+}

@@ -16,8 +16,10 @@ import preuve.EF;
 import preuve.EG;
 import preuve.EU;
 import preuve.EX;
+import preuve.Equivalent;
 import preuve.False;
 import preuve.IPreuve;
+import preuve.Imply;
 import preuve.Initial;
 import preuve.NegAtom;
 import preuve.NegComplex;
@@ -31,13 +33,25 @@ public class CTL {
 
 	int[][] systeme; // liste des succeseur de chaque état
 	boolean[][] AP; //
+	RdP rdp;
+	Coloration couleurs;
 
-	public CTL(int[][] systeme, boolean[][] AP) {
+	public CTL(RdP rdp, int[][] systeme, boolean[][] AP, Coloration couleurs) {
 		this.systeme = systeme;
 		this.AP = AP;
+		this.rdp = rdp;
+		this.couleurs = couleurs;
 	}
 
-	public boolean[] valeur(RdP rdp, Tree t) {
+	public RdP getRdP() {
+		return rdp;
+	}
+
+	public Coloration getCouleurs() {
+		return couleurs;
+	}
+
+	public boolean[] valeur(Tree t) {
 		switch (t.getType()) {
 		case CommandLineParser.ATOM:
 			return prop(rdp.tablePlace.get(t.getText()));
@@ -50,56 +64,56 @@ public class CTL {
 		case CommandLineParser.INITIAL:
 			return initial();
 		case CommandLineParser.NEG:
-			boolean[] left = valeur(rdp, t.getChild(0));
+			boolean[] left = valeur(t.getChild(0));
 			return neg(left);
 		case CommandLineParser.AU:
-			left = valeur(rdp, t.getChild(0));
-			boolean[] right = valeur(rdp, t.getChild(1));
+			left = valeur(t.getChild(0));
+			boolean[] right = valeur(t.getChild(1));
 			return AU(left, right);
 		case CommandLineParser.EU:
-			left = valeur(rdp, t.getChild(0));
-			right = valeur(rdp, t.getChild(1));
+			left = valeur(t.getChild(0));
+			right = valeur(t.getChild(1));
 			return EU(left, right);
 		case CommandLineParser.AX:
-			left = valeur(rdp, t.getChild(0));
+			left = valeur(t.getChild(0));
 			return AX(left);
 		case CommandLineParser.EX:
-			left = valeur(rdp, t.getChild(0));
+			left = valeur(t.getChild(0));
 			return EX(left);
 		case CommandLineParser.AF:
-			left = valeur(rdp, t.getChild(0));
+			left = valeur(t.getChild(0));
 			return AU(vrai(), left);
 		case CommandLineParser.EF:
-			left = valeur(rdp, t.getChild(0));
+			left = valeur(t.getChild(0));
 			return EU(vrai(), left);
 		case CommandLineParser.AG:
-			left = valeur(rdp, t.getChild(0));
+			left = valeur(t.getChild(0));
 			return neg(EU(vrai(), neg(left)));
 		case CommandLineParser.EG:
-			left = valeur(rdp, t.getChild(0));
+			left = valeur(t.getChild(0));
 			return neg(AU(vrai(), neg(left)));
 		case CommandLineParser.OR:
-			left = valeur(rdp, t.getChild(0));
-			right = valeur(rdp, t.getChild(1));
+			left = valeur(t.getChild(0));
+			right = valeur(t.getChild(1));
 			return or(left, right);
 		case CommandLineParser.AND:
-			left = valeur(rdp, t.getChild(0));
-			right = valeur(rdp, t.getChild(1));
+			left = valeur(t.getChild(0));
+			right = valeur(t.getChild(1));
 			return and(left, right);
 		case CommandLineParser.IMPLY:
-			left = valeur(rdp, t.getChild(0));
-			right = valeur(rdp, t.getChild(1));
+			left = valeur(t.getChild(0));
+			right = valeur(t.getChild(1));
 			return or(neg(left), right);
 		case CommandLineParser.EQUIV:
-			left = valeur(rdp, t.getChild(0));
-			right = valeur(rdp, t.getChild(1));
+			left = valeur(t.getChild(0));
+			right = valeur(t.getChild(1));
 			return and(or(neg(left), right), or(neg(right), left));
 		default:
 			return null;
 		}
 	}
 
-	public IPreuve justifie(RdP rdp, Tree t, IPreuve parent, Coloration couleurs) {
+	public IPreuve justifie(Tree t, IPreuve parent) {
 		String couleur = couleurs.genererCouleur();
 		IPreuve p = new Preuve(t);
 		switch (t.getType()) {
@@ -130,14 +144,14 @@ public class CTL {
 				if (Preuve.estAtomique(t.getChild(0))) {
 					// Si c'est une négation sur un atome.
 					p = new NegAtom(t);
-					IPreuve left = justifie(rdp, t.getChild(0), p, couleurs);
+					IPreuve left = justifie(t.getChild(0), p);
 					p.setMarquage(neg(left.getMarquage()));
 					couleurs.ajouter(t, couleur,
 							"!" + couleurs.getLabel(left.getFormule()));
 				} else {
 					// Si c'est une négation sur une formule complexe.
 					Tree neg = Preuve.negTree(t.getChild(0));
-					IPreuve negP = justifie(rdp, neg, null, couleurs);
+					IPreuve negP = justifie(neg, null);
 					p = new NegComplex(t, negP);
 					p.setMarquage(negP.getMarquage());
 					couleurs.ajouter(t, couleur, Preuve.formuleToString(t));
@@ -147,16 +161,16 @@ public class CTL {
 			}
 			break;
 		case CommandLineParser.AU:
-			IPreuve left = justifie(rdp, t.getChild(0), null, couleurs);
-			IPreuve right = justifie(rdp, t.getChild(1), null, couleurs);
+			IPreuve left = justifie(t.getChild(0), null);
+			IPreuve right = justifie(t.getChild(1), null);
 			p = justifieAU(left, right, t);
 			couleurs.ajouter(t, couleur,
 					"A(" + couleurs.getLabel(left.getFormule()) + " U "
 							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.EU:
-			left = justifie(rdp, t.getChild(0), null, couleurs);
-			right = justifie(rdp, t.getChild(1), null, couleurs);
+			left = justifie(t.getChild(0), null);
+			right = justifie(t.getChild(1), null);
 			p = justifieEU(left, right, t);
 			couleurs.ajouter(t, couleur,
 					"E(" + couleurs.getLabel(left.getFormule()) + " U "
@@ -164,21 +178,21 @@ public class CTL {
 			break;
 		case CommandLineParser.AX:
 			p = new AX(t);
-			left = justifie(rdp, t.getChild(0), p, couleurs);
+			left = justifie(t.getChild(0), p);
 			p.setMarquage(AX(left.getMarquage()));
 			couleurs.ajouter(t, couleur,
 					"AX(" + couleurs.getLabel(left.getFormule()) + ")");
 			break;
 		case CommandLineParser.EX:
 			p = new EX(t);
-			left = justifie(rdp, t.getChild(0), p, couleurs);
+			left = justifie(t.getChild(0), p);
 			p.setMarquage(EX(left.getMarquage()));
 			couleurs.ajouter(t, couleur,
 					"EX(" + couleurs.getLabel(left.getFormule()) + ")");
 			break;
 		case CommandLineParser.AF:
 			left = new True(couleurs.ajouter("true"), vrai());
-			right = justifie(rdp, t.getChild(0), null, couleurs);
+			right = justifie(t.getChild(0), null);
 			boolean[] marquage = AU(vrai(), right.getMarquage());
 			p = new AF(t, marquage, left, right);
 			couleurs.ajouter(t, couleur,
@@ -186,7 +200,7 @@ public class CTL {
 			break;
 		case CommandLineParser.EF:
 			left = new True(couleurs.ajouter("true"), vrai());
-			right = justifie(rdp, t.getChild(0), null, couleurs);
+			right = justifie(t.getChild(0), null);
 			marquage = EU(vrai(), right.getMarquage());
 			p = new EF(t, marquage, left, right);
 			couleurs.ajouter(t, couleur,
@@ -194,7 +208,7 @@ public class CTL {
 			break;
 		case CommandLineParser.AG:
 			// Il faut créer un faux chemin validant tout le temps la formule.
-			left = justifie(rdp, t.getChild(0), p, couleurs);
+			left = justifie(t.getChild(0), null);
 			IPreuve debut = left.clone();
 			IPreuve fin = left.clone();
 			fin.setMarquage(and(dead(), fin.getMarquage()));
@@ -205,7 +219,7 @@ public class CTL {
 			break;
 		case CommandLineParser.EG:
 			// Il faut créer un faux chemin validant tout le temps la formule.
-			left = justifie(rdp, t.getChild(0), null, couleurs);
+			left = justifie(t.getChild(0), null);
 			debut = left.clone();
 			fin = left.clone();
 			marquage = neg(AU(vrai(), neg(left.getMarquage())));
@@ -215,8 +229,8 @@ public class CTL {
 			break;
 		case CommandLineParser.OR:
 			p = new Or(t);
-			left = justifie(rdp, t.getChild(0), p, couleurs);
-			right = justifie(rdp, t.getChild(1), p, couleurs);
+			left = justifie(t.getChild(0), p);
+			right = justifie(t.getChild(1), p);
 			p.setMarquage(or(left.getMarquage(), right.getMarquage()));
 			couleurs.ajouter(t, couleur,
 					"(" + couleurs.getLabel(left.getFormule()) + " || "
@@ -224,28 +238,30 @@ public class CTL {
 			break;
 		case CommandLineParser.AND:
 			p = new And(t);
-			left = justifie(rdp, t.getChild(0), p, couleurs);
-			right = justifie(rdp, t.getChild(1), p, couleurs);
+			left = justifie(t.getChild(0), p);
+			right = justifie(t.getChild(1), p);
 			p.setMarquage(and(left.getMarquage(), right.getMarquage()));
 			couleurs.ajouter(t, couleur,
 					"(" + couleurs.getLabel(left.getFormule()) + " &amp;&amp; "
 							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.IMPLY:
-			left = justifie(rdp, t.getChild(0), p, couleurs);
-			right = justifie(rdp, t.getChild(1), p, couleurs);
+			p = new Imply(t);
+			left = justifie(t.getChild(0), p);
+			right = justifie(t.getChild(1), p);
 			p.setMarquage(or(neg(left.getMarquage()), right.getMarquage()));
 			couleurs.ajouter(t, couleur,
-					"(" + couleurs.getLabel(left.getFormule()) + " -> "
+					"(" + couleurs.getLabel(left.getFormule()) + " -&gt; "
 							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		case CommandLineParser.EQUIV:
-			left = justifie(rdp, t.getChild(0), p, couleurs);
-			right = justifie(rdp, t.getChild(1), p, couleurs);
+			p = new Equivalent(t);
+			left = justifie(t.getChild(0), p);
+			right = justifie(t.getChild(1), p);
 			p.setMarquage(and(or(neg(left.getMarquage()), right.getMarquage()),
 					or(neg(right.getMarquage()), left.getMarquage())));
 			couleurs.ajouter(t, couleur,
-					"(" + couleurs.getLabel(left.getFormule()) + " <-> "
+					"(" + couleurs.getLabel(left.getFormule()) + " &lt;-&gt; "
 							+ couleurs.getLabel(right.getFormule()) + ")");
 			break;
 		default:
@@ -324,45 +340,43 @@ public class CTL {
 	}
 
 	public boolean[] AX(boolean[] a) {
-		boolean[] res = new boolean[systeme.length];
-		Arrays.fill(res, true);
+		int[] res = new int[systeme.length];
+		for (int i = 0; i < systeme.length; ++i) {
+			for (int j = 0; j < systeme[i].length; ++j) {
+				res[systeme[i][j]]++;
+			}
+		}
 		for (int i = 0; i < a.length; ++i) {
 			if (a[i]) {
 				for (int j = 0; j < systeme[i].length; ++j) {
-					res[systeme[i][j]] = false;
+					res[systeme[i][j]]--;
 				}
 			}
 		}
+		boolean[] r = new boolean[a.length];
 		for (int i = 0; i < res.length; ++i) {
-			res[i] = !res[i];
+			r[i] = res[i] == 0;
 		}
-		return res;
+		return r;
 	}
 
 	public boolean[] EU(boolean[] a, boolean[] b) {
-		boolean[] res = b.clone();
-		boolean[] todo = b.clone();
-		boolean[] faux = faux();
-		boolean[] s = new boolean[res.length];
-		while (!Arrays.equals(todo, faux)) {
-			Arrays.fill(s, false);
-			for (int i = 0; i < todo.length; ++i) {
+		boolean[] res = Arrays.copyOf(b, b.length);
+		boolean[] todo = Arrays.copyOf(b, b.length);
+		boolean continuer = true;
+		while (continuer) {
+			continuer = false;
+			for (int i = 0; !continuer && i < todo.length; ++i) {
 				if (todo[i]) {
-					s[i] = true;
+					continuer = true;
 					todo[i] = false;
-					i = todo.length;
-				}
-			}
-			boolean[] tmp = and(EX(s), a);
-			for (int i = 0; i < res.length; ++i) {
-				if (res[i]) {
-					tmp[i] = false;
-				}
-			}
-			for (int i = 0; i < tmp.length; ++i) {
-				if (tmp[i]) {
-					todo[i] = true;
-					res[i] = true;
+					for (int j = 0; j < systeme[i].length; ++j) {
+						int p = systeme[i][j];
+						if (a[p] && !res[p]) {
+							todo[p] = true;
+							res[p] = true;
+						}
+					}
 				}
 			}
 		}
@@ -370,29 +384,23 @@ public class CTL {
 	}
 
 	public IPreuve justifieEU(IPreuve debut, IPreuve fin, Tree t) {
-		boolean[] res = fin.getMarquage().clone();
-		boolean[] todo = fin.getMarquage().clone();
-		boolean[] faux = faux();
-		boolean[] s = new boolean[res.length];
-		while (!Arrays.equals(todo, faux)) {
-			Arrays.fill(s, false);
-			for (int i = 0; i < todo.length; ++i) {
+		boolean[] a = debut.getMarquage();
+		boolean[] res = fin.getMarquageCopie();
+		boolean[] todo = fin.getMarquageCopie();
+		boolean continuer = true;
+		while (continuer) {
+			continuer = false;
+			for (int i = 0; !continuer && i < todo.length; ++i) {
 				if (todo[i]) {
-					s[i] = true;
+					continuer = true;
 					todo[i] = false;
-					i = todo.length;
-				}
-			}
-			boolean[] tmp = and(EX(s), debut.getMarquage());
-			for (int i = 0; i < res.length; ++i) {
-				if (res[i]) {
-					tmp[i] = false;
-				}
-			}
-			for (int i = 0; i < tmp.length; ++i) {
-				if (tmp[i]) {
-					todo[i] = true;
-					res[i] = true;
+					for (int j = 0; j < systeme[i].length; ++j) {
+						int p = systeme[i][j];
+						if (a[p] && !res[p]) {
+							todo[p] = true;
+							res[p] = true;
+						}
+					}
 				}
 			}
 		}
@@ -401,38 +409,31 @@ public class CTL {
 	}
 
 	public boolean[] AU(boolean[] a, boolean[] b) {
-		boolean[] todo = b.clone();
+		boolean[] todo = Arrays.copyOf(b, b.length);
 		int[] res = new int[systeme.length];
 		for (int i = 0; i < systeme.length; ++i) {
 			for (int j = 0; j < systeme[i].length; ++j) {
 				res[systeme[i][j]]++;
 			}
 		}
-		System.out.println(Arrays.toString(res));
 		for (int i = 0; i < b.length; ++i) {
 			if (b[i]) {
 				res[i] = 0;
 			}
 		}
-		boolean[] faux = faux();
-		boolean[] s = new boolean[res.length];
-		while (!Arrays.equals(todo, faux)) {
-			Arrays.fill(s, false);
-			for (int i = 0; i < todo.length; ++i) {
+		boolean continuer = true;
+		while (continuer) {
+			continuer = false;
+			for (int i = 0; !continuer && i < todo.length; ++i) {
 				if (todo[i]) {
-					s[i] = true;
+					continuer = true;
 					todo[i] = false;
-					i = todo.length;
-				}
-			}
-			boolean[] tmp = and(EX(s), a);
-			for (int i = 0; i < res.length; ++i) {
-				if (res[i] != 0) {
-					tmp[i] = false;
-				} else if (tmp[i]) {
-					res[i]--;
-					if (res[i] > 0) {
-						todo[i] = true;
+					for (int j = 0; j < systeme[i].length; ++j) {
+						int p = systeme[i][j];
+						if (a[p] && res[p] > 0) {
+							res[p]--;
+							todo[p] = res[p] == 0;
+						}
 					}
 				}
 			}
@@ -447,37 +448,33 @@ public class CTL {
 	}
 
 	public IPreuve justifieAU(IPreuve debut, IPreuve fin, Tree t) {
-		boolean[] todo = fin.getMarquage().clone();
+		boolean[] a = debut.getMarquage();
+		boolean[] b = fin.getMarquageCopie();
+		boolean[] todo = fin.getMarquageCopie();
 		int[] res = new int[systeme.length];
 		for (int i = 0; i < systeme.length; ++i) {
 			for (int j = 0; j < systeme[i].length; ++j) {
 				res[systeme[i][j]]++;
 			}
 		}
-		for (int i = 0; i < todo.length; ++i) {
-			if (todo[i]) {
+		for (int i = 0; i < b.length; ++i) {
+			if (b[i]) {
 				res[i] = 0;
 			}
 		}
-		boolean[] faux = faux();
-		boolean[] s = new boolean[res.length];
-		while (!Arrays.equals(todo, faux)) {
-			Arrays.fill(s, false);
-			for (int i = 0; i < todo.length; ++i) {
+		boolean continuer = true;
+		while (continuer) {
+			continuer = false;
+			for (int i = 0; !continuer && i < todo.length; ++i) {
 				if (todo[i]) {
-					s[i] = true;
+					continuer = true;
 					todo[i] = false;
-					i = todo.length;
-				}
-			}
-			boolean[] tmp = and(EX(s), debut.getMarquage());
-			for (int i = 0; i < res.length; ++i) {
-				if (res[i] != 0) {
-					tmp[i] = false;
-				} else if (tmp[i]) {
-					res[i]--;
-					if (res[i] > 0) {
-						todo[i] = true;
+					for (int j = 0; j < systeme[i].length; ++j) {
+						int p = systeme[i][j];
+						if (a[p] && res[p] > 0) {
+							res[p]--;
+							todo[p] = res[p] == 0;
+						}
 					}
 				}
 			}

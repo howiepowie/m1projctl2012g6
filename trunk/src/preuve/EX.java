@@ -61,21 +61,17 @@ public class EX extends Preuve {
 				IPreuve p3 = new FakeEX(getFormule(), p3m);
 				p3.getPreuves().add(p2);
 				// On ne garde qu'un seul état pour la sous-preuve car EX.
-				boolean b = true;
-				for (int i = 0; i < p2m.length; ++i) {
+				boolean b = false;
+				for (int i = 0; !b && i < p2m.length; ++i) {
 					if (p2m[i]) {
-						p2m[i] = false;
-						for (int j = 0; !p2m[i] && j < pred[i].length; ++j) {
+						for (int j = 0; !b && j < pred[i].length; ++j) {
 							if (pred[i][j] == etat) {
-								p2m[i] = b;
-								b = false;
+								p2.couperRacine(ctl, pred, i);
+								b = true;
 							}
 						}
 					}
 				}
-				p2.setMarquage(p2m);
-				// On appelle couper pour la nouvelle sous-preuve.
-				p2.couper(ctl, pred, p3m);
 				// On l'ajoute à la liste.
 				preuves.add(p3);
 			}
