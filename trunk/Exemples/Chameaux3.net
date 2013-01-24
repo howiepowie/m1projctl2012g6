@@ -1,0 +1,109 @@
+#place N0
+#place N1
+#place N2
+#place N3
+#place N4 mk(<..>)
+#place N5 mk(<..>)
+#place N6 mk(<..>)
+#place B0 mk(<..>)
+#place B1 mk(<..>)
+#place B2 mk(<..>)
+#place B3
+#place B4
+#place B5
+#place B6
+#place V0
+#place V1
+#place V2
+#place V3 mk(<..>)
+#place V4
+#place V5
+#place V6
+#trans a0
+in { B0:<..>; V1:<..>; }
+out { V0:<..>; B1:<..>; }
+#endtr
+#trans a1
+in { B1:<..>; V2:<..>; }
+out { V1:<..>; B2:<..>; }
+#endtr
+#trans a2
+in { B2:<..>; V3:<..>; }
+out { V2:<..>; B3:<..>; }
+#endtr
+#trans a3
+in { B3:<..>; V4:<..>; }
+out { V3:<..>; B4:<..>; }
+#endtr
+#trans a4
+in { B4:<..>; V5:<..>; }
+out { V4:<..>; B5:<..>; }
+#endtr
+#trans a5
+in { B5:<..>; V6:<..>; }
+out { V5:<..>; B6:<..>; }
+#endtr
+#trans b0
+in { B0:<..>; N1:<..>; V2:<..>; }
+out { V0:<..>; N1:<..>; B2:<..>; }
+#endtr
+#trans b1
+in { B1:<..>; N2:<..>; V3:<..>; }
+out { V1:<..>; N2:<..>; B3:<..>; }
+#endtr
+#trans b2
+in { B2:<..>; N3:<..>; V4:<..>; }
+out { V2:<..>; N3:<..>; B4:<..>; }
+#endtr
+#trans b3
+in { B3:<..>; N4:<..>; V5:<..>; }
+out { V3:<..>; N4:<..>; B5:<..>; }
+#endtr
+#trans b4
+in { B4:<..>; N5:<..>; V6:<..>; }
+out { V4:<..>; N5:<..>; B6:<..>; }
+#endtr
+#trans c0
+in { V0:<..>; N1:<..>; }
+out { N0:<..>; V1:<..>; }
+#endtr
+#trans c1
+in { V1:<..>; N2:<..>; }
+out { N1:<..>; V2:<..>; }
+#endtr
+#trans c2
+in { V2:<..>; N3:<..>; }
+out { N2:<..>; V3:<..>; }
+#endtr
+#trans c3
+in { V3:<..>; N4:<..>; }
+out { N3:<..>; V4:<..>; }
+#endtr
+#trans c4
+in { V4:<..>; N5:<..>; }
+out { N4:<..>; V5:<..>; }
+#endtr
+#trans c5
+in { V5:<..>; N6:<..>; }
+out { N5:<..>; V6:<..>; }
+#endtr
+#trans d0
+in { V0:<..>; B1:<..>; N2:<..>; }
+out { N0:<..>; B1:<..>; V2:<..>; }
+#endtr
+#trans d1
+in { V1:<..>; B2:<..>; N3:<..>; }
+out { N1:<..>; B2:<..>; V3:<..>; }
+#endtr
+#trans d2
+in { V2:<..>; B3:<..>; N4:<..>; }
+out { N2:<..>; B3:<..>; V4:<..>; }
+#endtr
+#trans d3
+in { V3:<..>; B4:<..>; N5:<..>; }
+out { N3:<..>; B4:<..>; V5:<..>; }
+#endtr
+#trans d4
+in { V4:<..>; B5:<..>; N6:<..>; }
+out { N4:<..>; B5:<..>; V6:<..>; }
+#endtr

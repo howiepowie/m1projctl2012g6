@@ -44,6 +44,8 @@ public class Or extends Preuve {
 		}
 		left.setMarquage(m1);
 		right.setMarquage(m2);
+		left.couper(ctl, pred, parents);
+		right.couper(ctl, pred, parents);
 	}
 
 	/**
