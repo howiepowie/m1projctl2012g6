@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 
+import principal.CommandLineLexer;
 import principal.CommandLineParser;
-
+import principal.ICallback;
 import CTL.CTL;
 
 public class Preuve implements IPreuve {
@@ -27,6 +31,11 @@ public class Preuve implements IPreuve {
 	 * Liste des sous-preuves.
 	 */
 	private List<IPreuve> preuves;
+
+	/**
+	 * Si la preuve est un contre exemple.
+	 */
+	private boolean contreExemple;
 
 	public Preuve(Tree formule) {
 		this(formule, null);
@@ -51,6 +60,16 @@ public class Preuve implements IPreuve {
 	@Override
 	public void setMarquage(boolean[] marquage) {
 		this.marquage = marquage;
+	}
+
+	@Override
+	public boolean isContreExemple() {
+		return contreExemple;
+	}
+
+	@Override
+	public void setContreExemple(boolean contreExemple) {
+		this.contreExemple = contreExemple;
 	}
 
 	@Override
@@ -204,7 +223,7 @@ public class Preuve implements IPreuve {
 		return formuleToString(formule);
 	}
 
-	private String formuleToString(Tree t) {
+	public static String formuleToString(Tree t) {
 		switch (t.getType()) {
 		case CommandLineParser.ATOM:
 			return "$" + t.getText();
@@ -231,7 +250,7 @@ public class Preuve implements IPreuve {
 		case CommandLineParser.AF:
 			return "AF(" + formuleToString(t.getChild(0)) + ")";
 		case CommandLineParser.EF:
-			return "EX(" + formuleToString(t.getChild(0)) + ")";
+			return "EF(" + formuleToString(t.getChild(0)) + ")";
 		case CommandLineParser.AG:
 			return "AG(" + formuleToString(t.getChild(0)) + ")";
 		case CommandLineParser.EG:
@@ -250,6 +269,88 @@ public class Preuve implements IPreuve {
 					+ formuleToString(t.getChild(1)) + ")";
 		default:
 			return null;
+		}
+	}
+
+	public static String neg(Tree t) {
+		switch (t.getType()) {
+		case CommandLineParser.ATOM:
+			return "!$" + t.getText();
+		case CommandLineParser.TRUE:
+			return "false";
+		case CommandLineParser.FALSE:
+			return "true";
+		case CommandLineParser.DEAD:
+			return "!dead";
+		case CommandLineParser.INITIAL:
+			return "!initial";
+		case CommandLineParser.NEG:
+			return formuleToString(t.getChild(0));
+		case CommandLineParser.AU:
+			String u = formuleToString(t.getChild(0));
+			String v = formuleToString(t.getChild(1));
+			return "!" + v + " && !(" + u + " && AX(A(" + u + " U " + v + ")))";
+		case CommandLineParser.EU:
+			u = formuleToString(t.getChild(0));
+			v = formuleToString(t.getChild(1));
+			return "!" + v + " && !(" + u + " && EX(E(" + u + " U " + v + ")))";
+		case CommandLineParser.AX:
+			return "EX(!" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.EX:
+			return "AX(!" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.AF:
+			return "EG(!" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.EF:
+			return "AG(!" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.AG:
+			return "EF(!" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.EG:
+			return "AF(!" + formuleToString(t.getChild(0)) + ")";
+		case CommandLineParser.OR:
+			return "(!" + formuleToString(t.getChild(0)) + " && !"
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.AND:
+			return "(!" + formuleToString(t.getChild(0)) + " || !"
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.IMPLY:
+			return "(" + formuleToString(t.getChild(0)) + " && !"
+					+ formuleToString(t.getChild(1)) + ")";
+		case CommandLineParser.EQUIV:
+			u = formuleToString(t.getChild(0));
+			v = formuleToString(t.getChild(1));
+			return "(!(" + u + " -> " + v + ") || !(" + v + " -> " + u + "))";
+		default:
+			return null;
+		}
+	}
+
+	public static Tree negTree(Tree t) throws RecognitionException {
+		return negTree(neg(t));
+	}
+
+	public static Tree negTree(String s) throws RecognitionException {
+		if (s == null) {
+			return null;
+		} else {
+			ANTLRStringStream in = new ANTLRStringStream(s);
+			CommandLineLexer lexer = new CommandLineLexer(in);
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			CommandLineParser parser = new CommandLineParser((ICallback) null);
+			parser.setTokenStream(tokens);
+			return (Tree) parser.formule().getTree();
+		}
+	}
+
+	public static boolean estAtomique(Tree t) {
+		switch (t.getType()) {
+		case CommandLineParser.ATOM:
+		case CommandLineParser.TRUE:
+		case CommandLineParser.FALSE:
+		case CommandLineParser.DEAD:
+		case CommandLineParser.INITIAL:
+			return true;
+		default:
+			return false;
 		}
 	}
 

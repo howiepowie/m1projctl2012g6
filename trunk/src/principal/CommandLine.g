@@ -219,8 +219,20 @@ term1
 	
 term0
 	: atom
-	| '!' atom -> ^(NEG atom)
-	| 'EF' atom -> ^(EF atom)
+	| term01
+	| term02
+	;
+	
+term01
+	: '!' (
+		atom -> ^(NEG atom)
+		| term02 -> ^(NEG term02)
+	)
+	| '!' term01 -> ^(NEG term01)
+	;
+	
+term02
+	: 'EF' atom -> ^(EF atom)
 	| 'EG' atom -> ^(EG atom)
 	| 'EX' atom -> ^(EX atom)
 	| 'AF' atom -> ^(AF atom)

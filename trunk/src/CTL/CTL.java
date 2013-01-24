@@ -4,9 +4,28 @@ import java.util.Arrays;
 
 import org.antlr.runtime.tree.Tree;
 
+import preuve.AF;
+import preuve.AG;
+import preuve.AU;
+import preuve.AX;
+import preuve.And;
+import preuve.Atom;
+import preuve.Coloration;
+import preuve.Dead;
+import preuve.EF;
+import preuve.EG;
+import preuve.EU;
+import preuve.EX;
+import preuve.False;
+import preuve.IPreuve;
+import preuve.Initial;
+import preuve.NegAtom;
+import preuve.NegComplex;
+import preuve.Or;
+import preuve.Preuve;
+import preuve.True;
 import principal.CommandLineParser;
 import rdp.RdP;
-import preuve.*;
 
 public class CTL {
 
@@ -107,14 +126,28 @@ public class CTL {
 			couleurs.ajouter(t, couleur, "initial");
 			break;
 		case CommandLineParser.NEG:
-			p = new Neg(t);
-			IPreuve left = justifie(rdp, t.getChild(0), p, couleurs);
-			p.setMarquage(neg(left.getMarquage()));
-			couleurs.ajouter(t, couleur,
-					"!" + couleurs.getLabel(left.getFormule()));
+			try {
+				if (Preuve.estAtomique(t.getChild(0))) {
+					// Si c'est une négation sur un atome.
+					p = new NegAtom(t);
+					IPreuve left = justifie(rdp, t.getChild(0), p, couleurs);
+					p.setMarquage(neg(left.getMarquage()));
+					couleurs.ajouter(t, couleur,
+							"!" + couleurs.getLabel(left.getFormule()));
+				} else {
+					// Si c'est une négation sur une formule complexe.
+					Tree neg = Preuve.negTree(t.getChild(0));
+					IPreuve negP = justifie(rdp, neg, null, couleurs);
+					p = new NegComplex(t, negP);
+					p.setMarquage(negP.getMarquage());
+					couleurs.ajouter(t, couleur, Preuve.formuleToString(t));
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 			break;
 		case CommandLineParser.AU:
-			left = justifie(rdp, t.getChild(0), null, couleurs);
+			IPreuve left = justifie(rdp, t.getChild(0), null, couleurs);
 			IPreuve right = justifie(rdp, t.getChild(1), null, couleurs);
 			p = justifieAU(left, right, t);
 			couleurs.ajouter(t, couleur,
@@ -307,48 +340,155 @@ public class CTL {
 	}
 
 	public boolean[] EU(boolean[] a, boolean[] b) {
-		boolean[] res = faux();
-		boolean[] avant;
-		do {
-			avant = res;
-			res = or(b, and(a, EX(res)));
-		} while (!Arrays.equals(avant, res));
+		boolean[] res = b.clone();
+		boolean[] todo = b.clone();
+		boolean[] faux = faux();
+		boolean[] s = new boolean[res.length];
+		while (!Arrays.equals(todo, faux)) {
+			Arrays.fill(s, false);
+			for (int i = 0; i < todo.length; ++i) {
+				if (todo[i]) {
+					s[i] = true;
+					todo[i] = false;
+					i = todo.length;
+				}
+			}
+			boolean[] tmp = and(EX(s), a);
+			for (int i = 0; i < res.length; ++i) {
+				if (res[i]) {
+					tmp[i] = false;
+				}
+			}
+			for (int i = 0; i < tmp.length; ++i) {
+				if (tmp[i]) {
+					todo[i] = true;
+					res[i] = true;
+				}
+			}
+		}
 		return res;
 	}
 
 	public IPreuve justifieEU(IPreuve debut, IPreuve fin, Tree t) {
-		boolean[] res = faux();
-		boolean[] avant;
-		boolean[] a = debut.getMarquage();
-		boolean[] b = fin.getMarquage();
-		do {
-			avant = res;
-			res = or(b, and(a, EX(res)));
-		} while (!Arrays.equals(avant, res));
+		boolean[] res = fin.getMarquage().clone();
+		boolean[] todo = fin.getMarquage().clone();
+		boolean[] faux = faux();
+		boolean[] s = new boolean[res.length];
+		while (!Arrays.equals(todo, faux)) {
+			Arrays.fill(s, false);
+			for (int i = 0; i < todo.length; ++i) {
+				if (todo[i]) {
+					s[i] = true;
+					todo[i] = false;
+					i = todo.length;
+				}
+			}
+			boolean[] tmp = and(EX(s), debut.getMarquage());
+			for (int i = 0; i < res.length; ++i) {
+				if (res[i]) {
+					tmp[i] = false;
+				}
+			}
+			for (int i = 0; i < tmp.length; ++i) {
+				if (tmp[i]) {
+					todo[i] = true;
+					res[i] = true;
+				}
+			}
+		}
 		IPreuve p = new EU(t, res, debut, fin);
 		return p;
 	}
 
 	public boolean[] AU(boolean[] a, boolean[] b) {
-		boolean[] res = faux();
-		boolean[] avant;
-		do {
-			avant = res;
-			res = or(b, and(a, AX(res)));
-		} while (!Arrays.equals(avant, res));
-		return res;
+		boolean[] todo = b.clone();
+		int[] res = new int[systeme.length];
+		for (int i = 0; i < systeme.length; ++i) {
+			for (int j = 0; j < systeme[i].length; ++j) {
+				res[systeme[i][j]]++;
+			}
+		}
+		System.out.println(Arrays.toString(res));
+		for (int i = 0; i < b.length; ++i) {
+			if (b[i]) {
+				res[i] = 0;
+			}
+		}
+		boolean[] faux = faux();
+		boolean[] s = new boolean[res.length];
+		while (!Arrays.equals(todo, faux)) {
+			Arrays.fill(s, false);
+			for (int i = 0; i < todo.length; ++i) {
+				if (todo[i]) {
+					s[i] = true;
+					todo[i] = false;
+					i = todo.length;
+				}
+			}
+			boolean[] tmp = and(EX(s), a);
+			for (int i = 0; i < res.length; ++i) {
+				if (res[i] != 0) {
+					tmp[i] = false;
+				} else if (tmp[i]) {
+					res[i]--;
+					if (res[i] > 0) {
+						todo[i] = true;
+					}
+				}
+			}
+		}
+		boolean[] r = new boolean[res.length];
+		for (int i = 0; i < res.length; ++i) {
+			if (res[i] == 0) {
+				r[i] = true;
+			}
+		}
+		return r;
 	}
 
 	public IPreuve justifieAU(IPreuve debut, IPreuve fin, Tree t) {
-		boolean[] res = faux();
-		boolean[] avant;
-		boolean[] a = debut.getMarquage();
-		boolean[] b = fin.getMarquage();
-		do {
-			avant = res;
-			res = or(b, and(a, AX(res)));
-		} while (!Arrays.equals(avant, res));
-		IPreuve p = new AU(t, res, debut, fin);
+		boolean[] todo = fin.getMarquage().clone();
+		int[] res = new int[systeme.length];
+		for (int i = 0; i < systeme.length; ++i) {
+			for (int j = 0; j < systeme[i].length; ++j) {
+				res[systeme[i][j]]++;
+			}
+		}
+		for (int i = 0; i < todo.length; ++i) {
+			if (todo[i]) {
+				res[i] = 0;
+			}
+		}
+		boolean[] faux = faux();
+		boolean[] s = new boolean[res.length];
+		while (!Arrays.equals(todo, faux)) {
+			Arrays.fill(s, false);
+			for (int i = 0; i < todo.length; ++i) {
+				if (todo[i]) {
+					s[i] = true;
+					todo[i] = false;
+					i = todo.length;
+				}
+			}
+			boolean[] tmp = and(EX(s), debut.getMarquage());
+			for (int i = 0; i < res.length; ++i) {
+				if (res[i] != 0) {
+					tmp[i] = false;
+				} else if (tmp[i]) {
+					res[i]--;
+					if (res[i] > 0) {
+						todo[i] = true;
+					}
+				}
+			}
+		}
+		boolean[] r = new boolean[res.length];
+		for (int i = 0; i < res.length; ++i) {
+			if (res[i] == 0) {
+				r[i] = true;
+			}
+		}
+		IPreuve p = new AU(t, r, debut, fin);
 		return p;
 	}
 

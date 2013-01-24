@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.antlr.runtime.tree.Tree;
 
@@ -36,6 +36,14 @@ public class Coloration {
 			c.valeur = hue + " 1 0.5";
 			COULEURS.add(c);
 		}
+		lastId = 0;
+	}
+
+	public void reset() {
+		couleursFormules.clear();
+		labelsFormules.clear();
+		COULEURS.clear();
+		hue = 0;
 		lastId = 0;
 	}
 

@@ -33,6 +33,21 @@ public interface IPreuve {
 	public void setMarquage(boolean[] marquage);
 
 	/**
+	 * Indique si la preuve est un contre exemple.
+	 * 
+	 * @return si la preuve est un contre exemple.
+	 */
+	public boolean isContreExemple();
+
+	/**
+	 * Modifie si la preuve est un contre exemple ou non.
+	 * 
+	 * @param contreExemple
+	 *            si la preuve est un contre exemple ou non.
+	 */
+	public void setContreExemple(boolean contreExemple);
+
+	/**
 	 * Retourne la liste des sous-preuves.
 	 * 
 	 * @return la liste des sous-preuves.
