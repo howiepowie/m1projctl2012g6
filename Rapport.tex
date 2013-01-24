@@ -320,6 +320,26 @@ test justifie & produit une justification au format textuel et \texttt{.dot} de 
 \hline
 preuves atomiques & produit une justification au format textuel et \texttt{.dot} des formules atomiques $p$, $true$, $dead$ et $initial$ sur le fichier \texttt{atomique.net} \\
 \hline
+preuves voisins & produit une justification au format textuel et \texttt{.dot} des formules atomiques $EX$ et $AX$ sur le fichier \texttt{chemin.net} \\
+\hline
+preuves chemins & produit une justification au format textuel et \texttt{.dot} des formules atomiques $EU, AU, EF, AF, EG$ et $AG$ sur les fichiers \texttt{chemin.net} et \texttt{chemin2.net} \\
+\hline
+preuves operateurs & produit une justification au format textuel et \texttt{.dot} des formules atomiques $\&\&, \|, \rightarrow$ et $\leftrightarrow$ sur le fichier \texttt{operateur.net} \\
+\hline
+\end{tabularx}
+
+~\\\indent Quelques exemples concrets:\\
+
+\noindent\begin{tabularx}{\linewidth}{| @{}l | X@{} |}
+\hline
+Script \texttt{.sh} & Description \\
+\hline
+indiana & affiche, dans \texttt{indiana ctl.dot}, les états qui ont un chemin vers la solution et, dans \texttt{indiana justifie.dot}, la preuve qu'il est possible d'atteindre la solution depuis l'état 0 \\
+\hline
+Chameaux3 & même chose mais avec l'exemple des chameaux \\
+\hline
+aspirateur & affiche, dans \texttt{aspirateur ctl.dot}, les états qui ont un chemin vers un état où l'aspirateur a nettoyé les deux cases et, dans \texttt{aspirateur justifie.dot}, la preuve qu'il est possible d'atteindre un tel état depuis l'état 6 \\
+\hline
 \end{tabularx}
 
 \newpage

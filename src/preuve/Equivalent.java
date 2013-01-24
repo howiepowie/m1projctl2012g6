@@ -131,6 +131,8 @@ public class Equivalent extends Preuve {
 					preuves.set(1, right);
 				}
 			}
+			left.couper(ctl, pred, parents);
+			right.couper(ctl, pred, parents);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
