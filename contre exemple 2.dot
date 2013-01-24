@@ -1,0 +1,10 @@
+digraph system {
+N0 [label=<A<BR/><FONT COLOR="0.0 1 0.5">EX(<FONT COLOR="0.17 1 0.5">!<FONT COLOR="0.34 1 0.5">$A</FONT></FONT>)</FONT>>,shape=octagon]
+N1 [label=<B>]
+N2 [label=<D>]
+N3 [label=<C>]
+N0 -> N3
+N1 -> N2
+N3 -> N2
+N0 -> N1 [color="0.0 1 0.5",label=<<FONT COLOR="0.17 1 0.5">!<FONT COLOR="0.34 1 0.5">$A</FONT></FONT>>]
+}

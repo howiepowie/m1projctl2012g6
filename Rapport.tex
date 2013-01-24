@@ -13,7 +13,7 @@
 \usepackage{color}
 \usepackage{float}
 \usepackage{tabularx}
-\usetikzlibrary{automata,positioning}
+\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes}
 
 \renewcommand{\thesection}{\arabic{section}}
 \setcounter{secnumdepth}{3}
@@ -53,6 +53,20 @@
 \tableofcontents
 
 \newpage
+
+\section{Validation}
+
+Cette partie décrit comment la formule est analysée et validée.
+
+\subsection{Analyse}
+
+L'analyse de la formule saisie par l'utilisateur dans le terminal se fait à l'aide d'un parseur généré par ANTLR. Grâce à ce parseur, toute formule est mise sous la forme d'un arbre (classe \texttt{Tree}) où chaque branche est un morceau de la formule originale et les feuilles sont les formules atomiques qui la composent. Pour $EX(\$A~\|~\$B)$ par exemple, on obtiendrait le résultat de la figure \ref{fig:ValidationAnalyse}. Il est ainsi plus facile d'utiliser la formule par la suite puisqu'il suffira de faire un \texttt{switch} sur le type d'un noeud et d'accéder à ses enfants en conséquence.
+
+\input{"Rapport/validation_analyse.tex"}
+
+\subsection{\'{E}tats valides}
+
+Comme dit précédemment, pour parcourir la formule on utilise un \texttt{switch} et on compare le type du noeud avec les constantes identifiants les tokens dans le parseur. Pour calculer la liste des états valides, il suffit donc de partir de la racine de l'arbre, atteindre les feuilles de manière récursive, récupérer les états valides pour les formules atomiques et appliquer chaque partie de la formule petit à petit en retournant vers la racine. \`{A} la fin on dispose de la liste de tous les états validant la formule.
 
 \section{Justification}
 
@@ -118,6 +132,20 @@ Les preuves atomiques sont les preuves associées aux formules atomiques $p$, $t
 
 \input{"Rapport/preuve_atomique_dot.tex"}
 
+\subsection{Preuves successeurs}
+
+\subsubsection{$EX$}
+
+Lors du coupage, une preuve de type $EX$ ne va garder qu'un seul état valide de la sous-preuve puisqu'il suffit de prouver que la formule est vraie pour un état voisin (figure \ref{fig:PreuveVoisinsEX}).
+
+\input{"Rapport/preuve_voisins_ex.tex"}
+
+\subsubsection{$AX$}
+
+Lors du coupage, une preuve de type $AX$ va dupliquer plusieurs fois la sous-preuve pour chaque état la validant et étant un successeur (figure \ref{fig:PreuveVoisinsAX}). On simplifie ainsi les choses car une sous-preuve qui avait plusieurs états valides se retrouve en plusieurs exemplaires avec un seul état à chaque fois. Les autres preuves plus complexes seront donc justifiées uniquement sur un état.
+
+\input{"Rapport/preuve_voisins_ax.tex"}
+
 \subsection{Preuves chemins}
 
 Les preuves qui consistent en un chemin d'états implémentent l'interface \texttt{IChemin} (listing \ref{lst:IChemin}) qui est elle-même basée sur \texttt{IPreuve}.
@@ -134,7 +162,7 @@ Après avoir été créée, la preuve de type $EU$ contient la preuve pour les �
 
 Le coupage de la preuve entraîne la création d'une liste de sous-preuves pour tous les états par lesquels le chemin passe. Pour ce faire, on sait que la preuve parent a été coupée et qu'on doit prouver le chemin à partir des états restants. On va donc utiliser la liste des états ayant un tel chemin et ne garder que ceux qui ont pour prédécesseurs un ou plusieurs états de départ. On continue d'appliquer cette technique jusqu'à avoir atteint un des états validant la condition d'arrêt du chemin. Une fois que c'est fait, on peut supprimer tous les états du chemin qui ne sont pas nécessaires.
 
-L'affichage d'un preuve de type $EU$ consiste donc en la preuve de la condition de départ pour chaque état du chemin et de la condition d'arrêt pour l'état final (figure \ref{fig:PreuveCheminEU}). Pour l'affichage au format textuel, la liste des états est affichée entre deux accolades et chaque étape du chemin possède la même indentation (figure \ref{fig:PreuveCheminEUTextuel}).
+L'affichage d'une preuve de type $EU$ consiste donc en la preuve de la condition de départ pour chaque état du chemin et de la condition d'arrêt pour l'état final (figure \ref{fig:PreuveCheminEU}). Pour l'affichage au format textuel, la liste des états est affichée entre deux accolades et chaque étape du chemin possède la même indentation (figure \ref{fig:PreuveCheminEUTextuel}).
 
 \input{"Rapport/preuve_chemin_eu.tex"}
 
@@ -158,11 +186,17 @@ Comme pour la preuve de type $EF$, la preuve de type $AF$ utilise une preuve $AU
 
 \subsubsection{$EG$}
 
+La preuve de type $EG$ utilise une preuve $EU$ pour laquelle tous les états du chemin doivent vérifier la condition (figure \ref{fig:PreuveCheminEG}).
+
+\input{"Rapport/preuve_chemin_eg.tex"}
+
 \subsubsection{$AG$}
 
-\subsection{Preuves opérateurs}
+La preuve de type $AG$ utilise une preuve $AU$ pour laquelle tous les états du chemin doivent vérifier la condition (figure \ref{fig:PreuveCheminAG}).
 
-Les preuves des opérateurs agissent de manière transparente, les méthodes de coupage et d'affichage sont directement redirigées vers les sous-preuves et la liste des états validant la preuve est ensuite adapté.
+\input{"Rapport/preuve_chemin_ag.tex"}
+
+\subsection{Preuves opérateurs}
 
 \subsubsection{$\&\&$}
 
@@ -172,9 +206,41 @@ La preuve de type $\&\&$ affiche les preuves des deux conditions pour les états
 
 \subsubsection{$\|$}
 
-\subsubsection{$\Rightarrow$}
+La preuve de type $\|$ affiche la preuve d'une des deux conditions dans le cas où elles seraient toutes les deux valides ou bien la preuve de celle qui est vraie (figure \ref{fig:PreuveOperateurOr}).
 
-\subsubsection{$\Leftrightarrow$}
+\input{"Rapport/preuve_operateur_or.tex"}
+
+\subsubsection{$\rightarrow$}
+
+L'implication est affichée comme le $\&\&$ (figure \ref{fig:PreuveOperateurImply}).
+
+\input{"Rapport/preuve_operateur_imply.tex"}
+
+Cependant, avec l'implication, il peut n'y avoir aucun état validant la condition de gauche et dans ce cas on devra quand même prouver que l'implication est correcte. Pour ce faire, si la condition de gauche n'a aucun état valide alors on calcule la preuve de sa négation, et si la condition de droite est également fausse alors on calcule aussi la preuve de sa négation. Ainsi, l'affichage sera la preuve que la ou les conditions ne sont pas valides (figure \ref{fig:PreuveOperateurImply2}).
+
+\input{"Rapport/preuve_operateur_imply2.tex"}
+
+\subsubsection{$\leftrightarrow$}
+
+L'équivalence est affichée comme le $\&\&$ (figure \ref{fig:PreuveOperateurEquivalent}). Et comme pour l'implication, si aucun état n'est valide pour les deux conditions alors on calcule les preuves de leur négation et on les affiche à la place.
+
+\input{"Rapport/preuve_operateur_equivalent.tex"}
+
+\subsection{Contre exemple}
+
+Lorsque l'état indiqué par l'utilisateur n'est pas un état valide de la formule saisie, on affichage à la place la justification d'un contre exemple en partant du même état. Pour trouver ce contre exemple, on fait simplement la négation de la formule en parcourant de manière récursive l'arbre retourné par le parseur. On dispose alors d'une nouvelle formule au format textuel que l'on va pouvoir utiliser, comme si l'utilisateur l'avait entrée, pour afficher la justification.
+
+Dans l'exemple ci-dessous (figure \ref{fig:PreuveContreExempleTextuel}), la formule $EX(\$D)$ n'était pas valide pour l'état 0 et a donc été transformée en la formule $AX(!\$D)$ qui est la négation de la première. Dans la console, l'utilisateur est prévenu par un message lui disant que la formule donnée n'était pas valide. Dans le graphe (figure \ref{fig:PreuveContreExempleDot}), le message \texttt{Contre exemple} est affiché sous le label de l'état de départ.
+
+\input{"Rapport/preuve_contre_exemple.tex"}
+
+\subsection{Preuve négation}
+
+La preuve de la négation est similaire aux contre exemples. Si la négation est appliquée à une formule atomique et que la visualisation est donc directe, on se contente d'afficher la preuve telle quelle (figure \ref{fig:PreuveNegation}). Par contre, si la négation est appliquée à une formule complexe, on commence par récupérer la négation de la formule, puis on la justifie comme si elle avait été saisie par l'utilisateur (figure \ref{fig:PreuveNegation2}). Lors de la coupure, on dira que l'état de départ de cette nouvelle formule est l'état validant la négation et ainsi on obtiendra la justification de la négation pour l'état voulu.
+
+\input{"Rapport/preuve_negation.tex"}
+
+\input{"Rapport/preuve_negation2.tex"}
 
 \section{Utilisation du programme}
 

@@ -9,8 +9,8 @@ N0 -> N1
 N0 -> N4
 N1 -> N2
 N2 -> N3
-N5 -> N3 [color="0.0 1 0.5",label=<<FONT COLOR="0.51 1 0.5">$B2</FONT>>]
-N5 -> N5 [color="0.0 1 0.5",label=<<FONT COLOR="0.51 1 0.5">$B2</FONT>>]
+N5 -> N5 [color="0.17 1 0.5",label=<<FONT COLOR="0.51 1 0.5">$B2</FONT>>]
+N5 -> N3 [color="0.17 1 0.5",label=<<FONT COLOR="0.51 1 0.5">$B2</FONT>>]
 N4 -> N5 [color="0.0 1 0.5",label=<<FONT COLOR="0.0 1 0.5">AG(<FONT COLOR="0.17 1 0.5">(<FONT COLOR="0.34 1 0.5">$B0</FONT> || <FONT COLOR="0.51 1 0.5">$B2</FONT>)</FONT>)</FONT>>]
-N4 -> N4 [color="0.0 1 0.5",label=<<FONT COLOR="0.34 1 0.5">$B0</FONT>>]
+N4 -> N4 [color="0.17 1 0.5",label=<<FONT COLOR="0.34 1 0.5">$B0</FONT>>]
 }

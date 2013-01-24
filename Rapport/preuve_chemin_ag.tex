@@ -1,0 +1,52 @@
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.4
+  ]
+    \node[state, rectangle, align=center] (N1) {$A{+}D$\\$\textcolor{BrickRed}{AG(\textcolor{Blue}{\$D})}$};
+    \node[state] (N2) at (-4, -4) {$B{+}D$};
+    \node[state] (N3) at (4, -4) {$C{+}D$};
+\node[state] (N4) at (0, -8) {$D{+}E$};
+
+    \path[->, BrickRed]
+              (N1) edge [loop right] node {$\textcolor{Blue}{\$D}$} (N1)
+              (N1) edge node [above right, pos=0.75] {$\textcolor{BrickRed}{AG(\textcolor{Blue}{\$D})}$} (N3)
+              (N1) edge node [above left, pos=0.75] {$\textcolor{BrickRed}{AG(\textcolor{Blue}{\$D})}$} (N2)
+(N2) edge [loop left] node {$\textcolor{Blue}{\$D}$} (N2)
+(N3) edge [loop right] node {$\textcolor{Blue}{\$D}$} (N3)
+(N3) edge node [below right] {$\textcolor{Blue}{\$D}$} (N4)
+(N2) edge node [below left] {$\textcolor{Blue}{\$D}$} (N4);
+  \end{tikzpicture}
+\caption{Affichage \texttt{.dot}}
+\end{subfigure}
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{minipage}{0.5\linewidth}
+\begin{verbatim}
+AG($D) = { 0 } {
+  $D = { 0 }
+  AG($D) = { 1 } {
+    $D = { 1 }
+    $D = { 2 }
+  }
+  AG($D) = { 3 } {
+    $D = { 3 }
+    $D = { 2 }
+  }
+}
+\end{verbatim}
+\end{minipage}
+\caption{Affichage textuel}
+\end{subfigure}
+\caption{Preuve de $AG(\$D)$ pour l'état 0}
+\label{fig:PreuveCheminAG}
+\end{figure}

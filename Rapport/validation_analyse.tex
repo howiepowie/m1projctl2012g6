@@ -1,0 +1,13 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture} %[scale=.6,transform shape] %<-- uncomment this to see the effect
+\tikzstyle{level 1}=[sibling distance=52mm] 
+\tikzstyle{level 2}=[sibling distance=18mm] 
+\tikzstyle{level 3}=[sibling distance=18mm] 
+
+ \node{$(\mbox{EX}~(\mbox{OR}~A~B))$}
+  child{node{$(\mbox{OR}~A~B)$} child{ node{$A$}} child{node{$B$}}};
+ \end{tikzpicture}
+\caption{Arbre de la formule $EX(\$A~\|~\$B)$}
+\label{fig:ValidationAnalyse}
+\end{figure}

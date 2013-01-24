@@ -1,5 +1,6 @@
 package preuve;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -64,8 +65,8 @@ public class EU extends CheminBase {
 	}
 
 	protected IChemin genererSousPreuve() {
-		return new FakeEU(getFormule(), getEtats().clone(), getDebut().clone(),
-				getFin().clone());
+		return new FakeEU(getFormule(), Arrays.copyOf(getEtats(),
+				getEtats().length), getDebut().clone(), getFin().clone());
 	}
 
 	/**

@@ -1,0 +1,46 @@
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{tikzpicture}[%
+    >=stealth,
+    shorten >=1pt,
+    node distance=2cm,
+    on grid,
+    auto,
+    state/.append style={minimum size=2em},
+    thick,
+    scale=0.4
+  ]
+    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{(\textcolor{Blue}{EX(\textcolor{OliveGreen}{\$B})} \&\& \textcolor{BurntOrange}{EX(\textcolor{Sepia}{\$C})})}$};
+    \node[state] (N2) at (-4, -4) {$B$};
+    \node[state] (N3) at (4, -4) {$C$};
+\node[state] (N4) at (0, -8) {$D$};
+
+    \path[->, BrickRed]
+              (N1) edge [loop above] node {$\textcolor{Blue}{EX(\textcolor{OliveGreen}{\$B})}$} (N1);
+
+\path[->, Blue]
+              (N1) edge node [above left, pos=0.75] {$\textcolor{OliveGreen}{\$B}$} (N2);
+
+\path[->]
+	(N1) edge node {} (N3)
+	(N2) edge node {} (N4)
+	(N3) edge node {} (N4);
+  \end{tikzpicture}
+\caption{Affichage \texttt{.dot}}
+\end{subfigure}
+\begin{subfigure}[b]{.4\textwidth}
+\centering
+\begin{minipage}{0.7\linewidth}
+\begin{verbatim}
+(EX($B) || EX($C)) = { 0 }
+  EX($B) = { 0 }
+    $B = { 1 }
+\end{verbatim}
+\end{minipage}
+\caption{Affichage textuel}
+\end{subfigure}
+\caption{Preuve de $EX(\$B)~\|~EX(\$C)$ pour l'état 0}
+\label{fig:PreuveOperateurOr}
+\end{figure}

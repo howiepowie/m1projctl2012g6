@@ -13,18 +13,18 @@
     scale=0.4
   ]
     \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{(\textcolor{Blue}{EX(\textcolor{OliveGreen}{\$B})} \&\& \textcolor{BurntOrange}{EX(\textcolor{Sepia}{\$C})})}$};
-    \node[state] (N2) at (4, -4) {$B$};
-    \node[state] (N3) at (-4, -4) {$C$};
+    \node[state] (N2) at (-4, -4) {$B$};
+    \node[state] (N3) at (4, -4) {$C$};
 \node[state] (N4) at (0, -8) {$D$};
 
     \path[->, BrickRed]
               (N1) edge [loop above] node {$\textcolor{Blue}{EX(\textcolor{OliveGreen}{\$B})}\textcolor{Black}{, }\textcolor{BurntOrange}{EX(\textcolor{Sepia}{\$C})}$} (N1);
 
 \path[->, Blue]
-              (N1) edge node [above right, pos=0.75] {$\textcolor{OliveGreen}{\$B}$} (N2);
+              (N1) edge node [above left, pos=0.75] {$\textcolor{OliveGreen}{\$B}$} (N2);
 
 \path[->, BurntOrange]
-              (N1) edge node [above left, pos=0.75] {$\textcolor{Sepia}{\$C}$} (N3);
+              (N1) edge node [above right, pos=0.75] {$\textcolor{Sepia}{\$C}$} (N3);
 
 \path[->]
 	(N2) edge node {} (N4)
