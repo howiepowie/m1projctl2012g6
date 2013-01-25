@@ -15,6 +15,7 @@
 \usepackage{tabularx}
 \usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes}
 
+\newcommand{\figscale}[1]{\scalebox{0.9}{#1}}
 \renewcommand{\thesection}{\arabic{section}}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
@@ -54,6 +55,28 @@
 
 \newpage
 
+\section{Organisation du code}
+
+\subsection{principal}
+
+Ce package contient la classe \texttt{Main} du programme. Elle implémente l'interface \texttt{ICallback} (listing \ref{lst:ICallback}) qui définie toutes les fonctions demandées dans le sujet. L'intérêt de cette interface est de pouvoir passer le \texttt{Main} en paramètre du parseur \texttt{CommandLineParser}. Il a été créé avec ANTLR dans le but de pouvoir analyser simplement les commandes saisies par l'utilisateur et de pouvoir appeler les méthodes correspondantes dans le \texttt{Main} au travers de l'interface.
+
+\subsection{CTL}
+
+C'est le package qui contient la classe \texttt{CTL}. Outre les méthodes pour calculer la valeur d'une formule, on y trouve la méthode \texttt{valeur} qui retourne la liste des états validant une formule et la méthode \texttt{justifie} qui retourne la preuve.
+
+\subsection{rdp}
+
+C'est le package qui contient la classe \texttt{RdP}.
+
+\subsection{systeme}
+
+C'est le package qui contient les classes \texttt{AlgoGrapheRdP} et \texttt{GrapheRdP}. La classe \texttt{GrapheRdP} contient les méthodes \texttt{ctlToDot} pour afficher les états validant une formule au format \texttt{.dot} et \texttt{justifieToDot} pour la justification d'un état.
+
+\subsection{preuve}
+
+Ce package contient toutes les classes liées aux preuves. On y trouve les interfaces \texttt{IPreuve} (listing \ref{lst:IPreuve}) et \texttt{IChemin} (listing \ref{lst:IChemin}) qui définissent ce qu'est une preuve. On y trouve aussi une implémentation pour chaque type de preuve et les deux classes \texttt{Coloration} (listing \ref{lst:Coloration}) et \texttt{Couleur} qui gèrent la coloration. La classe \texttt{Preuve} contient, entre autres, la méthode \texttt{neg} qui retourne la négation d'une formule.
+
 \section{Validation}
 
 Cette partie décrit comment la formule est analysée et validée.
@@ -66,7 +89,8 @@ L'analyse de la formule saisie par l'utilisateur dans le terminal se fait à l'a
 
 \subsection{\'{E}tats valides}
 
-Comme dit précédemment, pour parcourir la formule on utilise un \texttt{switch} et on compare le type du noeud avec les constantes identifiants les tokens dans le parseur. Pour calculer la liste des états valides, il suffit donc de partir de la racine de l'arbre, atteindre les feuilles de manière récursive, récupérer les états valides pour les formules atomiques et appliquer chaque partie de la formule petit à petit en retournant vers la racine. \`{A} la fin on dispose de la liste de tous les états validant la formule.
+La validation a lieue dans la méthode \texttt{justifie} de la classe \texttt{CTL}. Comme dit précédemment, pour parcourir la formule on utilise un \texttt{switch} et on compare le type du noeud avec les constantes identifiants les tokens dans le parseur. Pour calculer la liste des états valides, il suffit donc de partir de la racine de l'arbre, atteindre les feuilles de manière récursive, récupérer les états valides pour les formules atomiques et appliquer chaque partie de la formule petit à petit en retournant vers la racine. \`{A} la fin on dispose de la liste de tous les états validant la formule.
+
 
 \section{Justification}
 
@@ -344,6 +368,26 @@ aspirateur & affiche, dans \texttt{aspirateur ctl.dot}, les états qui ont un ch
 
 \newpage
 
+\begin{lstlisting}[caption={Interface \psverb+ICallback+}, label={lst:ICallback}]
+public interface ICallback {
+
+	public RdP getRdP();	
+	public void shell();
+	public void load(String filename);
+	public void graphe();
+	public void look(int etat);
+	public void succ(int etat);
+	public void toDot(String filename);
+	public void ctl(Tree formule);
+	public void ctl(Tree formule, int etat);
+	public void ctlToDot(Tree formule, String filename);
+	public void justifie(Tree formule, int etat);
+	public void justifieToDot(Tree formule, int etat, String filename);
+	public void stop();
+
+}
+\end{lstlisting}
+
 \begin{lstlisting}[caption={Interface \psverb+IPreuve+ commune à toutes les preuves}, label={lst:IPreuve}]
 public interface IPreuve {
 
@@ -389,6 +433,7 @@ public class Coloration {
 }
 \end{lstlisting}
 
+\newpage
 \begin{lstlisting}[caption={Interface \psverb+IChemin+}, label={lst:IChemin}]
 public interface IChemin extends IPreuve {
 

@@ -1,7 +1,8 @@
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{subfigure}[b]{.4\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -22,10 +23,12 @@
     \path[->]
               (N1) edge node {} (N3);
   \end{tikzpicture}
+}
 \caption{$EX(\$B)$}
 \end{subfigure}
 \begin{subfigure}[b]{.4\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -53,8 +56,9 @@
 \path[->, RoyalPurple]
 	(N4) edge node [below] {$\textcolor{OliveGreen}{\$E}$} (N5);
   \end{tikzpicture}
+}
 \caption{$AX(EX(EX(\$E)))$}
 \end{subfigure}
-\caption{Exemples de coloration}
+\caption{Exemples de colorations}
 \label{fig:Coloration}
 \end{figure}
