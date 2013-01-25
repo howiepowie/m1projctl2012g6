@@ -1,14 +1,16 @@
 package rdp;
 
-import org.antlr.runtime.*;
-import org.antlr.runtime.tree.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
+import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonTokenStream;
 
 import CTL.CTLLexer;
 import CTL.CTLParser;
-
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RdP {
 	final public String[] place;

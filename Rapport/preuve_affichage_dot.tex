@@ -2,6 +2,7 @@
 \centering
 \begin{subfigure}[b]{.3\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -16,11 +17,13 @@
     \node[state] (N2) [below left of=N1] {$B$};
     \node[state] (N3) [below right of=N1] {$C$};
   \end{tikzpicture}
+}
 \caption{Preuve complète}
 \label{fig:PreuveAffichageDot1}
 \end{subfigure}
 \begin{subfigure}[b]{.3\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -38,11 +41,13 @@
     \path[->]
               (N1) edge node [above left] {$\$B$} (N2);
   \end{tikzpicture}
+}
 \caption{Sous-preuves}
 \label{fig:PreuveAffichageDot2}
 \end{subfigure}
 \begin{subfigure}[b]{.3\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -61,6 +66,7 @@
               (N1) edge node [above left] {$\$B$} (N2)
               (N1) edge node {} (N3);
   \end{tikzpicture}
+}
 \caption{Flèches manquantes}
 \label{fig:PreuveAffichageDot3}
 \end{subfigure}

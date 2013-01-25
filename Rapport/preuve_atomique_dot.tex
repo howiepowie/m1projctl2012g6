@@ -1,7 +1,8 @@
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \begin{subfigure}[b]{.24\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -23,10 +24,12 @@
 	(N1) edge [bend right] node {} (N3)
 	(N3) edge node {} (N1);
   \end{tikzpicture}
+}
 \caption{$EX(\$B)$}
 \end{subfigure}
 \begin{subfigure}[b]{.24\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -48,10 +51,12 @@
 	(N1) edge [bend right] node {} (N3)
 	(N3) edge node {} (N1);
   \end{tikzpicture}
+}
 \caption{$EX(true)$}
 \end{subfigure}
 \begin{subfigure}[b]{.24\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -73,10 +78,12 @@
 	(N1) edge [bend right] node {} (N3)
 	(N3) edge node {} (N1);
   \end{tikzpicture}
+}
 \caption{$EX(dead)$}
 \end{subfigure}
 \begin{subfigure}[b]{.24\textwidth}
 \centering
+\figscale{
   \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -98,6 +105,7 @@
 	(N1) edge node {} (N2)
 	(N1) edge [bend right] node {} (N3);
   \end{tikzpicture}
+}
 \caption{$EX(initial)$}
 \end{subfigure}
 \caption{Affichages au format \texttt{.dot} obtenus pour les preuves atomiques}

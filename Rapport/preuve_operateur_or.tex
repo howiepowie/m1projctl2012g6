@@ -2,6 +2,7 @@
 \centering
 \begin{subfigure}[b]{.4\textwidth}
 \centering
+\figscale{
 \begin{tikzpicture}[%
     >=stealth,
     shorten >=1pt,
@@ -12,7 +13,7 @@
     thick,
     scale=0.4
   ]
-    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{(\textcolor{Blue}{EX(\textcolor{OliveGreen}{\$B})} \&\& \textcolor{BurntOrange}{EX(\textcolor{Sepia}{\$C})})}$};
+    \node[state, rectangle, align=center] (N1) {$A$\\$\textcolor{BrickRed}{(\textcolor{Blue}{EX(\textcolor{OliveGreen}{\$B})} \| \textcolor{BurntOrange}{EX(\textcolor{Sepia}{\$C})})}$};
     \node[state] (N2) at (-4, -4) {$B$};
     \node[state] (N3) at (4, -4) {$C$};
 \node[state] (N4) at (0, -8) {$D$};
@@ -28,6 +29,7 @@
 	(N2) edge node {} (N4)
 	(N3) edge node {} (N4);
   \end{tikzpicture}
+}
 \caption{Affichage \texttt{.dot}}
 \end{subfigure}
 \begin{subfigure}[b]{.4\textwidth}
