@@ -289,11 +289,12 @@ public class Preuve implements IPreuve {
 		case CommandLineParser.AU:
 			String u = formuleToString(t.getChild(0));
 			String v = formuleToString(t.getChild(1));
-			return "!" + v + " && !(" + u + " && AX(A(" + u + " U " + v + ")))";
+			return "(E(!" + v + " U !(" + u + " || " + v + ")) || EG(!" + v
+					+ "))";
 		case CommandLineParser.EU:
 			u = formuleToString(t.getChild(0));
 			v = formuleToString(t.getChild(1));
-			return "!" + v + " && !(" + u + " && EX(E(" + u + " U " + v + ")))";
+			return "A((" + u + " && !" + v + ") U (!" + u + " && !" + v + "))";
 		case CommandLineParser.AX:
 			return "EX(!" + formuleToString(t.getChild(0)) + ")";
 		case CommandLineParser.EX:

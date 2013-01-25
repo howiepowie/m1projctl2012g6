@@ -55,7 +55,6 @@ public class And extends Preuve {
 	public void toDot(Map<Integer, Set<Integer>> fleches,
 			Set<String> justifications, IPreuve parent, int etatParent,
 			Coloration couleurs) {
-		StringBuffer sb = new StringBuffer();
 		IPreuve left = getPreuves().get(0);
 		IPreuve right = getPreuves().get(1);
 		boolean[] marquage = getMarquage();
@@ -65,7 +64,6 @@ public class And extends Preuve {
 				right.toDot(fleches, justifications, this, etatParent, couleurs);
 			}
 		}
-		justifications.add(sb.toString());
 	}
 
 	/**

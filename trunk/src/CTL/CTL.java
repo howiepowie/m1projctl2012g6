@@ -154,7 +154,12 @@ public class CTL {
 					IPreuve negP = justifie(neg, null);
 					p = new NegComplex(t, negP);
 					p.setMarquage(negP.getMarquage());
-					couleurs.ajouter(t, couleur, Preuve.formuleToString(t));
+					couleurs.ajouter(
+							t,
+							couleur,
+							Preuve.formuleToString(t)
+									.replaceAll("<->", "&lt;-&gt;")
+									.replaceAll("->", "-&gt;"));
 				}
 			} catch (Exception e) {
 				throw new RuntimeException(e);
